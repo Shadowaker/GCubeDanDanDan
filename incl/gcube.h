@@ -18,22 +18,34 @@
 # include <stdio.h>
 # include <math.h>
 
-#define W 24
-#define H 24
-#define WINDOW_W 640
-#define WINDOW_H 480
+# define RED "\033[31m"
+# define NONE "\033[0m"
+# define GREEN "\033[32m"
+# define YELLOW "\033[33m"
+# define BLUE "\033[34m"
+# define PURPLE "\033[35m"
+# define CYAN "\033[36m"
+# define WHITE "\033[37m"
 
-#define FOV 0.66
-#define PI 3.14159
-#define MOVSPEED 0.1
-#define ROTSPEED 0.05
+# define WIDTH 24
+# define HEIGHT 24
+# define WINDOW_W 640
+# define WINDOW_H 480
+
+# define FOV 0.66
+# define PI 3.14159
+# define MOVSPEED 0.1
+# define ROTSPEED 0.05
+# define SPEED 1
 
 typedef struct s_game {
 
 	void				*mlx;
 	void				*mlx_win;
 	char				**map;
-	struct	s_state		*state;
+	struct s_player		*player;
+	struct s_state		*state;
+	struct s_ray		*ray;
 }				t_game;
 
 typedef struct	s_img {
@@ -45,25 +57,29 @@ typedef struct	s_img {
 }				t_img;
 
 // stato della telecamera (posizione, direzione, piano di proiezione)
-typedef struct s_state
-{
+typedef struct s_state{
+
 	double	posx;
 	double	posy;
 	double	dirx;
 	double	diry;
+	double	angle[2];
 	double	camx;
-	double	camy;
 }			t_state;
 
 // informazioni sul raggio
-typedef struct s_rayhit
-{
-	double	distance;
-	int		mapX;
-	int		mapY;
-	double	rayDirX;
-	double	rayDirY;
+typedef struct s_ray {
+
+	int		mapx;
+	int		mapy;
 	int		side;
-}			t_rayhit;
+	int		step[2];
+	int		draw[3];		// start, height, end	
+	double	ray_dirx;
+	double	ray_diry;
+	double	perp_wall_dist;
+	double	side_dist[2];
+	double	delta_dist[2];
+}			t_ray;
 
 #endif

@@ -28,7 +28,6 @@ void	state_init(t_game *game)
 	state.dirx = -1;
 	state.diry = 0;
 	state.camx = 0;
-	state.camy = FOV;
 	game->state = &state;
 }
 

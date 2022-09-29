@@ -20,4 +20,10 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	draw_column(t_game *game)
+void	draw_ray(t_game *game, int x, int y, int i)
+{
+	for (int v = y; y < game->ray->draw[2]; v++)
+	{
+		my_mlx_pixel_put(game->img, x, v, 0x0000FF00);
+	}
+}
