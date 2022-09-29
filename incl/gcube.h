@@ -43,7 +43,7 @@ typedef struct s_game {
 	void				*mlx;
 	void				*mlx_win;
 	char				**map;
-	struct s_player		*player;
+	struct s_img		*img;
 	struct s_state		*state;
 	struct s_ray		*ray;
 }				t_game;
