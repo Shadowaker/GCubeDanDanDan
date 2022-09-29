@@ -82,4 +82,6 @@ typedef struct s_ray {
 	double	delta_dist[2];
 }			t_ray;
 
+int	raycast(t_game *game);
+
 #endif

@@ -23,8 +23,8 @@ void	state_init(t_game *game)
 {
 	t_state	state;
 
-	state.posx = 3;
-	state.posy = 3;
+	state.posx = 22;
+	state.posy = 22;
 	state.dirx = -1;
 	state.diry = 0;
 	state.camx = 0;
@@ -42,14 +42,16 @@ void	_init(t_game *game)
 int	game_loop(t_game *game)
 {
 	//	render();
-	//	draw();
-	;
+	if (game->tmp == 0)
+		raycast(game);
+	game->tmp == 1;
 }
 
 int main(void)
 {
 	t_game	game;
 
+	game.tmp = 0;
 	_init(&game);
 	// init framebuffer
 	// init stato

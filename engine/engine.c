@@ -15,7 +15,7 @@ char worldMap[HEIGHT][WIDTH] = {
 	{'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
 	{'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
 	{'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
-	{'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','N','0','0','0','0','0','1'},
+	{'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
 	{'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
 	{'1','1','1','1','1','1','1','1','1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
 	{'1','1','0','1','0','0','0','0','1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
@@ -23,11 +23,11 @@ char worldMap[HEIGHT][WIDTH] = {
 	{'1','1','0','1','0','0','0','0','1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
 	{'1','1','0','1','1','1','1','1','1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
 	{'1','1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
-	{'1','1','1','1','1','1','1','1','1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
+	{'1','1','1','1','1','1','1','1','1','0','0','0','0','0','0','0','0','0','0','0','0','0','N','1'},
 	{'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'}
 };
 
-static void	init_directions(t_game *game, char o)
+static void	init_directions(t_game *game, char c)
 {
 	// N E 0.66		S W -0.66
 
@@ -66,6 +66,10 @@ int	raycast(t_game *game)
 {
 	t_img	img;
 
+	// test inits
+	game->map = worldMap;
+	init_directions(game, 'N');
+
 	img.img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
@@ -78,15 +82,17 @@ int	raycast(t_game *game)
 		game->ray->ray_diry = game->state->diry + game->state->angle[1] * game->state->camx;
 		game->ray->mapx = (int) game->state->posx;
 		game->ray->mapy = (int) game->state->posy;
+		
 		if (game->ray->ray_dirx == 0)
 			game->ray->delta_dist[0] = 1e30;
 		else
 			game->ray->delta_dist[0] = fabs(1 / game->ray->ray_dirx);
+		
 		if (game->ray->ray_diry == 0)
 			game->ray->delta_dist[1] = 1e30;
 		else
 			game->ray->delta_dist[1] = fabs(1 / game->ray->ray_diry);
-		// DIV --------------------------------------------------------------
+		
 		if (game->ray->ray_dirx < 0)
 		{
 			game->ray->step[0] = -1;
@@ -97,6 +103,7 @@ int	raycast(t_game *game)
 			game->ray->step[0] = 1;
 			game->ray->side_dist[0] = (game->ray->mapx + 1.0 - game->state->posx) * game->ray->delta_dist[0];
 		}
+		
 		if (game->ray->ray_diry < 0)
 		{
 			game->ray->step[1] = -1;
@@ -107,7 +114,9 @@ int	raycast(t_game *game)
 			game->ray->step[1] = 1;
 			game->ray->side_dist[1] = (game->ray->mapy + 1.0 - game->state->posy) * game->ray->delta_dist[1];
 		}
+		
 		hits(game);
+		
 		if (game->ray->side == 0)
 			game->ray->perp_wall_dist = ((game->ray->mapx - game->state->posx + (1 - game->ray->step[0]) / 2) / game->ray->ray_dirx);
 		else
