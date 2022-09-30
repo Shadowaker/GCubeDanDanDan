@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/09/30 15:23:04 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:14:45 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	state_init(t_game *game)
 {
 	t_state	state;
 
-	state.posx = 23;
-	state.posy = 23;
+	state.posx = 22;
+	state.posy = 22;
 	state.dirx = -1;
 	state.diry = 0;
 	state.camx = 0;
@@ -50,9 +50,7 @@ void	_init(t_game *game)
 int	game_loop(t_game *game)
 {
 	//	render();
-	if (game->tmp == 0)
-		raycast(game);
-	game->tmp = 1;
+	raycast(game);
 	return (0);
 }
 
