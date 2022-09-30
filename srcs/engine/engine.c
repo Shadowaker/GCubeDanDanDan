@@ -46,11 +46,11 @@ int	raycast(t_game *game)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
 
+	ft_memset(&ray, 0, sizeof(t_ray));
+	game->ray = &ray;
 	game->img = &img;
 	for (int x = 0; x < WIDTH; x++)
 	{
-		ft_memset(&ray, 0, 1);
-		game->ray = &ray;
 		// CAST RAY --------------------------------------------------------
 		game->state->camx = 2 * x / ((double)WIDTH - 1);
 		game->ray->ray_dirx = game->state->dirx + (game->state->angle[0] * game->state->camx);
@@ -89,7 +89,6 @@ int	raycast(t_game *game)
 			game->ray->step[1] = 1;
 			game->ray->side_dist[1] = (game->ray->mapy + 1.0 - game->state->posy) * game->ray->delta_dist[1];
 		}
-		culo();
 		hits(game);
 
 		if (game->ray->side == 0)
@@ -108,8 +107,8 @@ int	raycast(t_game *game)
 		}
 		if (game->ray->draw[2] >= HEIGHT)			// protect segfault
 			game->ray->draw[2] = HEIGHT;
+		draw_ray(game, x, game->ray->draw[0], &img);
 	}
-	culo();
 	mlx_put_image_to_window(game->mlx, game->mlx_win, img.img, 0, 0);
 	return (1);
 }

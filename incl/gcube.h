@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/09/27 12:47:55 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:58:12 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <fcntl.h>
 # include <math.h>
+# include <mlx.h>
 
 # define RED "\033[31m"
 # define NONE "\033[0m"
@@ -26,6 +28,8 @@
 # define PURPLE "\033[35m"
 # define CYAN "\033[36m"
 # define WHITE "\033[37m"
+
+# define BUFFER_SIZE 100
 
 # define WIDTH 24
 # define HEIGHT 24
@@ -43,6 +47,7 @@ typedef struct s_game {
 	void				*mlx;
 	void				*mlx_win;
 	char				**map;
+	int					tmp;
 	struct s_img		*img;
 	struct s_state		*state;
 	struct s_ray		*ray;
@@ -74,7 +79,7 @@ typedef struct s_ray {
 	int		mapy;
 	int		side;
 	int		step[2];
-	int		draw[3];		// start, height, end	
+	int		draw[3];		// start, height, end
 	double	ray_dirx;
 	double	ray_diry;
 	double	perp_wall_dist;
@@ -82,6 +87,34 @@ typedef struct s_ray {
 	double	delta_dist[2];
 }			t_ray;
 
-int	raycast(t_game *game);
+//			STRING UTILS
+size_t	ft_strlen(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	**ft_split(const char *s, char c);
+
+//			GNL
+int			ft_find_line(char *s);
+char		*ft_strmerge(char *buff, char *tmp_buff);
+char		*ft_return_line(char *buff);
+char		*ft_prepare_next(char *buff);
+char		*get_next_line(int fd);
+char		*ft_recover(int fd, char *buff);
+
+//			MATRIX UTILS
+char		**ft_matmerge(char **arr1, char **arr2);
+void		ft_cpmat(char **src, char **dst, int start);
+int			ft_matlen(char **arr);
+void		free_mat(char **mat);
+void		print_mat(char **mat);
+
+//			UTILS
+void	*ft_memset(void *b, int c, size_t len);
+void	culo();
+
+//			INIT
+char	**map_init(char *path);
+
+int		raycast(t_game *game);
+void	draw_ray(t_game *game, int x, int y, t_img *img);
 
 #endif

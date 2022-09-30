@@ -37,7 +37,7 @@ re: clean2
 	@make all
 
 git:
-	@git add $(SRC) mlx/ Makefile
+	@git add $(SRC) mlx/ Makefile $(HDRS)
 	git status
 
 .PHONY: all clean fclean re git
