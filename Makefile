@@ -1,9 +1,10 @@
 NAME = cub3d
 
-MAIN = cub3d.c
-ENGINE = $(wildcard engine/*.c)
+MAIN = srcs/cub3d.c
+ENGINE = $(wildcard srcs/engine/*.c)
+UTI = $(wildcard srcs/utils/*.c)
 
-SRC = $(ENGINE) $(MAIN)
+SRC = $(ENGINE) $(UTI) $(MAIN)
 HDRS = $(wildcard incl/*.h)
 
 OBJ = $(SRC:.c=.o)
@@ -11,12 +12,13 @@ OBJ = $(SRC:.c=.o)
 RM = rm -rf
 
 %.o: %.c
-	gcc -Wall -Wextra -Werror -Imlx -I ${HDRS} -c $< -o $@
+	gcc -Imlx -I ${HDRS} -c $< -o $@
 
 $(NAME): $(OBJ)
 	@(make -C ./mlx/mlxo/) 2> /dev/null
 	@gcc $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	@echo "\033[92m$(NAME) compiled succesfully.\033[0m"
+
 
 all: $(NAME)
 
