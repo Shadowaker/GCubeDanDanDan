@@ -4,6 +4,8 @@ static void	init_directions(t_game *game, char c)
 {
 	// N E 0.66		S W -0.66
 
+	game->state->posx = 22;
+	game->state->posy = 22;
 	game->state->dirx = -1;
 	game->state->diry = 0;
 	game->state->angle[0] = 0;
@@ -47,12 +49,15 @@ int	raycast(t_game *game)
 								&img.endian);
 
 	ft_memset(&ray, 0, sizeof(t_ray));
+	printf("CULO %lf %lf %lf %lf %lf %lf %lf\n", game->state->posx, game->state->posy,
+		game->state->dirx, game->state->diry, game->state->angle[0], game->state->angle[1],
+		game->state->camx);
 	game->ray = &ray;
 	game->img = &img;
-	for (int x = 0; x < WIDTH; x++)
+	for (int x = 0; x < WINDOW_W; x++)
 	{
 		// CAST RAY --------------------------------------------------------
-		game->state->camx = 2 * x / ((double)WIDTH - 1);
+		game->state->camx = 2 * x / ((double) WINDOW_W - 1);
 		game->ray->ray_dirx = game->state->dirx + (game->state->angle[0] * game->state->camx);
 		game->ray->ray_diry = game->state->diry + (game->state->angle[1] * game->state->camx);
 		game->ray->mapx = (int) game->state->posx;
@@ -95,18 +100,18 @@ int	raycast(t_game *game)
 			game->ray->perp_wall_dist = ((game->ray->mapx - game->state->posx + (1 - game->ray->step[0]) / 2) / game->ray->ray_dirx);
 		else
 			game->ray->perp_wall_dist = ((game->ray->mapy - game->state->posy + (1 - game->ray->step[1]) / 2) / game->ray->ray_diry);
-		game->ray->draw[1] = (int) (HEIGHT / game->ray->perp_wall_dist);
-		game->ray->draw[0] = -game->ray->draw[1] / 2 + HEIGHT / 2;
+		game->ray->draw[1] = (int) (WINDOW_H / game->ray->perp_wall_dist);
+		game->ray->draw[0] = -game->ray->draw[1] / 2 + WINDOW_H / 2;
 		if (game->ray->draw[0] < 0)
 			game->ray->draw[0] = 0;
-		game->ray->draw[2] = game->ray->draw[1] / 2 + HEIGHT / 2;
+		game->ray->draw[2] = game->ray->draw[1] / 2 + WINDOW_H / 2;
 		if (game->ray->perp_wall_dist < 0.00000001)
 		{
 			game->ray->perp_wall_dist = 0;
-			game->ray->draw[2] = HEIGHT;
-		}		
-		if (game->ray->draw[2] >= HEIGHT)			// protect segfault
-			game->ray->draw[2] = HEIGHT - 1;
+			game->ray->draw[2] = WINDOW_H;
+		}
+		if (game->ray->draw[2] >= WINDOW_H)			// protect segfault
+			game->ray->draw[2] = WINDOW_H - 1;
 
 		draw_ray(game, x, game->ray->draw[0], &img);
 	}

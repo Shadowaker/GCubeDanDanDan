@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/09/30 19:14:45 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/01 15:37:28 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,15 @@ int end_game(t_game *game, int arg)
 	exit(0);
 }
 
-void	state_init(t_game *game)
-{
-	t_state	state;
-
-	state.posx = 22;
-	state.posy = 22;
-	state.dirx = -1;
-	state.diry = 0;
-	state.camx = 0;
-	game->state = &state;
-}
-
 void	_init(t_game *game)
 {
+	t_state state;
+
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
 	game->map = map_init("map.gcube");
-	state_init(game);
+	ft_memset(&state, 0, sizeof(t_state));
+	game->state = &state;
 }
 
 int	game_loop(t_game *game)

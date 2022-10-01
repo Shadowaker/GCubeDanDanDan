@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/09/30 19:11:38 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/01 15:28:04 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ char	**map_init(char *path)
 			str[ft_strlen(str) - 1] = '\0';
 	}
 	close(fd);
+	print_mat(map);
 	return (map);
 }
