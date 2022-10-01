@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/09/30 17:58:12 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/01 16:49:28 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 
 # define WIDTH 24
 # define HEIGHT 24
-# define WINDOW_W 640
-# define WINDOW_H 480
+# define WINDOW_W 1280
+# define WINDOW_H 960
 
 # define FOV 0.66
 # define PI 3.14159

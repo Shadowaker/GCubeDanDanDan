@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:43:48 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/09/30 17:44:06 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/01 17:01:18 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,14 @@ void	print_mat(char **mat)
 {
 	int	i;
 
-	i = 0;
-	while (mat[i] != NULL)
-		printf("§%s§\n", mat[i++]);
-	printf("\n");
+	if (mat == NULL)
+		write(1, "(null)\n", 7);
+	else
+	{
+		i = 0;
+		while (mat[i] != NULL)
+			printf("%s\n", mat[i++]);
+	}
 }
 
 /*

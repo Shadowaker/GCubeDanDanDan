@@ -49,9 +49,6 @@ int	raycast(t_game *game)
 								&img.endian);
 
 	ft_memset(&ray, 0, sizeof(t_ray));
-	printf("CULO %lf %lf %lf %lf %lf %lf %lf\n", game->state->posx, game->state->posy,
-		game->state->dirx, game->state->diry, game->state->angle[0], game->state->angle[1],
-		game->state->camx);
 	game->ray = &ray;
 	game->img = &img;
 	for (int x = 0; x < WINDOW_W; x++)

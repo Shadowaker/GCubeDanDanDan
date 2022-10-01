@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/01 15:37:28 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/01 16:47:24 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	_init(t_game *game)
 
 int	game_loop(t_game *game)
 {
-	//	render();
 	raycast(game);
 	return (0);
 }
