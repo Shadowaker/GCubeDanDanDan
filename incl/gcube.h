@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/01 16:49:28 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/01 19:02:20 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_game {
 	void				*mlx;
 	void				*mlx_win;
 	char				**map;
-	int					tmp;
 	struct s_img		*img;
 	struct s_state		*state;
 	struct s_ray		*ray;
@@ -112,6 +111,7 @@ void	culo();
 
 //			INIT
 char	**map_init(char *path);
+static void	init_directions(t_game *game, char c);
 
 int		raycast(t_game *game);
 void	draw_ray(t_game *game, int x, int y, t_img *img);

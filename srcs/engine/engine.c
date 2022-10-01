@@ -1,16 +1,5 @@
 #include "../../incl/gcube.h"
 
-static void	init_directions(t_game *game, char c)
-{
-	// N E 0.66		S W -0.66
-
-	game->state->posx = 22;
-	game->state->posy = 22;
-	game->state->dirx = -1;
-	game->state->diry = 0;
-	game->state->angle[0] = 0;
-	game->state->angle[1] = 0.66;
-}
 
 static int	hits(t_game *game)
 {
@@ -42,12 +31,9 @@ int	raycast(t_game *game)
 	t_img	img;
 	t_ray	ray;
 
-	init_directions(game, 'N');
-
 	img.img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
-
 	ft_memset(&ray, 0, sizeof(t_ray));
 	game->ray = &ray;
 	game->img = &img;
