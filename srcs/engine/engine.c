@@ -96,17 +96,18 @@ int	raycast(t_game *game)
 		else
 			game->ray->perp_wall_dist = ((game->ray->mapy - game->state->posy + (1 - game->ray->step[1]) / 2) / game->ray->ray_diry);
 		game->ray->draw[1] = (int) (HEIGHT / game->ray->perp_wall_dist);
-		game->ray->draw[0] = (-game->ray->draw[1] / 2) + (HEIGHT / 2);
+		game->ray->draw[0] = -game->ray->draw[1] / 2 + HEIGHT / 2;
 		if (game->ray->draw[0] < 0)
 			game->ray->draw[0] = 0;
-		game->ray->draw[2] = (game->ray->draw[1] / 2) + (HEIGHT / 2);
-		if (game->ray->perp_wall_dist < 0.000001)
+		game->ray->draw[2] = game->ray->draw[1] / 2 + HEIGHT / 2;
+		if (game->ray->perp_wall_dist < 0.00000001)
 		{
 			game->ray->perp_wall_dist = 0;
 			game->ray->draw[2] = HEIGHT;
-		}
+		}		
 		if (game->ray->draw[2] >= HEIGHT)			// protect segfault
-			game->ray->draw[2] = HEIGHT;
+			game->ray->draw[2] = HEIGHT - 1;
+
 		draw_ray(game, x, game->ray->draw[0], &img);
 	}
 	mlx_put_image_to_window(game->mlx, game->mlx_win, img.img, 0, 0);
