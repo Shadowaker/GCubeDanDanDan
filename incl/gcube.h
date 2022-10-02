@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/02 17:11:48 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/02 21:33:49 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	culo();
 char	**map_init(char *path);
 static void	init_directions(t_game *game, char c);
 
-int		raycast(t_game *game);
+int		raycast(t_game *game, t_img *img, t_ray *ray);
 void	draw_ray(t_game *game, int x, int y, t_img *img);
 
 #endif

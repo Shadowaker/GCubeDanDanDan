@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/02 17:31:55 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/02 21:49:27 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int end_game(t_game *game, int arg)
 
 void	_init_directions(t_game *game, t_state *state)
 {
-	state->posx = 22;
-	state->posy = 22;
-	state->dirx = 0;
-	state->diry = -1;
-	state->angle[0] = 0.66;
-	state->angle[1] = 0;
+	state->posx = 12;
+	state->posy = 12;
+	state->dirx = -1;
+	state->diry = 0;
+	state->angle[0] = 0;
+	state->angle[1] = 0.66;
 	game->state = state;
 }
 
@@ -120,7 +120,15 @@ int	key_filter(int keycode, t_game *game)
 
 int	game_loop(t_game *game)
 {
-	raycast(game);
+	t_img	img;
+	t_ray	ray;
+
+	img.img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+								&img.endian);
+	ft_memset(&ray, 0, sizeof(t_ray));
+	raycast(game, &img, &ray);
+	mlx_put_image_to_window(game->mlx, game->mlx_win, img.img, 0, 0);
 	return (0);
 }
 

@@ -26,17 +26,10 @@ static int	hits(t_game *game)
 	return (hit);
 }
 
-int	raycast(t_game *game)
+int	raycast(t_game *game, t_img *img, t_ray *ray)
 {
-	t_img	img;
-	t_ray	ray;
-
-	img.img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	ft_memset(&ray, 0, sizeof(t_ray));
-	game->ray = &ray;
-	game->img = &img;
+	game->ray = ray;
+	game->img = img;
 	for (int x = 0; x < WINDOW_W; x++)
 	{
 		// CAST RAY --------------------------------------------------------
@@ -80,15 +73,15 @@ int	raycast(t_game *game)
 		hits(game);
 
 		if (game->ray->side == 0)
-			game->ray->perp_wall_dist = ((game->ray->mapx - game->state->posx + (1 - game->ray->step[0]) / 2) / game->ray->ray_dirx);
+			game->ray->perp_wall_dist = (game->ray->side_dist[0] - game->ray->delta_dist[0]);
 		else
-			game->ray->perp_wall_dist = ((game->ray->mapy - game->state->posy + (1 - game->ray->step[1]) / 2) / game->ray->ray_diry);
+			game->ray->perp_wall_dist = (game->ray->side_dist[1] - game->ray->delta_dist[1]);
 		game->ray->draw[1] = (int) (WINDOW_H / game->ray->perp_wall_dist);
-		game->ray->draw[0] = -game->ray->draw[1] / 2 + WINDOW_H / 2;
+		game->ray->draw[0] = (-game->ray->draw[1] / 2) + (WINDOW_H / 2);
+		game->ray->draw[2] = (game->ray->draw[1] / 2) + (WINDOW_H / 2);
 		if (game->ray->draw[0] < 0)
 			game->ray->draw[0] = 0;
-		game->ray->draw[2] = game->ray->draw[1] / 2 + WINDOW_H / 2;
-		if (game->ray->perp_wall_dist < 0.000001)
+		if (game->ray->perp_wall_dist < 0)
 		{
 			game->ray->perp_wall_dist = 0;
 			game->ray->draw[2] = WINDOW_H;
@@ -96,9 +89,8 @@ int	raycast(t_game *game)
 		if (game->ray->draw[2] >= WINDOW_H)			// protect segfault
 			game->ray->draw[2] = WINDOW_H - 1;
 
-		draw_ray(game, x, game->ray->draw[0], &img);
+		draw_ray(game, x, game->ray->draw[0], img);
 	}
-	mlx_put_image_to_window(game->mlx, game->mlx_win, img.img, 0, 0);
 	return (1);
 }
 
