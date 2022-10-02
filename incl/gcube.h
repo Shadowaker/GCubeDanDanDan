@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/02 15:00:24 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/02 17:11:48 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@
 
 # define FOV 0.66
 # define PI 3.14159
-# define MOVSPEED 0.1
-# define ROTSPEED 0.06
-# define SPEED 1
+# define MOVSPEED 0.2
+# define ROTSPEED 0.03
 
 typedef struct s_game {
 

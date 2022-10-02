@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/02 15:20:44 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/02 17:31:55 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	_init_directions(t_game *game, t_state *state)
 {
 	state->posx = 22;
 	state->posy = 22;
-	state->dirx = -1;
-	state->diry = 0;
-	state->angle[0] = 0;
-	state->angle[1] = 0.66;
+	state->dirx = 0;
+	state->diry = -1;
+	state->angle[0] = 0.66;
+	state->angle[1] = 0;
 	game->state = state;
 }
 
@@ -54,8 +54,8 @@ int	check_cond(t_game *game, int x, int y)
 
 void	move(t_game *game, int x, int y)
 {
-	game->state->posx += (x * 0.33);
-	game->state->posy += (y * 0.33);
+	game->state->posx += (((double) x) * MOVSPEED);
+	game->state->posy += (((double) y) * MOVSPEED);
 }
 
 void	move_cam(t_game *game, int i)
@@ -86,6 +86,9 @@ int	key_filter(int keycode, t_game *game)
 	int	i;
 
 	i = 0;
+	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ndirx: %lf\ndiry: %lf\nanglex: %lf\nangley: %lf\ncamx: %lf\n",
+		game->state->posx, game->state->posy, game->state->dirx, game->state->diry, game->state->angle[0], game->state->angle[1],
+		game->state->camx);
 	if (keycode == 53)
 		end_game(game, 0);
 	else if (keycode == 13)

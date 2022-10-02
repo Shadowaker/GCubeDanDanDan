@@ -20,26 +20,26 @@ BLANK = "\\033[0m"
 SEP = "***********************************************************"
 
 %.o: %.c
-	@gcc -Imlx -I ${HDRS} -c $< -o $@
+	@gcc -g -Imlx -I ${HDRS} -c $< -o $@
 
 $(NAME): $(OBJ)
-	@echo "$(PURPLE) $(SEP)"
+	@echo "$(PURPLE)$(SEP)"
 	@echo "Compiling $(NAME)... $(YELLOW)"
 	@(make -C ./mlx/mlxo/) 2> /dev/null
-	@gcc $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@gcc -g $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	@echo "$(GREEN)$(NAME) compiled succesfully.$(PURPLE)"
-	@echo "$(SEP) $(BLANK)"
+	@echo "$(SEP)$(BLANK)"
 
 all: $(NAME)
 
 clean:
-	@echo "$(RED) Cleaning..."
+	@echo "$(RED)Cleaning..."
 	@(${RM} $(OBJ))
 	@make -C ./mlx/mlxo/ clean
 	@echo "$(BLANK)"
 
 clean2:
-	@echo "$(RED) Cleaning..."
+	@echo "$(RED)Cleaning..."
 	@(${RM} $(NAME) ${OBJ})
 	@echo "$(BLANK)"
 

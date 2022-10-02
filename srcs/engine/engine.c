@@ -20,7 +20,7 @@ static int	hits(t_game *game)
 			game->ray->mapy += game->ray->step[1];
 			game->ray->side = 1;
 		}
-		if (game->map[game->ray->mapy][game->ray->mapx] == '1')
+		if (game->map[game->ray->mapx][game->ray->mapy] == '1')
 			hit = 1;
 	}
 	return (hit);
