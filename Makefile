@@ -8,36 +8,48 @@ SRC = $(ENGINE) $(UTI) $(MAIN)
 HDRS = $(wildcard incl/*.h)
 
 OBJ = $(SRC:.c=.o)
-
 RM = rm -rf
 
+RED = "\\033[91m"
+GREEN = "\\033[92m"
+YELLOW = "\\033[93m"
+BLUE = "\\033[94m"
+PURPLE =  "\\033[95m"
+CYAN = "\\033[96m"
+BLANK = "\\033[0m"
+SEP = "***********************************************************"
+
 %.o: %.c
-	gcc -Imlx -I ${HDRS} -c $< -o $@
+	@gcc -Imlx -I ${HDRS} -c $< -o $@
 
 $(NAME): $(OBJ)
+	@echo "$(PURPLE) $(SEP)"
+	@echo "Compiling $(NAME)... $(YELLOW)"
 	@(make -C ./mlx/mlxo/) 2> /dev/null
 	@gcc $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-	@echo "\033[92m$(NAME) compiled succesfully.\033[0m"
-
+	@echo "$(GREEN)$(NAME) compiled succesfully.$(PURPLE)"
+	@echo "$(SEP) $(BLANK)"
 
 all: $(NAME)
 
 clean:
-	@${RM} $(OBJ)
+	@echo "$(RED) Cleaning..."
+	@(${RM} $(OBJ))
 	@make -C ./mlx/mlxo/ clean
+	@echo "$(BLANK)"
 
 clean2:
-	@${RM} $(NAME) ${OBJ}
+	@echo "$(RED) Cleaning..."
+	@(${RM} $(NAME) ${OBJ})
+	@echo "$(BLANK)"
 
 fclean: clean
-	@${RM} $(NAME) ${OBJ}
-	@make -C ./mlx/mlxo/ clean
+	@(${RM} $(NAME) ${OBJ})
 
-re: clean2
-	@make all
+re: clean2 $(NAME)
 
 git:
 	@git add $(SRC) mlx/ Makefile $(HDRS)
 	git status
 
-.PHONY: all clean fclean re git
+.PHONY: all clean fclean re git clean2

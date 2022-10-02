@@ -40,7 +40,7 @@ int	raycast(t_game *game)
 	for (int x = 0; x < WINDOW_W; x++)
 	{
 		// CAST RAY --------------------------------------------------------
-		game->state->camx = 2 * x / ((double) WINDOW_W - 1);
+		game->state->camx = 2 * ((double) x) / ((double) WINDOW_W - 1);
 		game->ray->ray_dirx = game->state->dirx + (game->state->angle[0] * game->state->camx);
 		game->ray->ray_diry = game->state->diry + (game->state->angle[1] * game->state->camx);
 		game->ray->mapx = (int) game->state->posx;
@@ -88,7 +88,7 @@ int	raycast(t_game *game)
 		if (game->ray->draw[0] < 0)
 			game->ray->draw[0] = 0;
 		game->ray->draw[2] = game->ray->draw[1] / 2 + WINDOW_H / 2;
-		if (game->ray->perp_wall_dist < 0.00000001)
+		if (game->ray->perp_wall_dist < 0.000001)
 		{
 			game->ray->perp_wall_dist = 0;
 			game->ray->draw[2] = WINDOW_H;

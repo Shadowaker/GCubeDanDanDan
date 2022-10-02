@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/02 12:37:48 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/02 15:20:44 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,29 @@ void	move(t_game *game, int x, int y)
 	game->state->posy += (y * 0.33);
 }
 
+void	move_cam(t_game *game, int i)
+{
+	double	old_dirx;
+	double	old_angle;
+
+	old_dirx = game->state->dirx;
+	old_angle = game->state->angle[0];
+	if (i)
+	{
+		game->state->dirx = game->state->dirx * cos(ROTSPEED) - game->state->diry * sin(ROTSPEED);
+		game->state->diry = old_dirx * sin(ROTSPEED) + game->state->diry * cos(ROTSPEED);
+		game->state->angle[0] = game->state->angle[0] * cos(ROTSPEED) - game->state->angle[1] * sin(ROTSPEED);
+		game->state->angle[1] = old_angle * sin(ROTSPEED) + game->state->angle[1] * cos(ROTSPEED);
+	}
+	else
+	{
+		game->state->dirx = game->state->dirx * cos(-ROTSPEED) - game->state->diry * sin(-ROTSPEED);
+		game->state->diry = old_dirx * sin(-ROTSPEED) + game->state->diry * cos(-ROTSPEED);
+		game->state->angle[0] = game->state->angle[0] * cos(-ROTSPEED) - game->state->angle[1] * sin(-ROTSPEED);
+		game->state->angle[1] = old_angle * sin(-ROTSPEED) + game->state->angle[1] * cos(-ROTSPEED);
+	}
+}
+
 int	key_filter(int keycode, t_game *game)
 {
 	int	i;
@@ -65,26 +88,30 @@ int	key_filter(int keycode, t_game *game)
 	i = 0;
 	if (keycode == 53)
 		end_game(game, 0);
-	else if (keycode == 13 || keycode == 126)
-	{
-		if (!check_cond(game, 0, -1))
-			move(game, 0, -1);
-	}
-	else if (keycode == 0 || keycode == 123)
+	else if (keycode == 13)
 	{
 		if (!check_cond(game, -1, 0))
 			move(game, -1, 0);
 	}
-	else if (keycode == 1 || keycode == 125)
+	else if (keycode == 0)
+	{
+		if (!check_cond(game, 0, -1))
+			move(game, 0, -1);
+	}
+	else if (keycode == 1)
+	{
+		if (!check_cond(game, 1, 0))
+			move(game, 1, 0);
+	}
+	else if (keycode == 2)
 	{
 		if (!check_cond(game, 0, 1))
 			move(game, 0, 1);
 	}
-	else if (keycode == 2 || keycode == 124)
-	{
-		if (!check_cond(game, 0, -1))
-			move(game, 1, 0);
-	}
+	else if (keycode == 123)
+		move_cam(game, 1);
+	else if (keycode == 124)
+		move_cam(game, 0);
 	return (0);
 }
 
@@ -102,7 +129,7 @@ int main(void)
 	_init(&game);
 	_init_directions(&game, &state);
 	mlx_hook(game.mlx_win, 17, 0, end_game, &game);
+	mlx_hook(game.mlx_win, 2, 1L<<0, key_filter, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
-	mlx_key_hook(game.mlx_win, key_filter, &game);
 	mlx_loop(game.mlx);
 }
