@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/01 15:28:04 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:49:08 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,23 @@ char	**map_init(char *path)
 {
 	int		fd;
 	char	*str;
+	char	*res;
 	char	**map;
 
 	fd = open(path, O_RDONLY);
 	str = get_next_line(fd);
+	res = malloc(1);
+	res[0] = '\0';
 	if (str != NULL)
-		str[ft_strlen(str) - 1] = '\0';
-	map = malloc(sizeof(char *) * 1);
-	map[0] = NULL;
+		str[ft_strlen(str)] = '\0';
 	while (str != NULL)
 	{
-		map = expand_mat(map, str);
+		res = ft_freejoin(res, str);
 		str = get_next_line(fd);
-		if (str != NULL)
-			str[ft_strlen(str) - 1] = '\0';
 	}
 	close(fd);
+	map = ft_split(res, '\n');
 	print_mat(map);
+	free(res);
 	return (map);
 }

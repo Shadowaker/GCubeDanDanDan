@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/02 21:33:49 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/03 17:28:33 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 
 # define FOV 0.66
 # define PI 3.14159
-# define MOVSPEED 0.2
+# define MOVSPEED 0.03
 # define ROTSPEED 0.03
 
 typedef struct s_game {
@@ -45,6 +45,7 @@ typedef struct s_game {
 	void				*mlx;
 	void				*mlx_win;
 	char				**map;
+	int					minimap[2];
 	struct s_img		*img;
 	struct s_state		*state;
 	struct s_ray		*ray;
@@ -88,6 +89,7 @@ typedef struct s_ray {
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(const char *s, char c);
+char	*ft_freejoin(char *s1, char *s2);
 
 //			GNL
 int			ft_find_line(char *s);

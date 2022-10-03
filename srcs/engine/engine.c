@@ -33,7 +33,7 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 	for (int x = 0; x < WINDOW_W; x++)
 	{
 		// CAST RAY --------------------------------------------------------
-		game->state->camx = 2 * ((double) x) / ((double) WINDOW_W - 1);
+		game->state->camx = x / ((double) WINDOW_W - 1);
 		game->ray->ray_dirx = game->state->dirx + (game->state->angle[0] * game->state->camx);
 		game->ray->ray_diry = game->state->diry + (game->state->angle[1] * game->state->camx);
 		game->ray->mapx = (int) game->state->posx;
@@ -52,23 +52,23 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 		if (game->ray->ray_dirx < 0)
 		{
 			game->ray->step[0] = -1;
-			game->ray->side_dist[0] = (game->state->posx - game->ray->mapx) * game->ray->delta_dist[0];
+			game->ray->side_dist[0] = (game->state->posx -((double)game->ray->mapx)) * game->ray->delta_dist[0];
 		}
 		else
 		{
 			game->ray->step[0] = 1;
-			game->ray->side_dist[0] = (game->ray->mapx + 1.0 - game->state->posx) * game->ray->delta_dist[0];
+			game->ray->side_dist[0] = (((double)game->ray->mapx) + 1.0 - game->state->posx) * game->ray->delta_dist[0];
 		}
 
 		if (game->ray->ray_diry < 0)
 		{
 			game->ray->step[1] = -1;
-			game->ray->side_dist[1] = (game->state->posy - game->ray->mapy) * game->ray->delta_dist[1];
+			game->ray->side_dist[1] = (game->state->posy - ((double) game->ray->mapy)) * game->ray->delta_dist[1];
 		}
 		else
 		{
 			game->ray->step[1] = 1;
-			game->ray->side_dist[1] = (game->ray->mapy + 1.0 - game->state->posy) * game->ray->delta_dist[1];
+			game->ray->side_dist[1] = (((double) game->ray->mapy) + 1.0 - game->state->posy) * game->ray->delta_dist[1];
 		}
 		hits(game);
 
@@ -77,7 +77,7 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 		else
 			game->ray->perp_wall_dist = (game->ray->side_dist[1] - game->ray->delta_dist[1]);
 		game->ray->draw[1] = (int) (WINDOW_H / game->ray->perp_wall_dist);
-		game->ray->draw[0] = (-game->ray->draw[1] / 2) + (WINDOW_H / 2);
+		game->ray->draw[0] = ( -1 * game->ray->draw[1] / 2) + (WINDOW_H / 2);
 		game->ray->draw[2] = (game->ray->draw[1] / 2) + (WINDOW_H / 2);
 		if (game->ray->draw[0] < 0)
 			game->ray->draw[0] = 0;
