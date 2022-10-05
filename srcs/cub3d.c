@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/03 18:08:16 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/05 17:07:07 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,25 @@ int end_game(t_game *game, int arg)
 
 void	_init_directions(t_game *game, t_state *state)
 {
-	state->posx = 8;
-	state->posy = 2;
+	int	i;
+	int	j;
+
+	i = 0;
+	while (game->map[i])
+	{
+		j = 0;
+		while (game->map[i][j])
+		{
+			if (game->map[i][j] == 'N')
+				break ;
+			j++;
+		}
+		i++;
+	}
+	//state->posx = ((double) j) + 0.5;
+	//state->posy = ((double) i) + 0.5;
+	state->posx = 3;
+	state->posy = 5;
 	state->dirx = -1;
 	state->diry = 0;
 	state->angle[0] = 0;
@@ -43,13 +60,15 @@ void	_init(t_game *game)
 {
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
-	game->minimap[0] = WINDOW_H / 5;
+	game->minimap[0] = WINDOW_W / 5;
 	game->minimap[1] = WINDOW_H / 5;
-	game->map = map_init("map.gcube");
+	game->map = map_init("map2.gcube");
 }
 
 int	check_cond(t_game *game, int x, int y)
 {
+	if (game->map[(int) game->state->posy + y][(int) game->state->posx + x] == '1')
+		return (1);
 	//if (game->map[(int) (game->state->posx + (x * fabs(game->state->dirx) * MOVSPEED))][(int) (game->state->posy + (y * fabs(game->state->diry) * MOVSPEED))] == '1')
 	//	return (1);
 	return (0);
@@ -57,10 +76,12 @@ int	check_cond(t_game *game, int x, int y)
 
 void	move(t_game *game, int x, int y)
 {
-	game->map[(int) (game->state->posx)][(int) (game->state->posy)] = '0';
+	game->state->posx += (((double) x) * MOVSPEED);
+	game->state->posy += (((double) y) * MOVSPEED);
+	/*game->map[(int) (game->state->posx)][(int) (game->state->posy)] = '0';
 	game->map[(int) (game->state->posx + (x * fabs(game->state->dirx) * MOVSPEED))][(int) (game->state->posy + (y * fabs(game->state->diry) * MOVSPEED))] = 'N';
 	game->state->posx += (((double) x) * fabs(game->state->dirx) * MOVSPEED);
-	game->state->posy += (((double) y) * fabs(game->state->diry) * MOVSPEED);
+	game->state->posy += (((double) y) * fabs(game->state->diry) * MOVSPEED);*/
 }
 
 void	move_cam(t_game *game, int i)
@@ -104,7 +125,7 @@ int	key_filter(int keycode, t_game *game)
 	}
 	else if (keycode == 0)
 	{
-		if (!check_cond(game, -1, 0))
+		if (!check_cond(game, 0, -1))
 			move(game, 0, -1);
 	}
 	else if (keycode == 1)
@@ -114,7 +135,7 @@ int	key_filter(int keycode, t_game *game)
 	}
 	else if (keycode == 2)
 	{
-		if (!check_cond(game, 1, 0))
+		if (!check_cond(game, 0, 1))
 			move(game, 0, 1);
 	}
 	else if (keycode == 123)
