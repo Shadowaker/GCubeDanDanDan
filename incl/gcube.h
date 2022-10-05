@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gcube.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcucino <gcucino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/03 17:28:33 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/05 19:02:21 by gcucino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define WINDOW_W 1280
 # define WINDOW_H 960
 
-# define FOV 0.66
+# define FOV 60
 # define PI 3.14159
 # define MOVSPEED 0.03
 # define ROTSPEED 0.03
@@ -47,7 +47,7 @@ typedef struct s_game {
 	char				**map;
 	int					minimap[2];
 	struct s_img		*img;
-	struct s_state		*state;
+	struct s_player		*player;
 	struct s_ray		*ray;
 }				t_game;
 
@@ -60,29 +60,24 @@ typedef struct	s_img {
 }				t_img;
 
 // stato della telecamera (posizione, direzione, piano di proiezione)
-typedef struct s_state{
-
+typedef struct s_player{
+	double	fov;
+	double	half_fov;
 	double	posx;
 	double	posy;
-	double	dirx;
-	double	diry;
-	double	angle[2];
-	double	camx;
-}			t_state;
+	double	angle;
+}			t_player;
 
 // informazioni sul raggio
 typedef struct s_ray {
-
-	int		mapx;
-	int		mapy;
-	int		side;
-	int		step[2];
-	int		draw[3];		// start, height, end
-	double	ray_dirx;
-	double	ray_diry;
-	double	perp_wall_dist;
-	double	side_dist[2];
-	double	delta_dist[2];
+	int		wall_height;
+	double	x;
+	double	y;
+	double	cos;
+	double	sin;
+	double	ang;
+	double	incr_ang;
+	double	dist;
 }			t_ray;
 
 //			STRING UTILS
@@ -115,6 +110,7 @@ char	**map_init(char *path);
 static void	init_directions(t_game *game, char c);
 
 int		raycast(t_game *game, t_img *img, t_ray *ray);
-void	draw_ray(t_game *game, int x, int y, t_img *img);
+double	deg_2_rad(double deg);
+void	draw_ray(t_ray *ray, int x, int y, t_img *img);
 
 #endif

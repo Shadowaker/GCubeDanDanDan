@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcucino <gcucino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:31:27 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/03 17:24:02 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/05 18:55:27 by gcucino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	draw_ray(t_game *game, int x, int y, t_img *img)
+void	draw_ray(t_ray *ray, int x, int y, t_img *img)
 {
 	int	v;
 	v = 0;
-	while (v < game->ray->draw[0])
+	while (v < (WINDOW_H / 2) - ray->wall_height)
 		my_mlx_pixel_put(img, x, v++, 0x000089AD);
-	while (v < game->ray->draw[2])
+	while (v < ((WINDOW_H / 2) + ray->wall_height))
 	{
-		if (game->ray->side == 1)
-			my_mlx_pixel_put(img, x, v++, 0x0040c600 / 2);
-		else
-			my_mlx_pixel_put(img, x, v++, 0x0040c600);
+		//if (game->ray->side == 1)
+		//	my_mlx_pixel_put(img, x, v++, 0x0040c600 / 2);
+		//else
+		my_mlx_pixel_put(img, x, v++, 0x0040c600);
 	}
 	while (v < WINDOW_H)
 		my_mlx_pixel_put(img, x, v++, 0x00403125);
