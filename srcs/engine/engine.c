@@ -5,15 +5,25 @@ double	deg_2_rad(double deg)
 	return (PI * deg / 180);
 }
 
-void	draw_minimap_ray(t_ray *ray, t_img *img)
+void	draw_minimap_ray(t_ray *ray, t_game *game, t_img *img)
 {
-	int	t;
+	int		pixels;
+	double	dx;
+	double	dy;
+	double px;
+	double py;
 
-	t = 0;
-	while (t < ray->dist)
+	dx = (ray->x - game->player->posx) / ray->dist;
+	dy = (ray->y - game->player->posy) / ray->dist;
+	px = game->player->posx * 20;
+	py = game->player->posy * 20;
+	pixels = (int) (ray->dist * 20);
+	while (pixels)
 	{
-		my_mlx_pixel_put(img, (ray->x * 20) + 10, (ray->y * 20) + 10, 0x00a42cd6);
-		t++;
+    	my_mlx_pixel_put(img, px + 10, py + 10, 0x00D11131);
+   		px += dx;
+    	py += dy;
+    	pixels--;
 	}
 }
 
@@ -47,7 +57,7 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 			draw_ray(ray, i, 0, img);
 		else
 			draw_ray_minimap(ray, i, img);
-		draw_minimap_ray(ray, img);
+		draw_minimap_ray(ray, game, img);
 		ray->ang += ray->incr_ang;
 		i++;
 	}
