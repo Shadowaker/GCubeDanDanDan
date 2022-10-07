@@ -6,7 +6,7 @@
 /*   By: gcucino <gcucino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/05 19:05:04 by gcucino          ###   ########.fr       */
+/*   Updated: 2022/10/07 16:34:30 by gcucino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	_init_culo(t_game *game, t_player *player)
 		{
 			if (game->map[i][j] == 'N')
 			{
-				player->posx = j;
-				player->posy = i;
+				player->posx = j + 0.5;
+				player->posy = i + 0.5;
 				return (1);	
 			}
 			j++;
@@ -56,7 +56,7 @@ void	_init_directions(t_game *game, t_player *player)
 {
 	if (_init_culo(game, player) == 0)
 		return ;
-	player->angle = 45;
+	player->angle = 90;
 	player->fov = FOV;
 	player->half_fov = FOV/2;
 	game->player = player;
@@ -66,8 +66,8 @@ void	_init(t_game *game)
 {
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
-	game->minimap[0] = WINDOW_W / 5;
-	game->minimap[1] = WINDOW_H / 5;
+	game->minimap[0] = 150;
+	game->minimap[1] = 150;
 	game->map = map_init("map2.gcube");
 }
 
@@ -80,10 +80,10 @@ int	check_cond(t_game *game, int x, int y)
 	return (0);
 }
 
-void	move(t_game *game, int dir)
+void	move_up_down(t_game *game, int dir)
 {
 	game->player->posx += ((cosf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
-	game->player->posx += ((sinf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
+	game->player->posy += ((sinf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
 }
 
 int	key_filter(int keycode, t_game *game)
@@ -91,15 +91,15 @@ int	key_filter(int keycode, t_game *game)
 	int	i;
 
 	i = 0;
-	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\nangle: %lf\n",
-		game->player->posx, game->player->posy, game->player->angle);
-	print_mat(game->map);
+	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\nangle: %lf\nkeycode: %d\n",
+		game->player->posx, game->player->posy, game->player->angle, keycode);
+	// print_mat(game->map);
 	if (keycode == 53)
 		end_game(game, 0);
 	// else if (keycode == 13)
 	// {
 	// 	if (!check_cond(game, -1, 0))
-	// 		move(game, -1, 0);
+	// 		move_up_down(game, -1);
 	// }
 	// else if (keycode == 0)
 	// {
@@ -109,7 +109,7 @@ int	key_filter(int keycode, t_game *game)
 	// else if (keycode == 1)
 	// {
 	// 	if (!check_cond(game, 1, 0))
-	// 		move(game, 1, 0);
+	// 		move_up_down(game, 1);
 	// }
 	// else if (keycode == 2)
 	// {
@@ -132,6 +132,7 @@ int	game_loop(t_game *game)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
 	ft_memset(&ray, 0, sizeof(t_ray));
+	draw_minimap(game, &img);
 	raycast(game, &img, &ray);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, img.img, 0, 0);
 	return (0);
@@ -146,6 +147,7 @@ int main(void)
 	_init_directions(&game, &player);
 	mlx_hook(game.mlx_win, 17, 0, end_game, &game);
 	mlx_hook(game.mlx_win, 2, 1L<<0, key_filter, &game);
-	mlx_loop_hook(game.mlx, game_loop, &game);
+	game_loop(&game);
+	// mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 }

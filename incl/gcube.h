@@ -6,7 +6,7 @@
 /*   By: gcucino <gcucino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/05 19:02:21 by gcucino          ###   ########.fr       */
+/*   Updated: 2022/10/07 15:25:23 by gcucino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,9 @@ static void	init_directions(t_game *game, char c);
 int		raycast(t_game *game, t_img *img, t_ray *ray);
 double	deg_2_rad(double deg);
 void	draw_ray(t_ray *ray, int x, int y, t_img *img);
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+void	draw_square(t_img *img, int len, int offset_x, int offset_y);
+void	draw_minimap(t_game *game, t_img *img);
+void	draw_ray_minimap(t_ray *ray, int x, t_img *img);
 
 #endif
