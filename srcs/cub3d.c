@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcucino <gcucino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/07 16:34:30 by gcucino          ###   ########.fr       */
+/*   Updated: 2022/10/09 19:19:51 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/gcube.h"
 
-int ass = 0;
 
 void	culo()
 {
+	static int ass = 0;
+
 	printf("Culo %d\n", ass);
 	ass++;
 }
@@ -43,7 +44,7 @@ int	_init_culo(t_game *game, t_player *player)
 			{
 				player->posx = j + 0.5;
 				player->posy = i + 0.5;
-				return (1);	
+				return (1);
 			}
 			j++;
 		}
@@ -62,27 +63,31 @@ void	_init_directions(t_game *game, t_player *player)
 	game->player = player;
 }
 
-void	_init(t_game *game)
+void	_init(t_game *game, t_img *img)
 {
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
 	game->minimap[0] = 150;
 	game->minimap[1] = 150;
 	game->map = map_init("map2.gcube");
+	img->img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
+								&img->endian);
+	game->img = img;
 }
 
 int	check_cond(t_game *game, int x, int y)
 {
-	if (game->map[(int) game->player->posy + y][(int) game->player->posx + x] == '1')
-		return (1);
-	//if (game->map[(int) (game->player->posx + (x * fabs(game->player->dirx) * MOVSPEED))][(int) (game->player->posy + (y * fabs(game->player->diry) * MOVSPEED))] == '1')
+	//if (game->map[(int) game->player->posy + y][(int) game->player->posx + x] == '1')
+	//	return (1);
+	////if (game->map[(int) (game->player->posx + (x * fabs(game->player->dirx) * MOVSPEED))][(int) (game->player->posy + (y * fabs(game->player->diry) * MOVSPEED))] == '1')
 	//	return (1);
 	return (0);
 }
 
-void	move_up_down(t_game *game, int dir)
+void	move_up_down(t_game *game, double dir)
 {
-	game->player->posx += ((cosf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
+	//game->player->posx += ((cosf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
 	game->player->posy += ((sinf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
 }
 
@@ -96,58 +101,54 @@ int	key_filter(int keycode, t_game *game)
 	// print_mat(game->map);
 	if (keycode == 53)
 		end_game(game, 0);
-	// else if (keycode == 13)
-	// {
-	// 	if (!check_cond(game, -1, 0))
-	// 		move_up_down(game, -1);
-	// }
-	// else if (keycode == 0)
-	// {
-	// 	if (!check_cond(game, 0, -1))
-	// 		move(game, 0, -1);
-	// }
-	// else if (keycode == 1)
-	// {
-	// 	if (!check_cond(game, 1, 0))
-	// 		move_up_down(game, 1);
-	// }
-	// else if (keycode == 2)
-	// {
-	// 	if (!check_cond(game, 0, 1))
-	// 		move(game, 0, 1);
-	// }
-	// else if (keycode == 123)
-	// 	move_cam(game, 1);
-	// else if (keycode == 124)
-	// 	move_cam(game, 0);
+	else if (keycode == 13)
+	{
+		if (!check_cond(game, 1.0, 0))
+			move_up_down(game, 1.0);
+	}
+	//else if (keycode == 0)
+	//{
+	//	if (!check_cond(game, 0, -1))
+	//		move(game, 0, -1);
+	//}
+	else if (keycode == 1)
+	{
+		if (!check_cond(game, -1.0, 0))
+			move_up_down(game, -1.0);
+	}
+	//else if (keycode == 2)
+	//{
+	//	if (!check_cond(game, 0, 1))
+	//		move(game, 0, 1);
+	//}
+	//else if (keycode == 123)
+	//	move_cam(game, 1);
+	//else if (keycode == 124)
+	//	move_cam(game, 0);
 	return (0);
 }
 
 int	game_loop(t_game *game)
 {
-	t_img	img;
 	t_ray	ray;
 
-	img.img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
 	ft_memset(&ray, 0, sizeof(t_ray));
-	draw_minimap(game, &img);
-	raycast(game, &img, &ray);
-	mlx_put_image_to_window(game->mlx, game->mlx_win, img.img, 0, 0);
+	draw_minimap(game, game->img);
+	raycast(game, game->img, &ray);
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img->img, 0, 0);
 	return (0);
 }
 
 int main(void)
 {
-	t_game	game;
+	t_game		game;
 	t_player	player;
+	t_img		img;
 
-	_init(&game);
+	_init(&game, &img);
 	_init_directions(&game, &player);
 	mlx_hook(game.mlx_win, 17, 0, end_game, &game);
 	mlx_hook(game.mlx_win, 2, 1L<<0, key_filter, &game);
-	game_loop(&game);
-	// mlx_loop_hook(game.mlx, game_loop, &game);
+	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 }

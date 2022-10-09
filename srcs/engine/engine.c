@@ -20,10 +20,10 @@ void	draw_minimap_ray(t_ray *ray, t_game *game, t_img *img)
 	pixels = (int) (ray->dist * 20);
 	while (pixels)
 	{
-    	my_mlx_pixel_put(img, px + 10, py + 10, 0x00D11131);
-   		px += dx;
-    	py += dy;
-    	pixels--;
+		my_mlx_pixel_put(img, px + 10, py + 10, 0x00D11131);
+		px += dx;
+		py += dy;
+		pixels--;
 	}
 }
 
@@ -39,8 +39,8 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 	{
 		ray->x = game->player->posx;
 		ray->y = game->player->posy;
-		ray->cos = cosf(deg_2_rad(ray->ang)) / 64;
-		ray->sin = sinf(deg_2_rad(ray->ang)) / 64;
+		ray->cos = cosf(deg_2_rad(ray->ang)) / 512.0;
+		ray->sin = sinf(deg_2_rad(ray->ang)) / 512.0;
 
 		wall = 0;
 		while (wall == 0)
@@ -51,8 +51,9 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 				wall = 1;
 		}
 		ray->dist = sqrtf(powf(game->player->posx - ray->x, 2.0) + powf(game->player->posy - ray->y, 2.0));
+		ray->dist = ray->dist * cosf(deg_2_rad(ray->ang - game->player->angle));
 		ray->wall_height = ((int) ((WINDOW_H / 2) / ray->dist));
-		
+
 		if (i < 10 || i >= 210)
 			draw_ray(ray, i, 0, img);
 		else

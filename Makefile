@@ -38,6 +38,8 @@ clean:
 	@make -C ./mlx/mlxo/ clean
 	@echo "$(BLANK)"
 
+clear: clean
+
 clean2:
 	@echo "$(RED)Cleaning..."
 	@(${RM} $(NAME) ${OBJ})
@@ -52,4 +54,4 @@ git:
 	@git add $(SRC) mlx/ Makefile $(HDRS)
 	git status
 
-.PHONY: all clean fclean re git clean2
+.PHONY: all clean fclean re git clean2 clear
