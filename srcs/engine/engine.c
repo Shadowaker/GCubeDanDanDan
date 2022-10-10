@@ -32,6 +32,7 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 	unsigned int	i;
 	unsigned int	wall;
 
+
 	ray->ang = game->player->angle - game->player->half_fov;
 	ray->incr_ang = game->player->fov / WINDOW_W;
 	i = 0;
