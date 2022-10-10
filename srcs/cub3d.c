@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/09 19:19:51 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/10 16:59:36 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,23 @@ int	check_cond(t_game *game, int x, int y)
 	return (0);
 }
 
+void	move_cam(t_game *game, double dir)
+{
+	game->player->angle += (ROTSPEED * dir);
+}
+
 void	move_up_down(t_game *game, double dir)
 {
-	//game->player->posx += ((cosf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
-	game->player->posy += ((sinf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
+	double newx;
+	double newy;
+
+	newx = game->player->posx + ((cosf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
+	newy = game->player->posy + ((sinf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
+	if (game->map[(int) newy][(int) newx] != '1')
+	{
+		game->player->posx = newx;
+		game->player->posy = newy;
+	}
 }
 
 int	key_filter(int keycode, t_game *game)
@@ -103,8 +116,7 @@ int	key_filter(int keycode, t_game *game)
 		end_game(game, 0);
 	else if (keycode == 13)
 	{
-		if (!check_cond(game, 1.0, 0))
-			move_up_down(game, 1.0);
+		move_up_down(game, 1.0);
 	}
 	//else if (keycode == 0)
 	//{
@@ -113,18 +125,17 @@ int	key_filter(int keycode, t_game *game)
 	//}
 	else if (keycode == 1)
 	{
-		if (!check_cond(game, -1.0, 0))
-			move_up_down(game, -1.0);
+		move_up_down(game, -1.0);
 	}
 	//else if (keycode == 2)
 	//{
 	//	if (!check_cond(game, 0, 1))
 	//		move(game, 0, 1);
 	//}
-	//else if (keycode == 123)
-	//	move_cam(game, 1);
-	//else if (keycode == 124)
-	//	move_cam(game, 0);
+	else if (keycode == 123)
+		move_cam(game, -1);
+	else if (keycode == 124)
+		move_cam(game, 1);
 	return (0);
 }
 

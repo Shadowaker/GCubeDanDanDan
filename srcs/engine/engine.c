@@ -39,8 +39,8 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 	{
 		ray->x = game->player->posx;
 		ray->y = game->player->posy;
-		ray->cos = cosf(deg_2_rad(ray->ang)) / 512.0;
-		ray->sin = sinf(deg_2_rad(ray->ang)) / 512.0;
+		ray->cos = cosf(deg_2_rad(ray->ang)) / 64.0;
+		ray->sin = sinf(deg_2_rad(ray->ang)) / 64.0;
 
 		wall = 0;
 		while (wall == 0)
