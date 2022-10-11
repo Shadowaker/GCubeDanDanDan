@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/10 16:59:36 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/11 12:43:04 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,6 @@ void	_init(t_game *game, t_img *img)
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
 								&img->endian);
 	game->img = img;
-}
-
-int	check_cond(t_game *game, int x, int y)
-{
-	//if (game->map[(int) game->player->posy + y][(int) game->player->posx + x] == '1')
-	//	return (1);
-	////if (game->map[(int) (game->player->posx + (x * fabs(game->player->dirx) * MOVSPEED))][(int) (game->player->posy + (y * fabs(game->player->diry) * MOVSPEED))] == '1')
-	//	return (1);
-	return (0);
 }
 
 void	move_cam(t_game *game, double dir)

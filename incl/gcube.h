@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/10 17:01:50 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:08:33 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define MOVSPEED 0.03
 # define ROTSPEED 0.66
 
+// Main game struct
 typedef struct s_game {
 
 	void				*mlx;
@@ -51,6 +52,7 @@ typedef struct s_game {
 	struct s_ray		*ray;
 }				t_game;
 
+// Image struct
 typedef struct	s_img {
 	void	*img;
 	char	*addr;
@@ -59,7 +61,7 @@ typedef struct	s_img {
 	int		endian;
 }				t_img;
 
-// stato della telecamera (posizione, direzione, piano di proiezione)
+// Camera infos (position, direction, projection plane)
 typedef struct s_player{
 	double	fov;
 	double	half_fov;
@@ -68,7 +70,7 @@ typedef struct s_player{
 	double	angle;
 }			t_player;
 
-// informazioni sul raggio
+// Ray infos
 typedef struct s_ray {
 	int		wall_height;
 	double	x;
@@ -79,6 +81,14 @@ typedef struct s_ray {
 	double	incr_ang;
 	double	dist;
 }			t_ray;
+
+// Texture memory
+typedef struct s_tex {
+	int		w;
+	int		h;
+	int		**bitmap;
+	int		*rgb[3];
+}			t_tex;
 
 //			STRING UTILS
 size_t	ft_strlen(const char *s);

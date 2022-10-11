@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   engine.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 12:30:32 by dridolfo          #+#    #+#             */
+/*   Updated: 2022/10/11 13:59:57 by dridolfo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incl/gcube.h"
 
 double	deg_2_rad(double deg)
@@ -40,8 +52,8 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 	{
 		ray->x = game->player->posx;
 		ray->y = game->player->posy;
-		ray->cos = cosf(deg_2_rad(ray->ang)) / 64.0;
-		ray->sin = sinf(deg_2_rad(ray->ang)) / 64.0;
+		ray->cos = cosf(deg_2_rad(ray->ang)) / 1024.0;
+		ray->sin = sinf(deg_2_rad(ray->ang)) / 1024.0;
 
 		wall = 0;
 		while (wall == 0)
@@ -53,7 +65,7 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 		}
 		ray->dist = sqrtf(powf(game->player->posx - ray->x, 2.0) + powf(game->player->posy - ray->y, 2.0));
 		ray->dist = ray->dist * cosf(deg_2_rad(ray->ang - game->player->angle));
-		ray->wall_height = ((int) ((WINDOW_H / 2) / ray->dist));
+		ray->wall_height = (WINDOW_H / 2) / ray->dist;
 
 		if (i < 10 || i >= 210)
 			draw_ray(ray, i, 0, img);
