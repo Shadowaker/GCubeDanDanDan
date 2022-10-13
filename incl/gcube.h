@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/11 14:08:33 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:22:10 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define PI 3.14159
 # define MOVSPEED 0.03
 # define ROTSPEED 0.66
+
+# define PLAYER_R 4
 
 // Main game struct
 typedef struct s_game {
@@ -114,6 +116,7 @@ void		print_mat(char **mat);
 //			UTILS
 void	*ft_memset(void *b, int c, size_t len);
 void	culo();
+int		isincircle(int cx, int cy, int x, int y);
 
 //			INIT
 char	**map_init(char *path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcucino <gcucino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:39:40 by gcucino           #+#    #+#             */
-/*   Updated: 2022/10/07 15:42:40 by gcucino          ###   ########.fr       */
+/*   Updated: 2022/10/13 16:29:00 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_square_border(t_img *img, int	len, int offset_x, int offset_y)
 {
 	int	x;
 	int	y;
-	
+
 	x = 0;
 	while (x < len)
 	{
@@ -37,7 +37,7 @@ void	draw_square(t_img *img, int	len, int offset_x, int offset_y)
 {
 	int	x;
 	int	y;
-	
+
 	x = 0;
 	while (x < len)
 	{
@@ -51,11 +51,34 @@ void	draw_square(t_img *img, int	len, int offset_x, int offset_y)
 	}
 }
 
+void	draw_circle(t_game *game, int r, int offset_x, int offset_y)
+{
+	int	x;
+	int	y;
+	int	isin;
+
+	x = game->player->posx - r;
+	while (x <= (r * 2))
+	{
+		y = game->player->posy - r;
+		while (y <= (r * 2))
+		{
+			isin = isincircle(game->player->posx, game->player->posy, x, y);
+			if (isin == 1)
+				my_mlx_pixel_put(game->img, x + offset_x, y + offset_y, 0x000089AD);
+			else if (isin == 2)
+				my_mlx_pixel_put(game->img, x + offset_x, y + offset_y, 0x0000000);
+			y++;
+		}
+		x++;
+	}
+}
+
 void	draw_minimap(t_game *game, t_img *img)
 {
 	int	x;
 	int	y;
-	
+
 	x = 0;
 	draw_square(img, 200, 10, 10);
 	while (game->map[x] != NULL)
@@ -65,10 +88,11 @@ void	draw_minimap(t_game *game, t_img *img)
 		{
 			if (game->map[y][x] == '1')
 				draw_square_border(img, 20, (x * 20) + 10,  (y * 20) + 10);
-			if (game->map[y][x] == 'N')
-				draw_square_border(img, 8, (x * 20) + 16,  (y * 20) + 16);
+			//if (game->map[y][x] == 'N')
+			//	draw_square_border(img, 8, (x * 20) + 16,  (y * 20) + 16);
 			y++;
 		}
 		x++;
 	}
+	draw_circle(game, 8, (game->player->posx * 20) + 5, (game->player->posy * 20) + 5);
 }
