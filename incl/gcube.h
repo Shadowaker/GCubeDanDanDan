@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/13 16:22:10 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:47:52 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,23 @@ typedef struct	s_img {
 
 // Camera infos (position, direction, projection plane)
 typedef struct s_player{
-	double	fov;
-	double	half_fov;
-	double	posx;
-	double	posy;
-	double	angle;
+	double	cam_side;
+	double	pos[2];
+	double	dir[2];
+	double	cam_plane[2];
 }			t_player;
 
 // Ray infos
 typedef struct s_ray {
+	int		pos[2];
+	int		draw[2];
+	int		side;
 	int		wall_height;
-	double	x;
-	double	y;
-	double	cos;
-	double	sin;
-	double	ang;
-	double	incr_ang;
-	double	dist;
+	int		dist;
+	double	dir[2];
+	double	side_dist[2];
+	double	delta_dist[2];
+	double	wall_dist;
 }			t_ray;
 
 // Texture memory
@@ -117,6 +117,7 @@ void		print_mat(char **mat);
 void	*ft_memset(void *b, int c, size_t len);
 void	culo();
 int		isincircle(int cx, int cy, int x, int y);
+double	absf(double i);
 
 //			INIT
 char	**map_init(char *path);

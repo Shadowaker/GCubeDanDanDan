@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/11 12:43:04 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/17 16:46:23 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	_init_culo(t_game *game, t_player *player)
 		{
 			if (game->map[i][j] == 'N')
 			{
-				player->posx = j + 0.5;
-				player->posy = i + 0.5;
+				player->pos[0] = j + 0.5;
+				player->pos[1] = i + 0.5;
 				return (1);
 			}
 			j++;
@@ -57,9 +57,13 @@ void	_init_directions(t_game *game, t_player *player)
 {
 	if (_init_culo(game, player) == 0)
 		return ;
-	player->angle = 90;
-	player->fov = FOV;
-	player->half_fov = FOV/2;
+	player->dir[0] = -1.0;
+	player->dir[1] = 0.0;
+	player->cam_plane[0] = 0.0;
+	player->cam_plane[1] = 0.66;
+	//player->angle = 90;
+	//player->fov = FOV;
+	//player->half_fov = FOV/2;
 	game->player = player;
 }
 
@@ -76,23 +80,34 @@ void	_init(t_game *game, t_img *img)
 	game->img = img;
 }
 
+
 void	move_cam(t_game *game, double dir)
 {
-	game->player->angle += (ROTSPEED * dir);
+	double	o_dirx;
+	double	o_cam_dirx;
+	double	rot_dir;
+
+	rot_dir = ROTSPEED * dir;
+	o_dirx = game->player->dir[0];
+	game->player->dir[0] = o_dirx * cosf(rot_dir) - game->player->dir[1] * sinf(rot_dir);
+	game->player->dir[1] = o_dirx * sinf(rot_dir) + game->player->dir[1] * cosf(rot_dir);
+	o_cam_dirx = game->player->cam_plane[0];
+	game->player->cam_plane[0] = o_cam_dirx * cosf(rot_dir) - game->player->cam_plane[1] * sinf(rot_dir);
+	game->player->cam_plane[1] = o_cam_dirx * sinf(rot_dir) + game->player->cam_plane[1] * cosf(rot_dir);
 }
 
 void	move_up_down(t_game *game, double dir)
 {
-	double newx;
-	double newy;
+	double	npos_x;
+	double	npos_y;
 
-	newx = game->player->posx + ((cosf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
-	newy = game->player->posy + ((sinf(deg_2_rad(game->player->angle)) * MOVSPEED) * dir);
-	if (game->map[(int) newy][(int) newx] != '1')
-	{
-		game->player->posx = newx;
-		game->player->posy = newy;
-	}
+	npos_x = game->player->pos[0] + (game->player->dir[0] * MOVSPEED * dir);
+	npos_y = game->player->pos[1] + (game->player->dir[1] * MOVSPEED * dir);
+
+	if (game->map[(int) npos_x][(int) npos_y] == 1)
+		return ;
+	game->player->pos[0] = npos_x;
+	game->player->pos[1] = npos_y;
 }
 
 int	key_filter(int keycode, t_game *game)
@@ -100,8 +115,8 @@ int	key_filter(int keycode, t_game *game)
 	int	i;
 
 	i = 0;
-	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\nangle: %lf\nkeycode: %d\n",
-		game->player->posx, game->player->posy, game->player->angle, keycode);
+	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ncam x: %lf\ncam y: %lf\nkeycode: %d\n",
+		game->player->pos[0], game->player->pos[1], game->player->cam_plane[0], game->player->cam_plane[1], keycode);
 	// print_mat(game->map);
 	if (keycode == 53)
 		end_game(game, 0);
@@ -124,9 +139,9 @@ int	key_filter(int keycode, t_game *game)
 	//		move(game, 0, 1);
 	//}
 	else if (keycode == 123)
-		move_cam(game, -1);
-	else if (keycode == 124)
 		move_cam(game, 1);
+	else if (keycode == 124)
+		move_cam(game, -1);
 	return (0);
 }
 
@@ -149,6 +164,8 @@ int main(void)
 
 	_init(&game, &img);
 	_init_directions(&game, &player);
+	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ncam x: %lf\ncam y: %lf\nkeycode: %d\n",
+		game.player->pos[0], game.player->pos[1], game.player->cam_plane[0], game.player->cam_plane[1], 0);
 	mlx_hook(game.mlx_win, 17, 0, end_game, &game);
 	mlx_hook(game.mlx_win, 2, 1L<<0, key_filter, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
