@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/17 16:46:23 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/17 19:51:33 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ void	move_cam(t_game *game, double dir)
 
 	rot_dir = ROTSPEED * dir;
 	o_dirx = game->player->dir[0];
-	game->player->dir[0] = o_dirx * cosf(rot_dir) - game->player->dir[1] * sinf(rot_dir);
-	game->player->dir[1] = o_dirx * sinf(rot_dir) + game->player->dir[1] * cosf(rot_dir);
+	game->player->dir[0] = o_dirx * cos(rot_dir) - game->player->dir[1] * sin(rot_dir);
+	game->player->dir[1] = o_dirx * sin(rot_dir) + game->player->dir[1] * cos(rot_dir);
 	o_cam_dirx = game->player->cam_plane[0];
-	game->player->cam_plane[0] = o_cam_dirx * cosf(rot_dir) - game->player->cam_plane[1] * sinf(rot_dir);
-	game->player->cam_plane[1] = o_cam_dirx * sinf(rot_dir) + game->player->cam_plane[1] * cosf(rot_dir);
+	game->player->cam_plane[0] = o_cam_dirx * cos(rot_dir) - game->player->cam_plane[1] * sin(rot_dir);
+	game->player->cam_plane[1] = o_cam_dirx * sin(rot_dir) + game->player->cam_plane[1] * cos(rot_dir);
 }
 
 void	move_up_down(t_game *game, double dir)

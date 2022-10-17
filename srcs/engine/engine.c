@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 12:30:32 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/17 17:51:47 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/17 20:41:33 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 	int	i;
 
 	i = 0;
+	//draw_minimap(game, img);
 	while (i < WINDOW_W)
 	{
 		game->player->cam_side = (2.0 * ((double) i) / ((double) WINDOW_W)) - 1;
 
+		ray->ray_id = i;
 		ray->dir[0] = game->player->dir[0] + game->player->cam_plane[0] * game->player->cam_side;
 		ray->dir[1] = game->player->dir[1] + game->player->cam_plane[1] * game->player->cam_side;
 
@@ -124,13 +126,12 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 		}
 		if (ray->draw[1] >= WINDOW_H)
 			ray->draw[1] = WINDOW_H - 1;
-		if (i < 10 || i >= 210)
-			draw_ray(ray, i, 0, img);
-		else
-			draw_ray_minimap(ray, i, img);
-		draw_minimap_ray(ray, game, img);
+		//if (i < 10 || i >= 210)
+		draw_ray(ray, i, 0, img);
+		//else
+		//	draw_ray_minimap(ray, i, img);
+		//draw_minimap_ray(ray, game, img);
 		i++;
 	}
-	//draw_minimap(game, img);
 	return (0);
 }

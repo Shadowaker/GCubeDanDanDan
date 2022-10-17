@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:31:27 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/17 17:22:37 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/17 20:43:49 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,26 @@ void	draw_ray(t_ray *ray, int x, int y, t_img *img)
 	int	v;
 	v = 0;
 	while (v < ray->draw[0])
-		my_mlx_pixel_put(img, x, v++, 0x000089AD);
+	{
+		if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
+			my_mlx_pixel_put(img, x, v, 0x000089AD);
+		v++;
+	}
 	while (v < ray->draw[1])
 	{
-		if (ray->side == 1)
-			my_mlx_pixel_put(img, x, v++, 0x0040c600 / 2);
-		else
-			my_mlx_pixel_put(img, x, v++, 0x0040c600);
+		if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
+		{
+			if (ray->side == 1)
+				my_mlx_pixel_put(img, x, v, 0x0040c600 / 2);
+			else
+				my_mlx_pixel_put(img, x, v, 0x0040c600);
+		}
+		v++;
 	}
 	while (v < WINDOW_H)
-		my_mlx_pixel_put(img, x, v++, 0x00403125);
+	{
+		if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
+			my_mlx_pixel_put(img, x, v, 0x00403125);
+		v++;
+	}
 }
