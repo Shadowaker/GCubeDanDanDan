@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/17 19:51:33 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/18 12:14:45 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	move_up_down(t_game *game, double dir)
 	npos_x = game->player->pos[0] + (game->player->dir[0] * MOVSPEED * dir);
 	npos_y = game->player->pos[1] + (game->player->dir[1] * MOVSPEED * dir);
 
-	if (game->map[(int) npos_x][(int) npos_y] == 1)
+	if (game->map[(int) npos_y][(int) npos_x] == '1')
 		return ;
 	game->player->pos[0] = npos_x;
 	game->player->pos[1] = npos_y;

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 12:30:32 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/17 20:41:33 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/18 12:17:27 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 				ray->side = 1;
 			}
 			ray->dist += 1;
-			if (game->map[(ray->pos[0])][(ray->pos[1])] == '1')
+			if (game->map[(ray->pos[1])][(ray->pos[0])] == '1')
 				hit = 1;
 		}
 		if (ray->side == 0)
