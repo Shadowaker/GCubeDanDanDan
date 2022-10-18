@@ -50,8 +50,16 @@ fclean: clean
 
 re: clean2 $(NAME)
 
+# GIT UTILITIES
+
 git:
 	@git add $(SRC) mlx/ Makefile $(HDRS)
 	git status
+
+revert:
+	"$(YELLOW) This rule will revert every change to the last commit $(BLANK)"
+	git reset
+	git checkout .
+	git clean -fdx
 
 .PHONY: all clean fclean re git clean2 clear
