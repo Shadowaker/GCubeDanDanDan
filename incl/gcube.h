@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/17 20:34:24 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/18 19:28:45 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define BLANK "\033[0m"
 
 # define BUFFER_SIZE 100
+# define TEXT 0
 
 # define WIDTH 24
 # define HEIGHT 24
@@ -73,12 +74,12 @@ typedef struct s_player{
 
 // Ray infos
 typedef struct s_ray {
-	int		ray_id;
 	int		pos[2];
 	int		draw[2];
+	int		incr[2];
+	int		ray_id;
 	int		side;
 	int		wall_height;
-	int		dist;
 	double	dir[2];
 	double	side_dist[2];
 	double	delta_dist[2];
@@ -124,6 +125,8 @@ double	absf(double i);
 char	**map_init(char *path);
 static void	init_directions(t_game *game, char c);
 
+//			ENGINE
+void	engine(t_game *game, t_img *img, t_ray *ray);
 int		raycast(t_game *game, t_img *img, t_ray *ray);
 double	deg_2_rad(double deg);
 void	draw_ray(t_ray *ray, int x, int y, t_img *img);

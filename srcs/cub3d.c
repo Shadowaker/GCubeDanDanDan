@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/18 12:14:45 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/18 19:29:56 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	_init_directions(t_game *game, t_player *player)
 	player->dir[0] = -1.0;
 	player->dir[1] = 0.0;
 	player->cam_plane[0] = 0.0;
-	player->cam_plane[1] = 0.66;
+	player->cam_plane[1] = -0.66;
 	//player->angle = 90;
 	//player->fov = FOV;
 	//player->half_fov = FOV/2;
@@ -139,9 +139,9 @@ int	key_filter(int keycode, t_game *game)
 	//		move(game, 0, 1);
 	//}
 	else if (keycode == 123)
-		move_cam(game, 1);
-	else if (keycode == 124)
 		move_cam(game, -1);
+	else if (keycode == 124)
+		move_cam(game, 1);
 	return (0);
 }
 
