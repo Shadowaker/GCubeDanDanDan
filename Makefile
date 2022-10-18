@@ -57,9 +57,10 @@ git:
 	git status
 
 revert:
-	"$(YELLOW) This rule will revert every change to the last commit $(BLANK)"
+	@echo "$(YELLOW) This rule will revert every change to the last commit. $(BLANK)"
 	git reset
 	git checkout .
 	git clean -fdx
+	@echo "$(GREEN) Done. $(BLANK)"
 
 .PHONY: all clean fclean re git clean2 clear
