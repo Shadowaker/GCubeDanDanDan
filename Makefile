@@ -52,7 +52,7 @@ re: clean2 $(NAME)
 
 # GIT UTILITIES
 
-git:
+git: fclean
 	@git add $(SRC) mlx/ Makefile $(HDRS)
 	git status
 
