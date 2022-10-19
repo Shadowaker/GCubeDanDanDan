@@ -63,4 +63,4 @@ revert:
 	@git clean -fdx
 	@echo "$(GREEN) Done. $(BLANK)"
 
-.PHONY: all clean fclean re git clean2 clear
+.PHONY: all clean fclean re git clean2 clear revert

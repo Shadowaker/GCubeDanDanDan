@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/18 19:28:45 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:56:36 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 # define WINDOW_W 1280
 # define WINDOW_H 960
 
+# define MINIMAP 200
+# define MINIMAP_S 10
+
 # define FOV 60
 # define PI 3.14159
 # define MOVSPEED 0.03
@@ -50,6 +53,8 @@ typedef struct s_game {
 	void				*mlx_win;
 	char				**map;
 	int					minimap[2];
+	int					map_w;
+	int					map_h;
 	struct s_img		*img;
 	struct s_player		*player;
 	struct s_ray		*ray;

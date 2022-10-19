@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/18 19:29:56 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:16:27 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	_init(t_game *game, t_img *img)
 	game->minimap[0] = 150;
 	game->minimap[1] = 150;
 	game->map = map_init("map2.gcube");
+	game->map_h = 10;
+	game->map_w = 10;
 	img->img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
 								&img->endian);
@@ -150,8 +152,9 @@ int	game_loop(t_game *game)
 	t_ray	ray;
 
 	ft_memset(&ray, 0, sizeof(t_ray));
-	draw_minimap(game, game->img);
-	raycast(game, game->img, &ray);
+	//draw_minimap(game, game->img);
+	//raycast(game, game->img, &ray);
+	engine(game, game->img, &ray);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img->img, 0, 0);
 	return (0);
 }
