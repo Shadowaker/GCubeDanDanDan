@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/19 17:16:27 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/24 14:23:43 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	_init_directions(t_game *game, t_player *player)
 	game->player = player;
 }
 
-void	_init(t_game *game, t_img *img)
+void	_init(t_game *game, t_img *img, t_textures *texts)
 {
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
@@ -80,6 +80,7 @@ void	_init(t_game *game, t_img *img)
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
 								&img->endian);
 	game->img = img;
+	game->texts = texts;
 }
 
 
@@ -164,8 +165,9 @@ int main(void)
 	t_game		game;
 	t_player	player;
 	t_img		img;
+	t_textures	texts;
 
-	_init(&game, &img);
+	_init(&game, &img, &texts);
 	_init_directions(&game, &player);
 	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ncam x: %lf\ncam y: %lf\nkeycode: %d\n",
 		game.player->pos[0], game.player->pos[1], game.player->cam_plane[0], game.player->cam_plane[1], 0);

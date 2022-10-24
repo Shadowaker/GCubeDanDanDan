@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/19 16:56:36 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/10/24 14:25:07 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
-# include <mlx.h>
+# include "../mlx/mlxo/mlx.h"
 
 # define RED "\033[91m"
 # define GREEN "\033[92m"
@@ -46,6 +46,18 @@
 
 # define PLAYER_R 4
 
+# define BARREL "../srcs/sprites/test/barrel.xpm"
+# define BLUESTONE "../srcs/sprites/test/bluestone.xpm"
+# define COLORSTONE "../srcs/sprites/test/colorstone.xpm"
+# define EAGLE "../srcs/sprites/test/eagle.xpm"
+# define GREENLIGHT "../srcs/sprites/test/greenlight.xpm"
+# define GREYSTONE "../srcs/sprites/test/greystone.xpm"
+# define MOSSY "../srcs/sprites/test/mossy.xpm"
+# define PILLAR "../srcs/sprites/test/pillar.xpm"
+# define PURPLESTONE "../srcs/sprites/test/purplestone.xpm"
+# define REDBRICK "../srcs/sprites/test/redbrick.xpm"
+# define WOOD "../srcs/sprites/test/wood.xpm"
+
 // Main game struct
 typedef struct s_game {
 
@@ -58,6 +70,7 @@ typedef struct s_game {
 	struct s_img		*img;
 	struct s_player		*player;
 	struct s_ray		*ray;
+	struct s_textures	*texts;
 }				t_game;
 
 // Image struct
@@ -93,11 +106,16 @@ typedef struct s_ray {
 
 // Texture memory
 typedef struct s_tex {
+	t_img	xpm;
 	int		w;
 	int		h;
-	int		**bitmap;
-	int		*rgb[3];
+	int		*rgb[3];		// meh
 }			t_tex;
+
+typedef struct s_textures {
+	t_tex	*wall;
+	t_tex	*wall_side;
+}			t_textures;
 
 //			STRING UTILS
 size_t	ft_strlen(const char *s);
@@ -128,7 +146,8 @@ double	absf(double i);
 
 //			INIT
 char	**map_init(char *path);
-static void	init_directions(t_game *game, char c);
+void	init_directions(t_game *game, char c);
+void	load_images(t_game *game);
 
 //			ENGINE
 void	engine(t_game *game, t_img *img, t_ray *ray);
