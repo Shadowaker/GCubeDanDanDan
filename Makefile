@@ -57,6 +57,9 @@ git: fclean
 	@git add $(SRC) mlx/ Makefile $(HDRS)
 	git status
 
+gcubepush:
+	git push origin master
+
 revert:
 	@echo "$(YELLOW) This rule will revert every change to the last commit. $(BLANK)"
 	@git reset

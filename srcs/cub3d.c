@@ -80,7 +80,6 @@ void	_init(t_game *game, t_img *img, t_textures *texts)
 	game->texts = texts;
 }
 
-
 void	move_cam(t_game *game, double dir)
 {
 	double	o_dirx;

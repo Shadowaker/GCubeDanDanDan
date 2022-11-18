@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/03 15:49:08 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/18 19:30:30 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ char	**expand_mat(char **mat, char *str)
 	res[len + 1] = NULL;
 	free(mat);
 	return (res);
+}
+
+char	**replace_occurence_mat(char **mat)
+{
+	int		i;
+	int		j;
+	char	**res;
+
+	i = 0;
 }
 
 char	**map_init(char *path)
