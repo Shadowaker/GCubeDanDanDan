@@ -61,9 +61,6 @@ void	_init_directions(t_game *game, t_player *player)
 	player->dir[1] = 0.0;
 	player->cam_plane[0] = 0.0;
 	player->cam_plane[1] = -0.66;
-	//player->angle = 90;
-	//player->fov = FOV;
-	//player->half_fov = FOV/2;
 	game->player = player;
 }
 
@@ -120,31 +117,20 @@ int	key_filter(int keycode, t_game *game)
 	i = 0;
 	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ncam x: %lf\ncam y: %lf\nkeycode: %d\n",
 		game->player->pos[0], game->player->pos[1], game->player->cam_plane[0], game->player->cam_plane[1], keycode);
-	// print_mat(game->map);
 	if (keycode == 53)
 		end_game(game, 0);
 	else if (keycode == 13)
 	{
 		move_up_down(game, 1.0);
 	}
-	//else if (keycode == 0)
-	//{
-	//	if (!check_cond(game, 0, -1))
-	//		move(game, 0, -1);
-	//}
 	else if (keycode == 1)
 	{
 		move_up_down(game, -1.0);
 	}
-	//else if (keycode == 2)
-	//{
-	//	if (!check_cond(game, 0, 1))
-	//		move(game, 0, 1);
-	//}
 	else if (keycode == 123)
-		move_cam(game, -1);
+		move_cam(game, -1.0);
 	else if (keycode == 124)
-		move_cam(game, 1);
+		move_cam(game, 1.0);
 	return (0);
 }
 
@@ -153,8 +139,6 @@ int	game_loop(t_game *game)
 	t_ray	ray;
 
 	ft_memset(&ray, 0, sizeof(t_ray));
-	//draw_minimap(game, game->img);
-	//raycast(game, game->img, &ray);
 	engine(game, game->img, &ray);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img->img, 0, 0);
 	return (0);

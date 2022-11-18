@@ -42,5 +42,5 @@ void	draw_minimap_ray(t_ray *ray, t_game *game, t_img *img)
 void	engine(t_game *game, t_img *img, t_ray *ray)
 {
 	raycast(game, img, ray);
-	draw_minimap(game, img);
+	//draw_minimap(game, img);
 }
