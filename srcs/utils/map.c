@@ -6,14 +6,14 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/18 19:30:30 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/20 17:26:54 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/gcube.h"
 
 /*
-RETURNS: the S length.*/
+RETURNS: the length of the string S passed. */
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
@@ -26,6 +26,10 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+/*Create an array of arrays, copy the passed array of arrays [MAT]
+	and add at the end the passed string [STR].
+	Then free the orginal array of arrays.
+RETURNS: The new array of arrays.*/
 char	**expand_mat(char **mat, char *str)
 {
 	int		len;
@@ -47,6 +51,7 @@ char	**replace_occurence_mat(char **mat)
 	char	**res;
 
 	i = 0;
+	return (res);
 }
 
 char	**map_init(char *path)
