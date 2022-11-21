@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/21 14:40:28 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:43:40 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void	culo();
 int		isincircle(int cx, int cy, int x, int y);
 double	absf(double i);
 void	*ft_calloc(size_t count, size_t size);
+int		map_validator(char **map);
 
 //			INIT
 char	**map_init(char *path);
