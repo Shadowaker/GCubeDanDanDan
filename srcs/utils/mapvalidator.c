@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/20 17:09:56 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/21 09:51:03 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ int last_recurrence(char *str, char c)
 	return (-1);
 }
 
-int	last_repeat(char *str, int start, char c)
-{
-	while (str[start] != '\0' && str[start] != 'c')
-		start++;
-	return (start);
-}
-
 int first_to_last(char *str, int *left, int *right)
 {
 	*left = first_recurrence(str, '1');
@@ -65,24 +58,22 @@ int first_to_last(char *str, int *left, int *right)
 int	map_validator(char **map)
 {
 	int	i;
-	int	o_left;
-	int	o_right;
 	int	left;
 	int	right;
+	int	max;
 
 	i = 1;
-	if (first_to_last(map[0], &left, &o_right) == -1)
+	max = ft_matlen(map) - 1;
+	if (first_to_last(map[0], &left, &right) == -1)
 		return (1);
-	o_left = last_repeat(map[0], left, 'c');
-	while (map[i] != NULL)
+	while (i < max)
 	{
 		if (first_to_last(map[i], &left, &right) == -1)
 			return (1);
-		if (left < o_left || right > o_right)
+		if (map[i - 1][left] != '1' || map[i - 1][right] != '1')
 			return (1);
-		o_left = left;
-		o_right = right;
 		i++;
 	}
+	if (map[i][left] != '1' || map[i][right] != '1');
 	return (0);
 }
