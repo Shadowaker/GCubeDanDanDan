@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/24 14:25:07 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/21 14:40:28 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define BLANK "\033[0m"
 
 # define BUFFER_SIZE 100
+# define STD_SIZE	500
 # define TEXT 0
 
 # define WIDTH 24
@@ -122,6 +123,7 @@ size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(const char *s, char c);
 char	*ft_freejoin(char *s1, char *s2);
+char	*ft_strreplace(char const *src, char *stack, char *paste);
 
 //			GNL
 int			ft_find_line(char *s);
@@ -143,6 +145,7 @@ void	*ft_memset(void *b, int c, size_t len);
 void	culo();
 int		isincircle(int cx, int cy, int x, int y);
 double	absf(double i);
+void	*ft_calloc(size_t count, size_t size);
 
 //			INIT
 char	**map_init(char *path);

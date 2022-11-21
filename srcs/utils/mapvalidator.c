@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/21 09:51:03 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/21 13:52:31 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	map_validator(char **map)
 			return (1);
 		i++;
 	}
-	if (map[i][left] != '1' || map[i][right] != '1');
+	if (map[i][left] != '1' || map[i][right] != '1')
+		return (1);
 	return (0);
 }
