@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/21 15:43:40 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:12:50 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define BLANK "\033[0m"
 
 # define BUFFER_SIZE 100
-# define STD_SIZE	500
+# define STD_SIZE 500
 # define TEXT 0
 
 # define WIDTH 24

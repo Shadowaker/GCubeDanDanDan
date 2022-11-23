@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/21 15:13:09 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:21:41 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,20 @@ char	**expand_mat(char **mat, char *str)
 	return (res);
 }
 
-char	**replace_occurence_mat(char **mat, char *stack, char *paste)
+void	replace_occurence_mat(char **mat, char *stack, char *paste)
 {
 	int		i;
 	int		j;
-	char	**res;
+	char	*tmp;
 
 	i = 0;
-	res = ft_calloc(sizeof(char *), ft_matlen(mat));
 	while (mat[i] != NULL)
 	{
-		res[i] = ft_strreplace(mat[i], stack, paste);
+		tmp = mat[i];
+		mat[i] = ft_strreplace(tmp, stack, paste);
+		free(tmp);
 		i++;
 	}
-	res[i] = NULL;
-	return (res);
 }
 
 char	**map_init(char *path)
@@ -81,7 +80,7 @@ char	**map_init(char *path)
 	}
 	close(fd);
 	map = ft_split(res, '\n');
-	map = replace_occurence_mat(map, "\t", "    ");
+	replace_occurence_mat(map, "\t", "    ");
 	print_mat(map);
 	free(res);
 	return (map);
