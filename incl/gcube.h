@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/23 18:12:50 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/25 12:18:22 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char		**ft_matmerge(char **arr1, char **arr2);
 void		ft_cpmat(char **src, char **dst, int start);
 int			ft_matlen(char **arr);
 void		free_mat(char **mat);
-void		print_mat(char **mat);
+void		print_mat(char **mat, char del);
 
 //			UTILS
 void	*ft_memset(void *b, int c, size_t len);

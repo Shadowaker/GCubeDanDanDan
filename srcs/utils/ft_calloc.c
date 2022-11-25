@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:57:52 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/21 13:58:21 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/25 12:33:52 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*ft_bzero(void *b, size_t len)
 	return (NULL);
 }
 
-/* Malloc SIZE times of COUNT bites and set
+/* Malloc SIZE times of COUNT bytes and set
 all allocated memory to 0.
 RETURNS: pointer to the allocated memory.*/
 void	*ft_calloc(size_t count, size_t size)

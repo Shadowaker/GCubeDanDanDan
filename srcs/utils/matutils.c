@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:43:48 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/01 17:01:18 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/25 12:18:46 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_mat(char **mat)
 /* Print a MATRIX (char **) and all its contents
 surrounded by § and NL.
 RETURNS: void.*/
-void	print_mat(char **mat)
+void	print_mat(char **mat, char del)
 {
 	int	i;
 
@@ -37,7 +37,7 @@ void	print_mat(char **mat)
 	{
 		i = 0;
 		while (mat[i] != NULL)
-			printf("%s\n", mat[i++]);
+			printf("%c%s%c\n", del, mat[i++], del);
 	}
 }
 
@@ -76,8 +76,8 @@ char	**ft_matmerge(char **arr1, char **arr2)
 {
 	char	**res;
 
-	print_mat(arr1);
-	print_mat(arr2);
+	print_mat(arr1, '@');
+	print_mat(arr2, '@');
 	res = malloc(sizeof(char *) * (ft_matlen(arr1) + ft_matlen(arr2)));
 	ft_cpmat(arr1, res, 0);
 	ft_cpmat(arr2, res, ft_matlen(arr1));

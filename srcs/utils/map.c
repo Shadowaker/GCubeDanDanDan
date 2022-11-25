@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/23 18:21:41 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/25 12:34:54 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,46 @@ void	replace_occurence_mat(char **mat, char *stack, char *paste)
 	}
 }
 
+char	*str_constructor(char c, int size)
+{
+	char	*res;
+	int		i;
+
+	res = malloc(size + 1);
+	i = 0;
+	while (i < size)
+		res[i++] = c;
+	res[i] = '\0';
+	return (res);
+}
+
+void	map_format(char **map)
+{
+	int		i;
+	int		size[2];
+
+	i = 0;
+	size[1] = 0;
+	while (map[i] != NULL)
+	{
+		size[0] = ft_strlen(map[i]);
+		if (size[1] < size[0])
+			size[1] = size[0];
+		i++;
+	}
+	i = 0;
+	while (map[i] != NULL)
+	{
+		size[0] = ft_strlen(map[i]);
+		if (size[0] < size[1])
+		{
+			//printf("@%s@\n@%s@\n", map[i], str_constructor(' ', size[1] - size[0]));
+			map[i] = ft_freejoin(map[i], str_constructor(' ', size[1] - size[0]));
+		}
+		i++;
+	}
+}
+
 char	**map_init(char *path)
 {
 	int		fd;
@@ -81,7 +121,8 @@ char	**map_init(char *path)
 	close(fd);
 	map = ft_split(res, '\n');
 	replace_occurence_mat(map, "\t", "    ");
-	print_mat(map);
+	map_format(map);
+	print_mat(map, '@');
 	free(res);
 	return (map);
 }
