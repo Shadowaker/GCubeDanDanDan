@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/28 19:03:56 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:54:27 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,55 @@ void	find_char(char **map, char c, int *ids)
 	ids[0] = -1;
 }
 
+int	go_left(char *line, int i)
+{
+	while (line[i] != '1' && i > -1)
+		i--;
+	if (i == -1)
+		return (0);
+	return (1);
+}
+
+int	go_right(char *line, int i)
+{
+	while (line[i] != '1' && line[i]++ != '\0')
+		i++;
+	if (line[i] == '\0')
+		return (0);
+}
+
+int	go_up(char **map, int x, int y)
+{
+	if (go_left(map[y], x))
+		return (1);
+	if (go_right(map[y], x))
+		return (1);
+	if (go_up(map, x, y))
+		return (1);
+	return (0);
+}
+
+int	go_down(char **map, int x, int y)
+{
+	if (go_left(map[y], x))
+		return (1);
+	if (go_right(map[y], x))
+		return (1);
+	if (go_up(map, x, y))
+		return (1);
+	return (0);
+}
+
 int	fill_algorithm(char **map)
 {
 	int	pl[2];
 
-	find_char(map, '1', pl);
+	find_char(map, 'N', pl);
+	if (go_up(map, pl[0], pl[1]))
+		return (1);
+	if (go_down(map, pl[0], pl[1]))
+		return (1);
+	return (0);
 }
 
 
