@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/30 18:16:01 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:21:39 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,12 @@ int	go_up(char **map, int x, int y)
 		return (1);
 	if (go_right(map[y], x))
 		return (1);
-	if (go_up(map, x, ++y))
+	if (--y > -1)
+	{
+		if (go_up(map, x, y))
+			return (1);
+	}
+	if (map[y][x] != '1' && y == 0)
 		return (1);
 	return (0);
 }
@@ -65,7 +70,12 @@ int	go_down(char **map, int x, int y)
 		return (1);
 	if (go_right(map[y], x))
 		return (1);
-	if (go_down(map, x, ++y))
+	if (map[++y] != NULL)
+	{
+		if (go_down(map, x, ++y))
+			return (1);
+	}
+	if (map[y][x] != '1' && map[y] == NULL)
 		return (1);
 	return (0);
 }
