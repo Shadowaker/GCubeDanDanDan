@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/01 12:21:39 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:31:01 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	go_right(char *line, int i)
 
 int	go_up(char **map, int x, int y)
 {
+	if (map[y][x] == '1')
+		return (0);
 	if (go_left(map[y], x))
 		return (1);
 	if (go_right(map[y], x))
@@ -59,6 +61,8 @@ int	go_up(char **map, int x, int y)
 		if (go_up(map, x, y))
 			return (1);
 	}
+	else
+		return (0);
 	if (map[y][x] != '1' && y == 0)
 		return (1);
 	return (0);
@@ -66,15 +70,19 @@ int	go_up(char **map, int x, int y)
 
 int	go_down(char **map, int x, int y)
 {
+	if (map[y][x] == '1')
+		return (0);
 	if (go_left(map[y], x))
 		return (1);
 	if (go_right(map[y], x))
 		return (1);
 	if (map[++y] != NULL)
 	{
-		if (go_down(map, x, ++y))
+		if (go_down(map, x, y))
 			return (1);
 	}
+	else
+		return (0);
 	if (map[y][x] != '1' && map[y] == NULL)
 		return (1);
 	return (0);
@@ -122,12 +130,12 @@ int	map_validator(char **map)
 	int	j;
 
 	i = -1;
-	while (map[i++])
+	while (map[++i])
 	{
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			if (ft_isinstr("NWES0 DB1", map[i][j++]))
+			if (!ft_isinstr("NWES0 DB1\n", map[i][j++]))
 				return (1);
 		}
 	}
