@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/01 19:34:40 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:55:14 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ void	_init(t_game *game, t_img *img, t_textures *texts)
 	game->minimap[0] = 150;
 	game->minimap[1] = 150;
 	game->map = map_init("map2.gcube");
+	/*
 	if (map_validator(game->map) != 0)
 	{
 		printf("Error:	Bad map\n");
 		exit(127);
-	}
+	}*/
 	game->map_h = 10;
 	game->map_w = 10;
 	img->img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
