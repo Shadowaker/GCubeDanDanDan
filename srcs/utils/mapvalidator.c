@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/02 16:24:17 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/02 19:07:10 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,56 +34,25 @@ static int	body(char **map, int x, int y)
 {
 	int	res;
 
-	printf("////////////////////////////////////////////////////////////////\n");
-	print_mat(map, '~');
-	printf("////////////////////////////////////////////////////////////////\n");
+	//printf("////////////////////////////////////////////////////////////////\n");
+	//print_mat(map, '~');
+	//printf("////////////////////////////////////////////////////////////////\n");
 	res = 0;
-	if (map[y][x] != '-')
+	if (map[y][x] != '-' && map[y][x] != '1')
 	{
-		if (map[y][x] == '1')
-			res = 0;
-		else if (map[y][x + 1] == '\0')
+		if (map[y][x + 1] == '\0' || map[y + 1] == NULL || x - 1 < 0 || y - 1 < 0)
 			res = 1;
 		else
 		{
 			map[y][x] = '-';
-			res = body(map, x + 1, y);
-		}
-	}
-	if (map[y][x] != '-')
-	{
-		if (map[y][x] == '1')
-			res = 0;
-		else if (x - 1 < 0)
-			res = 1;
-		else
-		{
-			map[y][x] = '-';
-			res = body(map, x - 1, y);
-		}
-	}
-	if (map[y][x] != '-')
-	{
-		if (map[y][x] == '1')
-			res = 0;
-		else if (map[y + 1] == NULL)
-			res = 1;
-		else
-		{
-			map[y][x] = '-';
-			res = body(map, x, y + 1);
-		}
-	}
-	if (map[y][x] != '-')
-	{
-		if (map[y][x] == '1')
-			res = 0;
-		else if (y - 1 < 0)
-			res = 1;
-		else
-		{
-			map[y][x] = '-';
-			res = body(map, x, y - 1);
+			if (map[y][x + 1] != '1')
+				res = body(map, x + 1, y);
+			if (map[y][x - 1] != '1' && res != 1)
+				res = body(map, x - 1, y);
+			if (map[y + 1][x] != '1' && res != 1)
+				res = body(map, x, y + 1);
+			if (map[y - 1][x] != '1' && res != 1)
+				res = body(map, x, y - 1);
 		}
 	}
 	return (res);

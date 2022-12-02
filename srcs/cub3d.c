@@ -6,12 +6,11 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/02 15:49:52 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:23:02 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/gcube.h"
-
 
 void	culo()
 {
