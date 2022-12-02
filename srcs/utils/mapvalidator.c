@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/01 19:31:01 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:24:17 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,80 +30,73 @@ void	find_char(char **map, char c, int *ids)
 	ids[0] = -1;
 }
 
-int	go_left(char *line, int i)
+static int	body(char **map, int x, int y)
 {
-	while (line[i] != '1' && i > -1)
-		i--;
-	if (i == -1)
-		return (1);
-	return (0);
-}
+	int	res;
 
-int	go_right(char *line, int i)
-{
-	while (line[i] != '1' && line[i]++ != '\0')
-		i++;
-	if (line[i] == '\0')
-		return (1);
-	return (0);
-}
-
-int	go_up(char **map, int x, int y)
-{
-	if (map[y][x] == '1')
-		return (0);
-	if (go_left(map[y], x))
-		return (1);
-	if (go_right(map[y], x))
-		return (1);
-	if (--y > -1)
+	printf("////////////////////////////////////////////////////////////////\n");
+	print_mat(map, '~');
+	printf("////////////////////////////////////////////////////////////////\n");
+	res = 0;
+	if (map[y][x] != '-')
 	{
-		if (go_up(map, x, y))
-			return (1);
+		if (map[y][x] == '1')
+			res = 0;
+		else if (map[y][x + 1] == '\0')
+			res = 1;
+		else
+		{
+			map[y][x] = '-';
+			res = body(map, x + 1, y);
+		}
 	}
-	else
-		return (0);
-	if (map[y][x] != '1' && y == 0)
-		return (1);
-	return (0);
-}
-
-int	go_down(char **map, int x, int y)
-{
-	if (map[y][x] == '1')
-		return (0);
-	if (go_left(map[y], x))
-		return (1);
-	if (go_right(map[y], x))
-		return (1);
-	if (map[++y] != NULL)
+	if (map[y][x] != '-')
 	{
-		if (go_down(map, x, y))
-			return (1);
+		if (map[y][x] == '1')
+			res = 0;
+		else if (x - 1 < 0)
+			res = 1;
+		else
+		{
+			map[y][x] = '-';
+			res = body(map, x - 1, y);
+		}
 	}
-	else
-		return (0);
-	if (map[y][x] != '1' && map[y] == NULL)
-		return (1);
-	return (0);
+	if (map[y][x] != '-')
+	{
+		if (map[y][x] == '1')
+			res = 0;
+		else if (map[y + 1] == NULL)
+			res = 1;
+		else
+		{
+			map[y][x] = '-';
+			res = body(map, x, y + 1);
+		}
+	}
+	if (map[y][x] != '-')
+	{
+		if (map[y][x] == '1')
+			res = 0;
+		else if (y - 1 < 0)
+			res = 1;
+		else
+		{
+			map[y][x] = '-';
+			res = body(map, x, y - 1);
+		}
+	}
+	return (res);
 }
 
-int	fill_algorithm(char **map)
+int	flood_algorithm(char **map)
 {
 	int	pl[2];
 
 	find_char(map, 'N', pl);
 	if (pl[0] == -1 || pl[1] == -1)
 		return (1);
-	while (map[pl[1]][pl[0]] != '\0')
-	{
-		if (go_up(map, pl[0], pl[1]))
-			return (1);
-		if (go_down(map, pl[0], pl[1]))
-			return (1);
-		pl[0]++;
-	}
-	return (0);
+	return (body(map, pl[0], pl[1]));
 }
 
 /*
@@ -126,18 +119,30 @@ int	ft_isinstr(const char *stack, char c)
 
 int	map_validator(char **map)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	int		res;
+	char	**map2;
 
-	i = -1;
-	while (map[++i])
+	i = 0;
+	while (map[i])
 	{
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			if (!ft_isinstr("NWES0 DB1\n", map[i][j++]))
+			if (!ft_isinstr("NWES0 DB1\n", map[i][j]))
 				return (1);
+			j++;
 		}
+		i++;
 	}
-	return(fill_algorithm(map));
+	map2 = malloc(sizeof(char *) * (ft_matlen(map) + 1));
+	ft_cpmat(map, map2, 0);
+	printf("////////////////////////////////////////////////////////////////\n\t\tMAP 2\n");
+	print_mat(map2, '@');
+	printf("////////////////////////////////////////////////////////////////\n");
+	res = flood_algorithm(map2);
+	free_mat(map2);
+	printf("\n%d \n", res);
+	return (res);
 }

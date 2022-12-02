@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:43:48 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/25 12:18:46 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:45:26 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,17 @@ int	ft_matlen(char **arr)
 	return (i);
 }
 
-/* Copy a matrix (char **SRC) in the preallocated DST from
- a starting index of SRC.
+/* Copy a matrix (char **SRC) in the preallocated DST (char **DST)
+ from a starting index (START) of DST.
+ If START id bigger than DST size, behavior is undefined.
 RETURNS: void.*/
 void	ft_cpmat(char **src, char **dst, int start)
 {
 	int	i;
 
 	i = 0;
+	if (!src || !dst || start < 0)
+		return ;
 	while (src[i] != NULL)
 	{
 		dst[start] = ft_substr(src[i], 0, ft_strlen(src[i]));

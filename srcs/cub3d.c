@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/01 19:55:14 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:49:52 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,12 @@ void	_init(t_game *game, t_img *img, t_textures *texts)
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
 	game->minimap[0] = 150;
 	game->minimap[1] = 150;
-	game->map = map_init("map2.gcube");
-	/*
+	game->map = map_init("map3.cub");
 	if (map_validator(game->map) != 0)
 	{
 		printf("Error:	Bad map\n");
 		exit(127);
-	}*/
+	}
 	game->map_h = 10;
 	game->map_w = 10;
 	img->img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
@@ -120,7 +119,7 @@ int	key_filter(int keycode, t_game *game)
 	int	i;
 
 	i = 0;
-	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ncam x: %lf\ncam y: %lf\nkeycode: %d\n",
+	printf(YELLOW "[DEBUG] -----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ncam x: %lf\ncam y: %lf\nkeycode: %d\n",
 		game->player->pos[0], game->player->pos[1], game->player->cam_plane[0], game->player->cam_plane[1], keycode);
 	if (keycode == 53)
 		end_game(game, 0);
