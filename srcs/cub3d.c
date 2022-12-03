@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/02 18:23:02 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:35:30 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	_init(t_game *game, t_img *img, t_textures *texts)
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
 	game->minimap[0] = 150;
 	game->minimap[1] = 150;
-	game->map = map_init("map3.cub");
+	game->map = map_init("map4.cub");
 	if (map_validator(game->map) != 0)
 	{
 		printf("Error:	Bad map\n");

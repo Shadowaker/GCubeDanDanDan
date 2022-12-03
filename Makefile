@@ -54,7 +54,7 @@ re: clean2 $(NAME)
 # GIT UTILITIES
 
 git: fclean
-	@git add $(SRC) mlx/ Makefile $(HDRS)
+	@git add $(SRC) mlx/ Makefile $(HDRS) $(wildcard *.cub)
 	git status
 
 gcubepush:

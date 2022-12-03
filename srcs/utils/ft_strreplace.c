@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strreplce.c                                     :+:      :+:    :+:   */
+/*   ft_strreplace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 14:28:02 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/21 14:28:23 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:37:54 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,55 +29,35 @@ static int	ft_find(char const *s1, int start, char *s2, int size)
 	return (1);
 }
 
-static int	ft_paste(char *dst, char *src, int start, int size)
+static char	*createstr(char c)
 {
-	int	i;
+	char	*res;
 
-	i = 0;
-	while (start < size && src[i] != '\0')
-	{
-		dst[start] = src[i];
-		start++;
-		i++;
-	}
-	return (i);
+	res = ft_calloc(1, 2);
+	res[0] = c;
+	return (res);
 }
 
-static void	ft_hack(char **res, char *tmp, int i)
-{
-	tmp[i] = '\0';
-	*res = ft_substr(tmp, 0, i);
-	free(tmp);
-}
-
-/* Replace a string (stack) contained in a string (src) and paste
-another string (paste)
+/* Replace a string (STACK) contained in a string (SRC) and paste
+	another string (PASTE).
+	If SRC, STACK or PASTE are == NULL, behavior is undefined.
 RETURNS: A freeable pointer to the result.*/
 char	*ft_strreplace(char const *src, char *stack, char *paste)
 {
 	int		i;
-	int		j;
-	char	*res;
 	char	*tmp;
 
+	tmp = ft_calloc(1, 1);
 	i = 0;
-	j = 0;
-	tmp = ft_calloc(1, STD_SIZE * 10);
 	while (src[i] != '\0')
 	{
-		if (stack != NULL)
+		if (ft_find(src, i, stack, ft_strlen(stack)))
 		{
-			if (src[i] == stack[0])
-			{
-				if (ft_find(src, i, stack, ft_strlen(stack)) == 1)
-				{
-					j += ft_paste(tmp, paste, j, STD_SIZE * 10);
-					i += ft_strlen(stack);
-				}
-			}
+			tmp = ft_freejoin(tmp, ft_substr(paste, 0, ft_strlen(paste)));
+			i += ft_strlen(stack);
 		}
-		tmp[j++] = src[i++];
+		else
+			tmp = ft_freejoin(tmp, createstr(src[i++]));
 	}
-	ft_hack(&res, tmp, j);
-	return (res);
+	return (tmp);
 }

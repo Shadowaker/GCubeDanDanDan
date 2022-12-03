@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/02 19:07:10 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:38:04 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ static int	body(char **map, int x, int y)
 {
 	int	res;
 
-	//printf("////////////////////////////////////////////////////////////////\n");
-	//print_mat(map, '~');
-	//printf("////////////////////////////////////////////////////////////////\n");
 	res = 0;
 	if (map[y][x] != '-' && map[y][x] != '1')
 	{
@@ -107,11 +104,7 @@ int	map_validator(char **map)
 	}
 	map2 = malloc(sizeof(char *) * (ft_matlen(map) + 1));
 	ft_cpmat(map, map2, 0);
-	printf("////////////////////////////////////////////////////////////////\n\t\tMAP 2\n");
-	print_mat(map2, '@');
-	printf("////////////////////////////////////////////////////////////////\n");
 	res = flood_algorithm(map2);
 	free_mat(map2);
-	printf("\n%d \n", res);
 	return (res);
 }
