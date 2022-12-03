@@ -6,13 +6,13 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/03 16:38:04 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:49:15 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/gcube.h"
 
-void	find_char(char **map, char c, int *ids)
+static void	find_char(char **map, char c, int *ids)
 {
 	ids[1] = 0;
 	while (map[ids[1]] != NULL)
@@ -55,7 +55,7 @@ static int	body(char **map, int x, int y)
 	return (res);
 }
 
-int	flood_algorithm(char **map)
+static int	flood_algorithm(char **map)
 {
 	int	pl[2];
 
@@ -65,24 +65,9 @@ int	flood_algorithm(char **map)
 	return (body(map, pl[0], pl[1]));
 }
 
-/*
-RETURNS: 0 if C not in STACK else 1. */
-int	ft_isinstr(const char *stack, char c)
-{
-	int	i;
-
-	i = 0;
-	if (stack == NULL)
-		return (0);
-	while (stack[i] != '\0')
-	{
-		if (stack[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
+/* Check if the passed array of arrays (MAP) is valid
+	and if there is no strange behavior.
+RETURNS: 0 on success, != 0 on fail. */
 int	map_validator(char **map)
 {
 	int		i;

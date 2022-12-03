@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:40:28 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/09/30 17:55:58 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:36:41 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*ft_recover(int fd, char *buff)
 	return (buff);
 }
 
+/* Read the next line of a file descriptor (FD).
+RETURNS: The pointer to a freeable string.*/
 char	*get_next_line(int fd)
 {
 	char		*line;

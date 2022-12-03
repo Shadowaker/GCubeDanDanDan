@@ -4,6 +4,7 @@ MAIN = srcs/cub3d.c
 ENGINE = $(wildcard srcs/engine/*.c)
 TEXT = $(wildcard srcs/engine/textures/*.c)
 UTI = $(wildcard srcs/utils/*.c)
+MAPS = $(wildcard maps/*.cub)
 
 SRC = $(ENGINE) $(UTI) $(MAIN) $(TEXT)
 HDRS = incl/gcube.h
@@ -54,7 +55,7 @@ re: clean2 $(NAME)
 # GIT UTILITIES
 
 git: fclean
-	@git add $(SRC) mlx/ Makefile $(HDRS) $(wildcard *.cub)
+	@git add $(SRC) mlx/ Makefile $(HDRS) $(MAPS)
 	git status
 
 gcubepush:

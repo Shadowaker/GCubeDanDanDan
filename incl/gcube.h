@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/25 12:18:22 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:49:50 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(const char *s, char c);
 char	*ft_freejoin(char *s1, char *s2);
 char	*ft_strreplace(char const *src, char *stack, char *paste);
+char	*str_constructor(char c, int size);
+int		ft_isinstr(const char *stack, char c);
 
 //			GNL
 int			ft_find_line(char *s);

@@ -6,12 +6,13 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:03:55 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/13 16:22:01 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:39:00 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/gcube.h"
 
+/* DEPRECATED */
 int	isincircle(int cx, int cy, int x, int y)
 {
 	int	distance;

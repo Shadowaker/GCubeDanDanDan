@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/03 16:35:30 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:54:42 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ void	_init_directions(t_game *game, t_player *player)
 	game->player = player;
 }
 
-void	_init(t_game *game, t_img *img, t_textures *texts)
+void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 {
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
 	game->minimap[0] = 150;
 	game->minimap[1] = 150;
-	game->map = map_init("map4.cub");
+	game->map = map_init(path);
 	if (map_validator(game->map) != 0)
 	{
 		printf("Error:	Bad map\n");
@@ -147,14 +147,16 @@ int	game_loop(t_game *game)
 	return (0);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
 	t_game		game;
 	t_player	player;
 	t_img		img;
 	t_textures	texts;
 
-	_init(&game, &img, &texts);
+	if (argc != 2)
+		return (printf(RED "ERROR:\t" BLANK "Bad argument.\nNo map passed.\n"));
+	_init(&game, &img, &texts, argv[1]);
 	_init_directions(&game, &player);
 	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ncam x: %lf\ncam y: %lf\nkeycode: %d\n",
 		game.player->pos[0], game.player->pos[1], game.player->cam_plane[0], game.player->cam_plane[1], 0);

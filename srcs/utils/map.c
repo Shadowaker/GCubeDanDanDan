@@ -6,27 +6,13 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/11/25 12:34:54 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:46:46 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/gcube.h"
 
-/*
-RETURNS: the length of the string S passed. */
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	if (s == NULL)
-		return (0);
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-/*Create an array of arrays, copy the passed array of arrays [MAT]
+/* Create an array of arrays, copy the passed array of arrays [MAT]
 	and add at the end the passed string [STR].
 	Then free the orginal array of arrays.
 RETURNS: The new array of arrays.*/
@@ -44,6 +30,9 @@ char	**expand_mat(char **mat, char *str)
 	return (res);
 }
 
+/* Replace any occurrence of STACK in every array of a matrix (MAT)
+	and replace it with PASTE.
+RETURNS: */
 void	replace_occurence_mat(char **mat, char *stack, char *paste)
 {
 	int		i;
@@ -60,20 +49,7 @@ void	replace_occurence_mat(char **mat, char *stack, char *paste)
 	}
 }
 
-char	*str_constructor(char c, int size)
-{
-	char	*res;
-	int		i;
-
-	res = malloc(size + 1);
-	i = 0;
-	while (i < size)
-		res[i++] = c;
-	res[i] = '\0';
-	return (res);
-}
-
-void	map_format(char **map)
+static void	map_format(char **map)
 {
 	int		i;
 	int		size[2];
@@ -92,14 +68,14 @@ void	map_format(char **map)
 	{
 		size[0] = ft_strlen(map[i]);
 		if (size[0] < size[1])
-		{
-			//printf("@%s@\n@%s@\n", map[i], str_constructor(' ', size[1] - size[0]));
 			map[i] = ft_freejoin(map[i], str_constructor(' ', size[1] - size[0]));
-		}
 		i++;
 	}
 }
 
+/* Init the passed map in file (PATH) and format it to the
+	standard array of arrays of chars.
+RETURNS: A freeable pointer to the game map.*/
 char	**map_init(char *path)
 {
 	int		fd;
