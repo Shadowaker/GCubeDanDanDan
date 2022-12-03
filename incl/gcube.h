@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/03 17:49:50 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:25:08 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define MOVSPEED 0.03
 # define ROTSPEED 0.06
 
-# define PLAYER_R 4
+# define PLAYER_R 10
 
 # define BARREL "../srcs/sprites/test/barrel.xpm"
 # define BLUESTONE "../srcs/sprites/test/bluestone.xpm"
@@ -126,6 +126,7 @@ char	*ft_freejoin(char *s1, char *s2);
 char	*ft_strreplace(char const *src, char *stack, char *paste);
 char	*str_constructor(char c, int size);
 int		ft_isinstr(const char *stack, char c);
+void	find_char(char **map, char c, int *ids);
 
 //			GNL
 int			ft_find_line(char *s);

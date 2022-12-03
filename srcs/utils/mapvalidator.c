@@ -6,29 +6,11 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/03 17:49:15 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:18:53 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/gcube.h"
-
-static void	find_char(char **map, char c, int *ids)
-{
-	ids[1] = 0;
-	while (map[ids[1]] != NULL)
-	{
-		ids[0] = 0;
-		while (map[ids[1]][ids[0]] != '\0')
-		{
-			if (map[ids[1]][ids[0]] == c)
-				return ;
-			ids[0]++;
-		}
-		ids[1]++;
-	}
-	ids[1] = -1;
-	ids[0] = -1;
-}
 
 static int	body(char **map, int x, int y)
 {

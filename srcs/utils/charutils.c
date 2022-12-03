@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
+/*   charutils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/03 17:42:46 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/03 17:47:34 by dridolfo         ###   ########.fr       */
+/*   Created: 2022/12/03 18:19:13 by dridolfo          #+#    #+#             */
+/*   Updated: 2022/12/03 18:21:54 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/gcube.h"
 
-/*
-RETURNS: the length of the string S passed. */
-size_t	ft_strlen(const char *s)
+/* Find the coordinates (IDS) of a char c in an array
+	of arrays (map).
+	If the char was not found the coords will be negative.
+RETURNS: */
+void	find_char(char **map, char c, int *ids)
 {
-	size_t	i;
-
-	i = 0;
-	if (s == NULL)
-		return (0);
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	ids[1] = 0;
+	while (map[ids[1]] != NULL)
+	{
+		ids[0] = 0;
+		while (map[ids[1]][ids[0]] != '\0')
+		{
+			if (map[ids[1]][ids[0]] == c)
+				return ;
+			ids[0]++;
+		}
+		ids[1]++;
+	}
+	ids[1] = -1;
+	ids[0] = -1;
 }
 
 /*
@@ -42,19 +50,4 @@ int	ft_isinstr(const char *stack, char c)
 		i++;
 	}
 	return (0);
-}
-
-/* Construct a string with tot (SIZE) characters (C)
-RETURNS: A freeable pointer to the new string. */
-char	*str_constructor(char c, int size)
-{
-	char	*res;
-	int		i;
-
-	res = malloc(size + 1);
-	i = 0;
-	while (i < size)
-		res[i++] = c;
-	res[i] = '\0';
-	return (res);
 }
