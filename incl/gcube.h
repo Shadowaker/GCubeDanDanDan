@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/03 18:25:08 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/05 08:32:36 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_ray {
 	double	wall_dist;
 }			t_ray;
 
-// Texture memory
+// Texture memory -> Drunk Dan was here
 typedef struct s_tex {
 	t_img	xpm;
 	int		w;

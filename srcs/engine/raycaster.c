@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:06:57 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/10/18 19:26:29 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/05 10:49:11 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ static void	dda(t_game *game, t_ray *ray)
 	int	hit;
 
 	hit = 0;
+	if (game->map[(ray->pos[1])][(ray->pos[0])] == '1')
+	{
+		if (ray->side_dist[0] < ray->side_dist[1])
+			ray->side = 0;
+		else
+			ray->side = 1;
+		return ;
+	}
 	while (hit == 0)
 	{
 		if (ray->side_dist[0] < ray->side_dist[1])
