@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:39:40 by gcucino           #+#    #+#             */
-/*   Updated: 2022/12/03 18:49:50 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:58:44 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,50 +179,29 @@ void	fill_zero(char **mat, int size)
 		mat[i++] = NULL;
 }
 
-/*TOO TIRED TO THINK STRAIGHT, prolly all wrong and shit*/
-char	**map_4_minimap(t_game *game, char **map)
+char	**map_for_mini(t_game *game)
 {
-	int		ids[2];
-	int		iters[2];
-	int		help[2];
+	int		pl[2];
+	int		iter[2];
 	char	**res;
 
-	find_char(map, 'N', ids);
-	if (ids[0] == -1 || ids[1] == -1)
-		return (1);
-	res = malloc(sizeof(char *) * (PLAYER_R + 1));
-	fill_zero(res, PLAYER_R + 1);
-	iters[1] = ids[1] - PLAYER_R;
-	help[1] = 0;
-	while (iters[1] < ids[1] + PLAYER_R)
-	{
-		if (iters[1] >= 0 && iters[1] < game->map_h)
-		{
-			iters[0] = ids[0] - PLAYER_R;
-			help[0] = 0;
-			while (iters[0] < ids[0] + PLAYER_R)
-			{
-				if (iters[0] >= 0 && iters[0] < game->map_w)
-					res[help[1]][help[0]] = map[iters[1]][iters[0]++];
-				else
-					res[help[1]][help[0]] = ' ';
-				help[0]++;
-			}
-			res[help[1]][help[0]] = '\0';
-		}
-		else
-		{
-			iters[0] = ids[0] - PLAYER_R;
-			help[0] = 0;
-			while (iters[0]++ < ids[0] + PLAYER_R)
-			{
-				res[help[1]][help[0]] = ' ';
-				help[0]++;
-			}
-			res[help[1]][help[0]] = '\0';
-		}
-		help[1]++;
-		iters[1]++;
-	}
+	pl[0] = (int) game->player->pos[0];
+	pl[1] = (int) game->player->pos[1];
 
+	int i;
+
+	i = 0;
+	res = malloc(sizeof(char *) * 11);
+	while (i < 11)
+		res[i++] = ft_calloc(1, 11);
+
+	if (pl[0] - 10 < 0)
+		iter[0] = 0;
+	else
+		iter[0] = pl[0] - 10;
+	if (pl[1] - 10 < 0)
+		iter[1] = 0;
+	else
+		iter[1] = pl[1] - 10;
+	if (pl[])
 }

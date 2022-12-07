@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/07 18:28:43 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/07 18:34:27 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ void	move_cam(t_game *game, double dir)
 	game->player->cam_plane[1] = o_cam_dirx * sin(rot_dir) + game->player->cam_plane[1] * cos(rot_dir);
 }
 
+/*
+	The worst thing I have ever coded but works, so Dan is happy
+*/
 void	move_up_down(t_game *game, double dir)
 {
 	double	npos_x;
@@ -109,7 +112,6 @@ void	move_up_down(t_game *game, double dir)
 
 	if (game->map[(int) npos_y][(int) npos_x] == '1')
 		return ;
-
 	if ((((int) fabs(game->player->pos[0] - npos_x)) == ((int) fabs(game->player->pos[1] - npos_y))) &&
 		(((int) game->player->pos[0]) != ((int) npos_x) && ((int) game->player->pos[1]) != ((int) npos_x)))
 	{
@@ -126,7 +128,6 @@ void	move_up_down(t_game *game, double dir)
 				return ;
 		}
 	}
-
 	game->player->pos[0] = npos_x;
 	game->player->pos[1] = npos_y;
 }
