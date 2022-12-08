@@ -181,7 +181,7 @@ void	fill_zero(char **mat, int size)
 
 char	**map_for_mini(t_game *game)
 {
-	int		pl[2];
+	/*int		pl[2];
 	int		iter[2];
 	char	**res;
 
@@ -203,5 +203,5 @@ char	**map_for_mini(t_game *game)
 		iter[1] = 0;
 	else
 		iter[1] = pl[1] - 10;
-	if (pl[])
+	if (pl[])*/;
 }

@@ -18,7 +18,12 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
-# include "../mlx/mlxo/mlx.h"
+
+# ifndef LIN
+# 	include "../mlx/mlxo/mlx.h"
+# else
+#   include "../mlx_linux/mlx.h" 
+# endif
 
 # define RED "\033[91m"
 # define GREEN "\033[92m"
