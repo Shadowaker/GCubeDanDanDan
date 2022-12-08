@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:39:40 by gcucino           #+#    #+#             */
-/*   Updated: 2022/12/07 19:58:44 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:57:05 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,40 +168,4 @@ void	draw_minimap(t_game *game, t_img *img)
 		y++;
 	}
 	draw_circle(game, pl, pl, 10);
-}
-
-void	fill_zero(char **mat, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-		mat[i++] = NULL;
-}
-
-char	**map_for_mini(t_game *game)
-{
-	/*int		pl[2];
-	int		iter[2];
-	char	**res;
-
-	pl[0] = (int) game->player->pos[0];
-	pl[1] = (int) game->player->pos[1];
-
-	int i;
-
-	i = 0;
-	res = malloc(sizeof(char *) * 11);
-	while (i < 11)
-		res[i++] = ft_calloc(1, 11);
-
-	if (pl[0] - 10 < 0)
-		iter[0] = 0;
-	else
-		iter[0] = pl[0] - 10;
-	if (pl[1] - 10 < 0)
-		iter[1] = 0;
-	else
-		iter[1] = pl[1] - 10;
-	if (pl[])*/;
 }

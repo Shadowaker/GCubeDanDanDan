@@ -60,8 +60,8 @@ clean:
 	@echo "$(RED)Cleaning..."
 	@(${RM} $(OBJ))
 	@make -C ./mlx/mlxo/ clean
-	@make -C ./mlx_linux clean
 	@echo "$(BLANK)"
+#@make -C ./mlx_linux clean
 
 clear: clean
 
