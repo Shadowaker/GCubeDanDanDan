@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/05 08:32:36 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/29 17:58:51 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # ifndef LIN
 # 	include "../mlx/mlxo/mlx.h"
 # else
-#   include "../mlx_linux/mlx.h" 
+#   include "../mlx_linux/mlx.h"
 # endif
 
 # define RED "\033[91m"
@@ -52,17 +52,17 @@
 
 # define PLAYER_R 10
 
-# define BARREL "../srcs/sprites/test/barrel.xpm"
-# define BLUESTONE "../srcs/sprites/test/bluestone.xpm"
-# define COLORSTONE "../srcs/sprites/test/colorstone.xpm"
-# define EAGLE "../srcs/sprites/test/eagle.xpm"
-# define GREENLIGHT "../srcs/sprites/test/greenlight.xpm"
-# define GREYSTONE "../srcs/sprites/test/greystone.xpm"
-# define MOSSY "../srcs/sprites/test/mossy.xpm"
-# define PILLAR "../srcs/sprites/test/pillar.xpm"
-# define PURPLESTONE "../srcs/sprites/test/purplestone.xpm"
-# define REDBRICK "../srcs/sprites/test/redbrick.xpm"
-# define WOOD "../srcs/sprites/test/wood.xpm"
+# define BARREL "./srcs/sprites/test/barrel.xpm"
+# define BLUESTONE "./srcs/sprites/test/bluestone.xpm"
+# define COLORSTONE "./srcs/sprites/test/colorstone.xpm"
+# define EAGLE "./srcs/sprites/test/eagle.xpm"
+# define GREENLIGHT "./srcs/sprites/test/greenlight.xpm"
+# define GREYSTONE "./srcs/sprites/test/greystone.xpm"
+# define MOSSY "./srcs/sprites/test/mossy.xpm"
+# define PILLAR "./srcs/sprites/test/pillar.xpm"
+# define PURPLESTONE "./srcs/sprites/test/purplestone.xpm"
+# define REDBRICK "./srcs/sprites/test/redbrick.xpm"
+# define WOOD "./srcs/sprites/test/wood.xpm"
 
 // Main game struct
 typedef struct s_game {
@@ -115,12 +115,11 @@ typedef struct s_tex {
 	t_img	xpm;
 	int		w;
 	int		h;
-	int		*rgb[3];		// meh
 }			t_tex;
 
 typedef struct s_textures {
-	t_tex	*wall;
-	t_tex	*wall_side;
+	t_tex	wall;
+	t_tex	wall_side;
 }			t_textures;
 
 //			STRING UTILS
@@ -170,5 +169,9 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	draw_square(t_img *img, int len, int offset_x, int offset_y);
 void	draw_minimap(t_game *game, t_img *img);
 void	draw_ray_minimap(t_ray *ray, int x, t_img *img);
+
+int		get_rgb(char *addr, int x, int y);
+void	draw_ray_text(t_ray *ray, int x, int color, t_img *img);
+int		raycast_text(t_game *game, t_img *img, t_ray *ray);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/07 18:34:27 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/29 16:30:36 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ int	game_loop(t_game *game)
 	ft_memset(&ray, 0, sizeof(t_ray));
 	engine(game, game->img, &ray);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img->img, 0, 0);
+	load_images(game);
 	return (0);
 }
 

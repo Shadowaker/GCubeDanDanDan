@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycaster.c                                        :+:      :+:    :+:   */
+/*   raycaster_text.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 19:06:57 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/05 10:49:11 by dridolfo         ###   ########.fr       */
+/*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
+/*   Updated: 2022/12/29 17:59:08 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incl/gcube.h"
+#include "../../../incl/gcube.h"
 
 // Initialize ray variables
 static void	init_ray(t_game *game, t_ray *ray)
@@ -109,7 +109,7 @@ static void	init_draw(t_game *game, t_ray *ray)
 }
 
 // Cast the ray. (NS)
-int	raycast(t_game *game, t_img *img, t_ray *ray)
+int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 {
 	int	i;
 
@@ -129,7 +129,39 @@ int	raycast(t_game *game, t_img *img, t_ray *ray)
 		calc_incr(game, ray);
 		dda(game, ray);
 		init_draw(game, ray);
-		draw_ray(ray, i, 0, img);
+
+		double wallX; //where exactly the wall was hit
+		if (ray->side == 0)
+			wallX = game->player->pos[1] + ray->wall_dist * ray->dir[1];
+		else
+			wallX = game->player->pos[0] + ray->wall_dist * ray->dir[0];
+		wallX -= floor((wallX));
+
+		//x coordinate on the texture
+		int texX = (int) (wallX * 64.0);
+		if(ray->side == 0 && ray->dir[0] > 0)
+			texX = 64 - texX - 1;
+		if(ray->side == 1 && ray->dir[1] < 0)
+			texX = 64 - texX - 1;
+
+		// How much to increase the texture coordinate per screen pixel
+		double step = 1.0 * 64 / ray->wall_height;
+		// Starting texture coordinate
+		double texPos = (ray->draw[0] - WINDOW_H / 2 + ray->wall_height / 2) * step;
+		int color;
+
+		color = 0;
+		for(int y = ray->draw[0]; y < ray->draw[1]; y++)
+		{
+			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+			int texY = (int)texPos & (64 - 1);
+			texPos += step;
+			if (ray->side == 1)
+				color = get_rgb(game->texts->wall_side.xpm.addr, texX, texY);
+			else
+				color = get_rgb(game->texts->wall.xpm.addr, texX, texY);
+		}
+		draw_ray_text(ray, i, color, img);
 		i++;
 	}
 	return (0);

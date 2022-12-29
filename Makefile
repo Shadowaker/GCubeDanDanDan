@@ -2,12 +2,11 @@ NAME = cub3d
 OS = $(shell uname)
 
 MAIN = srcs/cub3d.c
-ENGINE = $(wildcard srcs/engine/*.c)
-TEXT = $(wildcard srcs/engine/textures/*.c)
+ENGINE = $(wildcard srcs/engine/*.c) $(wildcard srcs/engine/untextured/*.c) $(wildcard srcs/engine/textured/*.c)
 UTI = $(wildcard srcs/utils/*.c)
 MAPS = $(wildcard maps/*.cub)
 
-SRC = $(ENGINE) $(UTI) $(MAIN) $(TEXT)
+SRC = $(ENGINE) $(UTI) $(MAIN)
 HDRS = incl/gcube.h
 
 OBJ = $(SRC:.c=.o)
