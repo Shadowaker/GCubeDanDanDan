@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:57:47 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/29 17:55:56 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/30 13:43:42 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ void	draw_ray_text(t_ray *ray, int x, int color, t_img *img)
 	{
 		if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
 		{
-			if (ray->side == 1)
-				my_mlx_pixel_put(img, x, v, 0x0040c600 / 2);
-			else
-				my_mlx_pixel_put(img, x, v, 0x0040c600);
+			my_mlx_pixel_put(img, x, v, color);
 		}
 		v++;
 	}

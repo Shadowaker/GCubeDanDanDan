@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:36:43 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/29 16:53:47 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:35:10 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ int	get_rgb(char *addr, int x, int y)
 void	load_images(t_game *game)
 {
 	load_text(game, &(game->texts->wall), PURPLESTONE);
-	load_text(game, &(game->texts->wall_side), PURPLESTONE);
+	load_text(game, &(game->texts->wall_side), GREYSTONE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/29 16:30:36 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/30 13:42:11 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,6 @@ int	game_loop(t_game *game)
 	ft_memset(&ray, 0, sizeof(t_ray));
 	engine(game, game->img, &ray);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img->img, 0, 0);
-	load_images(game);
 	return (0);
 }
 
@@ -178,6 +177,7 @@ int main(int argc, char **argv)
 		return (printf(RED "ERROR:\t" BLANK "Bad argument.\nNo map passed.\n"));
 	_init(&game, &img, &texts, argv[1]);
 	_init_directions(&game, &player);
+	load_images(&game);
 	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ncam x: %lf\ncam y: %lf\nkeycode: %d\n",
 		game.player->pos[0], game.player->pos[1], game.player->cam_plane[0], game.player->cam_plane[1], 0);
 	mlx_hook(game.mlx_win, 17, 0, end_game, &game);

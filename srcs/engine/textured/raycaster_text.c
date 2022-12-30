@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/29 17:59:08 by dridolfo         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:44:20 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 			wallX = game->player->pos[1] + ray->wall_dist * ray->dir[1];
 		else
 			wallX = game->player->pos[0] + ray->wall_dist * ray->dir[0];
-		wallX -= floor((wallX));
+		wallX -= floor(wallX);
 
 		//x coordinate on the texture
 		int texX = (int) (wallX * 64.0);
@@ -145,24 +145,57 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 			texX = 64 - texX - 1;
 
 		// How much to increase the texture coordinate per screen pixel
-		double step = 1.0 * 64 / ray->wall_height;
+		int step = 1 * 64 / ray->wall_height;
 		// Starting texture coordinate
-		double texPos = (ray->draw[0] - WINDOW_H / 2 + ray->wall_height / 2) * step;
-		int color;
+		int texPos = (ray->draw[0] - WINDOW_H / 2 + ray->wall_height / 2) * step;
 
-		color = 0;
-		for(int y = ray->draw[0]; y < ray->draw[1]; y++)
+		int	v;
+		v = 0;
+		while (v < ray->draw[0])
+		{
+			if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
+				my_mlx_pixel_put(img, i, v, 0x000089AD);
+			v++;
+		}
+
+		int color = 0;
+		while (v < ray->draw[1])
+		{
+			if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
+			{
+				int texY = texPos & (64 - 1);
+				texPos += step;
+				if (ray->side == 1)
+					color = get_rgb(game->texts->wall_side.xpm.addr, texX, texY);
+				else
+					color = get_rgb(game->texts->wall.xpm.addr, texX, texY);
+				my_mlx_pixel_put(img, i, v, color);
+			}
+			v++;
+		}
+
+		while (v < WINDOW_H)
+		{
+			if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
+				my_mlx_pixel_put(img, i, v, 0x00403125);
+			v++;
+		}
+		//draw_ray_text(ray, i, color, img);
+		i++;
+	}
+	return (0);
+}
+
+/*
+for(int y = ray->draw[0]; y < ray->draw[1]; y++)
 		{
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-			int texY = (int)texPos & (64 - 1);
+			int texY = texPos & (64 - 1);
 			texPos += step;
 			if (ray->side == 1)
 				color = get_rgb(game->texts->wall_side.xpm.addr, texX, texY);
 			else
 				color = get_rgb(game->texts->wall.xpm.addr, texX, texY);
+			draw_ray_text(ray, i, color, img);
 		}
-		draw_ray_text(ray, i, color, img);
-		i++;
-	}
-	return (0);
-}
+*/
