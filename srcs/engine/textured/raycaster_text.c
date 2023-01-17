@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/30 17:44:20 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/17 12:03:48 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,16 @@ static void	init_draw(t_game *game, t_ray *ray)
 		ray->draw[1] = WINDOW_H - 1;
 }
 
+unsigned int	get_pixel(t_img *img, int x, int y)
+{
+	char	*dest;
+
+	if (x <= 0 || x >= 64 || y < 0 || y >= 64)
+		return (1);
+	dest = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	return (*(unsigned int *)dest);
+}
+
 // Cast the ray. (NS)
 int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 {
@@ -145,9 +155,9 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 			texX = 64 - texX - 1;
 
 		// How much to increase the texture coordinate per screen pixel
-		int step = 1 * 64 / ray->wall_height;
+		double step = 1.0 * 64.0 / ((double) ray->wall_height);
 		// Starting texture coordinate
-		int texPos = (ray->draw[0] - WINDOW_H / 2 + ray->wall_height / 2) * step;
+		double texPos = (((double) ray->draw[0]) - WINDOW_H / 2 + ray->wall_height / 2) * step;
 
 		int	v;
 		v = 0;
@@ -159,20 +169,22 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 		}
 
 		int color = 0;
+		v = ray->draw[0];
 		while (v < ray->draw[1])
 		{
-			if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
-			{
-				int texY = texPos & (64 - 1);
+			//if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
+
+				int texY = (int) texPos & (64 - 1);
 				texPos += step;
 				if (ray->side == 1)
-					color = get_rgb(game->texts->wall_side.xpm.addr, texX, texY);
+					color = get_pixel(&game->texts->wall_side.xpm, texX, texY);
 				else
-					color = get_rgb(game->texts->wall.xpm.addr, texX, texY);
+					color = get_pixel(&game->texts->wall.xpm, texX, texY);
 				my_mlx_pixel_put(img, i, v, color);
-			}
+				//printf("%d - %d - %d\n", color, texX, texY);
 			v++;
 		}
+		//return (1);
 
 		while (v < WINDOW_H)
 		{
