@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/17 12:03:48 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/17 14:17:56 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,19 +172,15 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 		v = ray->draw[0];
 		while (v < ray->draw[1])
 		{
-			//if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
-
-				int texY = (int) texPos & (64 - 1);
-				texPos += step;
-				if (ray->side == 1)
-					color = get_pixel(&game->texts->wall_side.xpm, texX, texY);
-				else
-					color = get_pixel(&game->texts->wall.xpm, texX, texY);
-				my_mlx_pixel_put(img, i, v, color);
-				//printf("%d - %d - %d\n", color, texX, texY);
+			int texY = (int) texPos & (64 - 1);
+			texPos += step;
+			if (ray->side == 1)
+				color = get_pixel(&game->texts->wall_side.xpm, texX, texY);
+			else
+				color = get_pixel(&game->texts->wall.xpm, texX, texY);
+			my_mlx_pixel_put(img, i, v, color);
 			v++;
 		}
-		//return (1);
 
 		while (v < WINDOW_H)
 		{
@@ -192,22 +188,10 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 				my_mlx_pixel_put(img, i, v, 0x00403125);
 			v++;
 		}
-		//draw_ray_text(ray, i, color, img);
 		i++;
 	}
+
+	draw_crosshair(img);
+
 	return (0);
 }
-
-/*
-for(int y = ray->draw[0]; y < ray->draw[1]; y++)
-		{
-			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-			int texY = texPos & (64 - 1);
-			texPos += step;
-			if (ray->side == 1)
-				color = get_rgb(game->texts->wall_side.xpm.addr, texX, texY);
-			else
-				color = get_rgb(game->texts->wall.xpm.addr, texX, texY);
-			draw_ray_text(ray, i, color, img);
-		}
-*/

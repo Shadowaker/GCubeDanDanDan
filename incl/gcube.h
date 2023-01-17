@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/29 17:58:51 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:33:27 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ char	*ft_strreplace(char const *src, char *stack, char *paste);
 char	*str_constructor(char c, int size);
 int		ft_isinstr(const char *stack, char c);
 void	find_char(char **map, char c, int *ids);
+char	*ft_strreverse(char *str);
 
 //			GNL
 int			ft_find_line(char *s);
@@ -146,6 +147,7 @@ void		ft_cpmat(char **src, char **dst, int start);
 int			ft_matlen(char **arr);
 void		free_mat(char **mat);
 void		print_mat(char **mat, char del);
+char		**ft_revmat(char **mat);
 
 //			UTILS
 void	*ft_memset(void *b, int c, size_t len);
@@ -172,6 +174,7 @@ void	draw_ray_minimap(t_ray *ray, int x, t_img *img);
 
 int		get_rgb(char *addr, int x, int y);
 void	draw_ray_text(t_ray *ray, int x, int color, t_img *img);
+void	draw_crosshair(t_img *img);
 int		raycast_text(t_game *game, t_img *img, t_ray *ray);
 
 #endif

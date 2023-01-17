@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/03 17:46:46 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:34:35 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	**map_init(char *path)
 	int		fd;
 	char	*str;
 	char	*res;
+	char	**maptemp;
 	char	**map;
 
 	fd = open(path, O_RDONLY);
@@ -95,7 +96,9 @@ char	**map_init(char *path)
 		str = get_next_line(fd);
 	}
 	close(fd);
-	map = ft_split(res, '\n');
+	maptemp = ft_split(res, '\n');
+	map = ft_revmat(maptemp);
+	free(maptemp);
 	replace_occurence_mat(map, "\t", "    ");
 	map_format(map);
 	print_mat(map, '@');

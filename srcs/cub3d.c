@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/30 13:42:11 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/17 14:13:04 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	_init_directions(t_game *game, t_player *player)
 {
 	if (_init_culo(game, player) == 0)
 		return ;
-	player->dir[0] = -1.0;
-	player->dir[1] = 0.0;
-	player->cam_plane[0] = 0.0;
-	player->cam_plane[1] = -0.66;
+	player->dir[0] = -0.0;
+	player->dir[1] = -1.0;
+	player->cam_plane[0] = -0.66;
+	player->cam_plane[1] = -0.0;
 	game->player = player;
 }
 
@@ -143,11 +143,11 @@ int	key_filter(int keycode, t_game *game)
 		end_game(game, 0);
 	else if (keycode == 13)
 	{
-		move_up_down(game, 1.0);
+		move_up_down(game, -1.0);
 	}
 	else if (keycode == 1)
 	{
-		move_up_down(game, -1.0);
+		move_up_down(game, 1.0);
 	}
 	else if (keycode == 123)
 		move_cam(game, -1.0);
