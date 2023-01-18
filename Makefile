@@ -10,7 +10,8 @@ SRC = $(ENGINE) $(UTI) $(MAIN)
 HDRS = incl/gcube.h
 
 OBJ = $(SRC:.c=.o)
-ASS = gcc -Wall -Wextra -Werror
+ASS = gcc
+CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 
 RED = "\\033[91m"
@@ -22,13 +23,11 @@ CYAN = "\\033[96m"
 BLANK = "\\033[0m"
 SEP = "***********************************************************"
 
-.SILENT: all linux mac
-
 %.o: %.c
 	@if [ $(OS) = "Darwin" ]; then\
-		gcc -g -Imlx -I ${HDRS} -c $< -o $@;\
+		$(ASS) -Imlx -I ${HDRS} -c $< -o $@;\
 	else\
-		gcc -g -I/usr/include -Imlx_linux -O3 -I ${HDRS} -c $< -o $@;\
+		$(ASS) -I/usr/include -Imlx_linux -O3 -I ${HDRS} -c $< -o $@;\
 	fi
 
 $(NAME): $(OBJ)
@@ -53,7 +52,7 @@ linux:
 
 mac:
 	@(make -C ./mlx/mlxo/) 2> /dev/null
-	@gcc -g $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@$(ASS) $(CFLAGS) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:
 	@echo "$(RED)Cleaning..."
@@ -90,4 +89,5 @@ revert:
 	@git clean -fdx
 	@echo "$(GREEN) Done. $(BLANK)"
 
-.PHONY: all clean fclean re git clean2 clear revert linux mac
+.SILENT: all linux mac
+.PHONY: all clean fclean re git clean2 clear revert linux mac .SILENT
