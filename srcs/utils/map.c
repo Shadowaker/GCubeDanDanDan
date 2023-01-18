@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 13:57:39 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:55:28 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	parse_error(int fd, char *tobefreed)
 	return (1);
 }
 
-int parser(t_game *game, char *path)
+int parser(t_game *game, t_textures *texts, char *path)
 {
 	int		fd;
 	int		i;
@@ -147,7 +147,8 @@ int parser(t_game *game, char *path)
 	while (i < 4)
 	{
 		line = get_next_line(fd);
-		if (load_image(line) || !line)
+		line[ft_strlen(line) - 1] = '\0';
+		if (load_image(game, texts, line) || !line)
 			return (parse_error(fd, line));
 		free(line);
 		i++;
@@ -160,14 +161,15 @@ int parser(t_game *game, char *path)
 	while (i < 2)
 	{
 		line = get_next_line(fd);
-		if (load_rgb(line) || !line)
+		if (load_rgb(game, line) || !line)
 			return (parse_error(fd, line));
 		free(line);
 		i++;
 	}
 	line = get_next_line(fd);
-	if (load_map(game, fd) || !line)
+	if (map_init_(game, fd) || !line)
 		return (parse_error(fd, line));
 	free(line);
 	close(fd);
+	return (0);
 }

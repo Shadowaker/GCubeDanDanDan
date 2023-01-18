@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 12:54:23 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:58:06 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,12 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
 	game->minimap[0] = 150;
 	game->minimap[1] = 150;
-	game->map = map_init(path);
+	//game->map = map_init(path);
+	if(parser(game, texts, path))
+	{
+		printf("Error: Bad map file\n");
+		exit(127);
+	}
 	if (map_validator(game->map) != 0)
 	{
 		printf("Error:	Bad map\n");
@@ -88,6 +93,8 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 								&img->endian);
 	game->img = img;
 	game->texts = texts;
+	game->texts->wall = game->texts->no;
+	game->texts->wall_side = game->texts->ea;
 }
 
 void	move_cam(t_game *game, double dir)
@@ -178,7 +185,6 @@ int main(int argc, char **argv)
 		return (printf(RED "ERROR:\t" BLANK "Bad argument.\nNo map passed.\n"));
 	_init(&game, &img, &texts, argv[1]);
 	_init_directions(&game, &player);
-	load_images(&game);
 	debug_log(&game, 0);
 	mlx_hook(game.mlx_win, 17, 0, end_game, &game);
 	mlx_hook(game.mlx_win, 2, 1L<<0, key_filter, &game);

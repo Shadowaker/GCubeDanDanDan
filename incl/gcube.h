@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 13:59:16 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:12:00 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@
 # define ROTSPEED 0.06
 
 # define PLAYER_R 10
+# define F 0x000089AD
+# define C 0x00403125
 
 # define BARREL "./srcs/sprites/test/barrel.xpm"
 # define BLUESTONE "./srcs/sprites/test/bluestone.xpm"
@@ -73,6 +75,8 @@ typedef struct s_game {
 	int					minimap[2];
 	int					map_w;
 	int					map_h;
+	int					f[3];
+	int					c[3];
 	struct s_img		*img;
 	struct s_player		*player;
 	struct s_ray		*ray;
@@ -124,8 +128,6 @@ typedef struct s_textures {
 	t_tex	so;
 	t_tex	we;
 	t_tex	ea;
-	int		f[3];
-	int		c[3];
 }			t_textures;
 
 //			STRING UTILS
@@ -162,18 +164,25 @@ void		print_mat(char **mat, char del);
 //			UTILS
 int		isincircle(int cx, int cy, int x, int y);
 int		map_validator(char **map);
+int		ft_atoi(const char *str);
 
 double	absf(double i);
+
+unsigned long create_rgb(int r, int g, int b);
 
 void	*ft_memset(void *b, int c, size_t len);
 void	culo();
 void	*ft_calloc(size_t count, size_t size);
 
 //			INIT
+int		parser(t_game *game, t_textures *texts, char *path);
+int		load_image(t_game *game, t_textures *texts, char *path);
+int		load_rgb(t_game *game, char *line);
+
 char	**map_init(char *path);
 
 void	init_directions(t_game *game, char c);
-void	load_images(t_game *game);
+void	load_images(t_game *game);					// Deprecated
 
 //			ENGINE
 int		raycast(t_game *game, t_img *img, t_ray *ray);

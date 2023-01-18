@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 13:39:29 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 15:14:48 by dridolfo         ###   ########.fr       */
+/*   Created: 2023/01/18 14:42:10 by dridolfo          #+#    #+#             */
+/*   Updated: 2023/01/18 15:01:12 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/gcube.h"
 
-int	ft_strcmp(char *s1, char *s2)
+int	ft_atoi(const char *str)
 {
-	int	i;
+	int		i;
+	int		r;
+	int		s;
 
 	i = 0;
-	if	(!s1 || !s2)
-		return (-42);
-	while (s1[i] == s2[i] && s1[i] && s2[i])
+	r = 0;
+	s = 1;
+	if (ft_strcmp("-2147483648", (char *) str) == 0)
+		return (-2147483648);
+	while (str[i] != '\0' && ((str[i] > 8 && 14 > str[i]) || str[i] == 32))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		if (s1[i] == '\0' || s2[i] == '\0')
-			break ;
+		if (str[i] == '-')
+			s *= -1;
 		i++;
 	}
-	return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
+	while (str[i] != '\0' && (str[i] > 47 && str[i] < 58))
+	{
+		r *= 10;
+		r += (str[i] - 48);
+		i++;
+	}
+	return (r * s);
 }

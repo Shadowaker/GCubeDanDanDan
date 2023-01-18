@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 11:44:15 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:13:04 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 		while (v < ray->draw[0])
 		{
 			if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
-				my_mlx_pixel_put(img, i, v, 0x000089AD);
+				my_mlx_pixel_put(img, i, v, create_rgb(game->f[0], game->f[1], game->f[2]));
 			v++;
 		}
 
@@ -185,7 +185,7 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 		while (v < WINDOW_H)
 		{
 			if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
-				my_mlx_pixel_put(img, i, v, 0x00403125);
+				my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]));
 			v++;
 		}
 		i++;
