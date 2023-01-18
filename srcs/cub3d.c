@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 11:35:25 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:54:23 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 		printf("Error:	Bad map\n");
 		exit(127);
 	}
-	game->map_h = 10;
-	game->map_w = 10;
+	game->map_h = ft_matlen(game->map);
+	game->map_w = ft_strlen(game->map[0]);
 	img->img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
 								&img->endian);

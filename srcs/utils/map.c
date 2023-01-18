@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 11:09:26 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:52:53 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,72 @@ char	**map_init(char *path)
 	free(res);
 	printf("\n\n");
 	return (map);
+}
+
+int		map_init_(t_game *game, int fd)
+{
+	char	*str;
+	char	*res;
+	char	**map;
+
+	str = get_next_line(fd);
+	res = malloc(1);
+	res[0] = '\0';
+	if (str != NULL)
+		str[ft_strlen(str)] = '\0';
+	while (str != NULL)
+	{
+		res = ft_freejoin(res, str);
+		str = get_next_line(fd);
+	}
+	map = ft_split(res, '\n');
+	replace_occurence_mat(map, "\t", "    ");
+	map_format(map);
+	print_mat(map, '@');
+	free(res);
+	game->map = map;
+	return (0);
+}
+
+int	parse_error(int fd, char *tobefreed)
+{
+	close(fd);
+	free(tobefreed);
+	return (1);
+}
+
+int parser(t_game *game, char *path)
+{
+	int		fd;
+	int		i;
+	char	*line;
+
+	i = 0;
+	fd = open(path, O_RDONLY);
+	while (i < 4)
+	{
+		line = get_next_line(fd);
+		if (load_tex(line) || !line)
+			return (parse_error(fd, line));
+		free(line);
+		i++;
+	}
+	line = get_next_line(fd);
+	if (!line)
+		return (parse_error(fd, line));
+	free(line);
+	i = 0;
+	while (i < 2)
+	{
+		line = get_next_line(fd);
+		if (load_rgb(line) || !line)
+			return (parse_error(fd, line));
+		free(line);
+		i++;
+	}
+	line = get_next_line(fd);
+	if (load_map(game, fd) || !line)
+		return (parse_error(fd, line));
+	free(line);
+	close(fd);
 }
