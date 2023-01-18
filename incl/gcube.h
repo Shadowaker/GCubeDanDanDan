@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 11:36:57 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:59:16 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,18 +120,26 @@ typedef struct s_tex {
 typedef struct s_textures {
 	t_tex	wall;
 	t_tex	wall_side;
+	t_tex	no;
+	t_tex	so;
+	t_tex	we;
+	t_tex	ea;
+	int		f[3];
+	int		c[3];
 }			t_textures;
 
 //			STRING UTILS
 size_t	ft_strlen(const char *s);
+int		ft_isinstr(const char *stack, char c);
+int		ft_strcmp(char *s1, char *s2);
+
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(const char *s, char c);
 char	*ft_freejoin(char *s1, char *s2);
 char	*ft_strreplace(char const *src, char *stack, char *paste);
 char	*str_constructor(char c, int size);
-int		ft_isinstr(const char *stack, char c);
-void	find_char(char **map, char c, int *ids);
 char	*ft_strreverse(char *str);
+void	find_char(char **map, char c, int *ids);
 
 //			GNL
 int			ft_find_line(char *s);
@@ -142,39 +150,46 @@ char		*get_next_line(int fd);
 char		*ft_recover(int fd, char *buff);
 
 //			MATRIX UTILS
-char		**ft_matmerge(char **arr1, char **arr2);
-void		ft_cpmat(char **src, char **dst, int start);
 int			ft_matlen(char **arr);
-void		free_mat(char **mat);
-void		print_mat(char **mat, char del);
+
+char		**ft_matmerge(char **arr1, char **arr2);
 char		**ft_revmat(char **mat);
 
+void		free_mat(char **mat);
+void		ft_cpmat(char **src, char **dst, int start);
+void		print_mat(char **mat, char del);
+
 //			UTILS
+int		isincircle(int cx, int cy, int x, int y);
+int		map_validator(char **map);
+
+double	absf(double i);
+
 void	*ft_memset(void *b, int c, size_t len);
 void	culo();
-int		isincircle(int cx, int cy, int x, int y);
-double	absf(double i);
 void	*ft_calloc(size_t count, size_t size);
-int		map_validator(char **map);
 
 //			INIT
 char	**map_init(char *path);
+
 void	init_directions(t_game *game, char c);
 void	load_images(t_game *game);
 
 //			ENGINE
-void	engine(t_game *game, t_img *img, t_ray *ray);
 int		raycast(t_game *game, t_img *img, t_ray *ray);
+int		get_rgb(char *addr, int x, int y);
+int		raycast_text(t_game *game, t_img *img, t_ray *ray);
+
 double	deg_2_rad(double deg);
+
+void	engine(t_game *game, t_img *img, t_ray *ray);
 void	draw_ray(t_ray *ray, int x, int y, t_img *img);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	draw_square(t_img *img, int len, int offset_x, int offset_y);
 void	draw_minimap(t_game *game, t_img *img);
 void	draw_ray_minimap(t_ray *ray, int x, t_img *img);
-
-int		get_rgb(char *addr, int x, int y);
 void	draw_ray_text(t_ray *ray, int x, int color, t_img *img);
 void	draw_crosshair(t_img *img);
-int		raycast_text(t_game *game, t_img *img, t_ray *ray);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 12:52:53 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:57:39 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int parser(t_game *game, char *path)
 	while (i < 4)
 	{
 		line = get_next_line(fd);
-		if (load_tex(line) || !line)
+		if (load_image(line) || !line)
 			return (parse_error(fd, line));
 		free(line);
 		i++;
