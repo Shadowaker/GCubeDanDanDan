@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/17 14:13:04 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:35:25 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ void	culo()
 
 	printf("Culo %d\n", ass);
 	ass++;
+}
+
+void	debug_log(t_game *game, int keycode)
+{
+	printf(YELLOW "[DEBUG] -----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ncam x: %lf\ncam y: %lf\nkeycode: %d\n",
+		game->player->pos[0], game->player->pos[1], game->player->cam_plane[0], game->player->cam_plane[1], keycode);
 }
 
 int end_game(t_game *game, int arg)
@@ -56,9 +62,9 @@ void	_init_directions(t_game *game, t_player *player)
 {
 	if (_init_culo(game, player) == 0)
 		return ;
-	player->dir[0] = -0.0;
+	player->dir[0] = 0.0;
 	player->dir[1] = -1.0;
-	player->cam_plane[0] = -0.66;
+	player->cam_plane[0] = 0.66;
 	player->cam_plane[1] = -0.0;
 	game->player = player;
 }
@@ -137,18 +143,13 @@ int	key_filter(int keycode, t_game *game)
 	int	i;
 
 	i = 0;
-	printf(YELLOW "[DEBUG] -----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ncam x: %lf\ncam y: %lf\nkeycode: %d\n",
-		game->player->pos[0], game->player->pos[1], game->player->cam_plane[0], game->player->cam_plane[1], keycode);
+	debug_log(game, keycode);
 	if (keycode == 53)
 		end_game(game, 0);
 	else if (keycode == 13)
-	{
-		move_up_down(game, -1.0);
-	}
-	else if (keycode == 1)
-	{
 		move_up_down(game, 1.0);
-	}
+	else if (keycode == 1)
+		move_up_down(game, -1.0);
 	else if (keycode == 123)
 		move_cam(game, -1.0);
 	else if (keycode == 124)
@@ -178,8 +179,7 @@ int main(int argc, char **argv)
 	_init(&game, &img, &texts, argv[1]);
 	_init_directions(&game, &player);
 	load_images(&game);
-	printf(YELLOW "[DEBUG]-----------------------------------\n" BLANK "posx: %lf\nposy: %lf\ncam x: %lf\ncam y: %lf\nkeycode: %d\n",
-		game.player->pos[0], game.player->pos[1], game.player->cam_plane[0], game.player->cam_plane[1], 0);
+	debug_log(&game, 0);
 	mlx_hook(game.mlx_win, 17, 0, end_game, &game);
 	mlx_hook(game.mlx_win, 2, 1L<<0, key_filter, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
