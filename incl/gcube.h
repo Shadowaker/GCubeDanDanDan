@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 16:12:00 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/19 13:08:35 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 
 # define FOV 60
 # define PI 3.14159
-# define MOVSPEED 0.03
+# define MOVSPEED 0.04
 # define ROTSPEED 0.06
 
 # define PLAYER_R 10

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 15:58:06 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/19 13:08:13 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,19 @@ void	move_up_down(t_game *game, double dir)
 	game->player->pos[1] = npos_y;
 }
 
+void	move_left_rght(t_game *game, double dir)
+{
+	double	npos_x;
+	double	npos_y;
+
+	npos_x = game->player->pos[0] + (game->player->cam_plane[0] * MOVSPEED * dir);
+	npos_y = game->player->pos[1] + (game->player->cam_plane[1] * MOVSPEED * dir);
+	if (game->map[(int) npos_y][(int) npos_x] == 1)
+		return ;
+	game->player->pos[0] = npos_x;
+	game->player->pos[1] = npos_y;
+}
+
 int	key_filter(int keycode, t_game *game)
 {
 	int	i;
@@ -161,6 +174,10 @@ int	key_filter(int keycode, t_game *game)
 		move_cam(game, -1.0);
 	else if (keycode == 124)
 		move_cam(game, 1.0);
+	else if (keycode == 0)
+		move_left_rght(game, -1.0);
+	else if (keycode == 2)
+		move_left_rght(game, 1.0);
 	return (0);
 }
 
