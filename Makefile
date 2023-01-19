@@ -33,7 +33,7 @@ SEP = "***********************************************************"
 $(NAME): $(OBJ)
 	@echo "Trying to resolve OS..."
 	@echo "$(PURPLE)$(SEP)"
-	@echo "Compiling $(NAME)... $(YELLOW)"
+	@echo "Compiling $(NAME)... $(YELLOW)\n\n"
 
 	@if [ $(OS) = "Darwin" ]; then\
 		make mac;\
@@ -47,11 +47,15 @@ $(NAME): $(OBJ)
 all: $(NAME)
 
 linux:
+	@echo "Compiling $(BLUE)Linux$(YELLOW) mlx...\n"
 	@(make -C ./mlx_linux) 2> /dev/null
+	@echo "\n\n"
 	@gcc -g $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -D LIN=1 -o $(NAME)
 
 mac:
+	@echo "Compiling $(BLUE)Darwin$(YELLOW) mlx...\n"
 	@(make -C ./mlx/mlxo/) 2> /dev/null
+	@echo "\n\n"
 	@$(ASS) $(CFLAGS) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:
