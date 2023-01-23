@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:39:40 by gcucino           #+#    #+#             */
-/*   Updated: 2022/12/08 15:57:05 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:37:05 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,32 +74,6 @@ void	tdraw_circle(t_game *game, int r, int offset_x, int offset_y)
 		x++;
 	}
 }
-/*
-void	tdraw_minimap(t_game *game, t_img *img)
-{
-	;
-	int	x;
-	int	y;
-
-	x = 0;
-	draw_square(img, 200, 10, 10);
-	while (game->map[x] != NULL)
-	{
-		y = 0;
-		while (game->map[x][y] != '\0')
-		{
-			if (game->map[y][x] == '1')
-				draw_square_border(img, 20, (x * 20) + 10,  (y * 20) + 10);
-			//if (game->map[y][x] == 'N')
-			//	draw_square_border(img, 8, (x * 20) + 16,  (y * 20) + 16);
-			y++;
-		}
-		x++;
-	}
-	draw_circle(game, 8, (game->player->pos[0] * 20) + 5, (game->player->pos[1] * 20) + 5);
-}
-*/
-// =======================================================================================
 
 void	draw_circle(t_game *game, int cx, int cy, int r)
 {
@@ -115,7 +89,7 @@ void	draw_circle(t_game *game, int cx, int cy, int r)
 		{
 			isin = isincircle(cx, cy, x, y);
 			if (isin == 1)
-				my_mlx_pixel_put(game->img, x, y, 0x000089AD);
+				my_mlx_pixel_put(game->img, x, y, 0xFF0089AD);
 			else if (isin == 2)
 				my_mlx_pixel_put(game->img, x, y, 0x0000000);
 			x++;
@@ -124,48 +98,42 @@ void	draw_circle(t_game *game, int cx, int cy, int r)
 	}
 }
 
-int	fabs_minimap(int value)
+static void	draw_minimap(t_game *game, int start_x, int x)
 {
-	if (value < 0)
-		return (0);
-	return (value);
-}
-
-int	tabs_minimap(t_game *game, int value, int flg)
-{
-	if (value > game->map_w && flg == 0)
-		return (game->map_w - 1);
-	if (value > game->map_h && flg == 1)
-		return (game->map_h - 1);
-	return (value);
-}
-
-void	draw_minimap(t_game *game, t_img *img)
-{
-	int	pl;
-	int	x;
-	int	i;
+	int	start_y;
 	int	y;
-	int	j;
+	int	pix_x;
+	int	pix_y;
 
-	pl = (MINIMAP / 2) + MINIMAP_S;
-	y = fabs_minimap(game->player->pos[1] - 10);
-	j = 0;
-	while (j < game->map_h)
+	start_y = (int) floor(game->player->pos[1]);
+	y = start_y - PLAYER_R;
+	pix_x = 50 + ((x - start_x) * 10);
+	while (y <= start_y + 4)
 	{
-		i = 0;
-		x = fabs_minimap(game->player->pos[0] - 10);
-		while (i < game->map_w)
-		{
-			if (game->map[y][x] == '1')
-				draw_square_border(img, 20, (i * 20) + MINIMAP_S, (j * 20) + MINIMAP_S);
-			else
-				draw_square(img, 20, (i * 20) + MINIMAP_S, (j * 20) + MINIMAP_S);
-			i++;
-			x++;
-		}
-		j++;
+		pix_y = 50 + ((start_y - y) * 10);
+		if (x < 0 || y < 0 || y >= game->map_h
+			|| x >= game->map_w)
+			draw_square(game->img, 10, pix_x + 60, pix_y);
+		else if (x == start_x && y == start_y)
+			draw_circle(game, pix_x + 60, pix_y, 4);
+		else if (game->map[y][x] == '1')
+			draw_square_border(game->img, 10, pix_x + 60, pix_y);
+		else if (game->map[y][x] != '1')
+			draw_square(game->img, 10, pix_x + 60, pix_y);
 		y++;
 	}
-	draw_circle(game, pl, pl, 10);
+}
+
+void	render_minimap(t_game *game)
+{
+	int	start_x;
+	int	x;
+
+	start_x = (int) floor(game->player->pos[0]);
+	x = start_x - PLAYER_R;
+	while (x <= start_x + PLAYER_R)
+	{
+		draw_minimap(game, start_x, x);
+		x++;
+	}
 }
