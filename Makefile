@@ -50,7 +50,7 @@ linux:
 	@echo "Compiling $(BLUE)Linux$(YELLOW) mlx...\n"
 	@(make -C ./mlx_linux) 2> /dev/null
 	@echo "\n\n"
-	@gcc -g $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -D LIN=1 -o $(NAME)
+	@gcc -g $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -D LIN=1 TEXT=0 -o $(NAME)
 
 mac:
 	@echo "Compiling $(BLUE)Darwin$(YELLOW) mlx...\n"

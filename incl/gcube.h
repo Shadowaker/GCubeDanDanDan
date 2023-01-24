@@ -35,7 +35,10 @@
 
 # define BUFFER_SIZE 100
 # define STD_SIZE 500
-# define TEXT 0
+
+# ifndef TEXT
+#  define TEXT 1
+# endif
 
 # define WIDTH 24
 # define HEIGHT 24
@@ -54,6 +57,7 @@
 # define F 0x000089AD
 # define C 0x00403125
 
+// DEPRECATED
 # define BARREL "./srcs/sprites/test/barrel.xpm"
 # define BLUESTONE "./srcs/sprites/test/bluestone.xpm"
 # define COLORSTONE "./srcs/sprites/test/colorstone.xpm"
@@ -168,11 +172,9 @@ int		ft_atoi(const char *str);
 
 double	absf(double i);
 
-unsigned long create_rgb(int r, int g, int b);
-
 void	*ft_memset(void *b, int c, size_t len);
-void	culo();
 void	*ft_calloc(size_t count, size_t size);
+void	culo(int *i);
 
 //			INIT
 int		parser(t_game *game, t_textures *texts, char *path);
@@ -190,6 +192,9 @@ int		get_rgb(char *addr, int x, int y);
 int		raycast_text(t_game *game, t_img *img, t_ray *ray);
 
 double	deg_2_rad(double deg);
+
+unsigned long	create_rgb(int r, int g, int b);
+unsigned int	get_pixel(t_img *img, int x, int y);
 
 void	engine(t_game *game, t_img *img, t_ray *ray);
 void	draw_ray(t_ray *ray, int x, int y, t_img *img);

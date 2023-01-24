@@ -12,6 +12,16 @@
 
 #include "../../../incl/gcube.h"
 
+unsigned int	get_pixel(t_img *img, int x, int y)
+{
+	char	*dest;
+
+	if (x <= 0 || x >= 64 || y < 0 || y >= 64)
+		return (1);
+	dest = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	return (*(unsigned int *)dest);
+}
+
 void	draw_ray_text(t_ray *ray, int x, int color, t_img *img)
 {
 	int	v;
@@ -54,9 +64,4 @@ void	draw_crosshair(t_img *img)
 	i = 0;
 	while (i++ < 15)
 		my_mlx_pixel_put(img, WINDOW_W / 2, (WINDOW_H / 2) + i, 0x00F0F8FF);
-}
-
-unsigned long create_rgb(int r, int g, int b)
-{
-	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }

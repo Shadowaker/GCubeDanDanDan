@@ -108,16 +108,6 @@ static void	init_draw(t_game *game, t_ray *ray)
 		ray->draw[1] = WINDOW_H - 1;
 }
 
-unsigned int	get_pixel(t_img *img, int x, int y)
-{
-	char	*dest;
-
-	if (x <= 0 || x >= 64 || y < 0 || y >= 64)
-		return (1);
-	dest = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	return (*(unsigned int *)dest);
-}
-
 // Cast the ray. (NS)
 int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 {

@@ -12,12 +12,17 @@
 
 #include "../incl/gcube.h"
 
-void	culo()
+void	culo(int *i)
 {
 	static int ass = 0;
 
-	printf("Culo %d\n", ass);
-	ass++;
+	if (!i)
+	{
+		printf("Culo %d\n", ass);
+		ass++;
+	}
+	else
+		printf("Culo %d\n", *i);
 }
 
 void	debug_log(t_game *game, int keycode)
