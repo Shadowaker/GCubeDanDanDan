@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/23 18:33:14 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:34:51 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 		{
 			int texY = (int) texPos & (64 - 1);
 			texPos += step;
-			if (ray->side == 1)
+			if (ray->side == 0)
 				color = get_pixel(&game->texts->wall_side.xpm, texX, texY);
 			else
 				color = get_pixel(&game->texts->wall.xpm, texX, texY);

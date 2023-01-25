@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/19 13:08:13 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:52:58 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,27 @@ void	_init_directions(t_game *game, t_player *player)
 {
 	if (_init_culo(game, player) == 0)
 		return ;
+	/* NORTH
 	player->dir[0] = 0.0;
 	player->dir[1] = -1.0;
 	player->cam_plane[0] = 0.66;
-	player->cam_plane[1] = -0.0;
+	player->cam_plane[1] = -0.0; */
+	/* SOUTH
+	player->dir[0] = 0.0;
+	player->dir[1] = 1.0;
+	player->cam_plane[0] = -0.66;
+	player->cam_plane[1] = 0.0; */
+	/* WEST
+	player->dir[0] = -1.0;
+	player->dir[1] = 0.0;
+	player->cam_plane[0] = 0.0;
+	player->cam_plane[1] = -0.66; */
+	// EAST
+	player->dir[0] = 1.0;
+	player->dir[1] = 0.0;
+	player->cam_plane[0] = 0.0;
+	player->cam_plane[1] = 0.66; // */
+
 	game->player = player;
 }
 
@@ -78,9 +95,6 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 {
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
-	game->minimap[0] = 150;
-	game->minimap[1] = 150;
-	//game->map = map_init(path);
 	if(parser(game, texts, path))
 	{
 		printf("Error: Bad map file\n");
