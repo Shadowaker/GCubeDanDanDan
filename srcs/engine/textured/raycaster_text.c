@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/25 16:34:51 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:03:49 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ static void	dda(t_game *game, t_ray *ray)
 			ray->pos[1] += ray->incr[1];
 			ray->side = 1;
 		}
-		if (game->map[(ray->pos[1])][(ray->pos[0])] == '1')
+		if (game->map[(ray->pos[1])][(ray->pos[0])] == '1' ||
+			game->map[(ray->pos[1])][(ray->pos[0])] == 'D')
 			hit = 1;
 	}
 }
@@ -163,7 +164,9 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 		{
 			int texY = (int) texPos & (64 - 1);
 			texPos += step;
-			if (ray->side == 0)
+			if (game->map[(ray->pos[1])][(ray->pos[0])] == 'D')
+				color = get_pixel(&game->texts->door.xpm, texX, texY);
+			else if (ray->side == 0)
 				color = get_pixel(&game->texts->wall_side.xpm, texX, texY);
 			else
 				color = get_pixel(&game->texts->wall.xpm, texX, texY);

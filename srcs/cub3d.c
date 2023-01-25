@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/25 16:52:58 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:12:55 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 	game->texts = texts;
 	game->texts->wall = game->texts->no;
 	game->texts->wall_side = game->texts->ea;
+	load_door(game, &(game->texts->door), EAGLE);
 }
 
 void	move_cam(t_game *game, double dir)
@@ -177,6 +178,27 @@ void	move_left_rght(t_game *game, double dir)
 	game->player->pos[1] = npos_y;
 }
 
+void	open_door(t_game *game)
+{
+	if (game->map[((int) game->player->pos[1]) + 1][(int) game->player->pos[0]] == 'D')
+		game->map[((int) game->player->pos[1]) + 1][(int) game->player->pos[0]] = 'd';
+	else if (game->map[((int) game->player->pos[1]) - 1][(int) game->player->pos[0]] == 'D')
+		game->map[((int) game->player->pos[1]) - 1][(int) game->player->pos[0]] = 'd';
+	else if (game->map[((int) game->player->pos[1])][((int) game->player->pos[0]) + 1] == 'D')
+		game->map[((int) game->player->pos[1])][((int) game->player->pos[0]) + 1] = 'd';
+	else if (game->map[((int) game->player->pos[1])][((int) game->player->pos[0]) - 1] == 'D')
+		game->map[((int) game->player->pos[1])][((int) game->player->pos[0]) - 1] = 'd';
+	else if (game->map[((int) game->player->pos[1]) + 1][(int) game->player->pos[0]] == 'd')
+		game->map[((int) game->player->pos[1]) + 1][(int) game->player->pos[0]] = 'D';
+	else if (game->map[((int) game->player->pos[1]) - 1][(int) game->player->pos[0]] == 'd')
+		game->map[((int) game->player->pos[1]) - 1][(int) game->player->pos[0]] = 'D';
+	else if (game->map[((int) game->player->pos[1])][((int) game->player->pos[0]) + 1] == 'd')
+		game->map[((int) game->player->pos[1])][((int) game->player->pos[0]) + 1] = 'D';
+	else if (game->map[((int) game->player->pos[1])][((int) game->player->pos[0]) - 1] == 'd')
+		game->map[((int) game->player->pos[1])][((int) game->player->pos[0]) - 1] = 'D';
+	print_mat(game->map, '!');
+}
+
 int	key_filter(int keycode, t_game *game)
 {
 	int	i;
@@ -197,6 +219,8 @@ int	key_filter(int keycode, t_game *game)
 		move_left_rght(game, -1.0);
 	else if (keycode == 2)
 		move_left_rght(game, 1.0);
+	else if (keycode == 49)
+		open_door(game);
 	return (0);
 }
 

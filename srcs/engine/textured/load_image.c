@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:36:43 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 16:08:18 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:02:33 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,20 @@ static int	load_text(t_game *game, t_tex *tex, char **path)
 }
 
 static int	load_text2(t_game *game, t_tex *tex, char *path)
+{
+	tex->xpm.img = mlx_xpm_file_to_image(game->mlx, path,
+				&tex->w, &tex->h);
+	if (!tex->xpm.img)
+		return (1);
+	tex->xpm.addr = mlx_get_data_addr(tex->xpm.img,
+				&tex->xpm.bits_per_pixel, &tex->xpm.line_length,
+				&tex->xpm.endian);
+	if (!tex->xpm.addr)
+		return (1);
+	return (0);
+}
+
+int	load_door(t_game *game, t_tex *tex, char *path)
 {
 	tex->xpm.img = mlx_xpm_file_to_image(game->mlx, path,
 				&tex->w, &tex->h);

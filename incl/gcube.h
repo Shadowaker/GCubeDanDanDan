@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/23 18:16:51 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:02:45 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct s_textures {
 	t_tex	so;
 	t_tex	we;
 	t_tex	ea;
+	t_tex	door;
 }			t_textures;
 
 //			STRING UTILS
@@ -184,7 +185,7 @@ int		load_rgb(t_game *game, char *line);
 char	**map_init(char *path);
 
 void	init_directions(t_game *game, char c);
-void	load_images(t_game *game);					// Deprecated
+int		load_door(t_game *game, t_tex *tex, char *path);
 
 //			ENGINE
 int		raycast(t_game *game, t_img *img, t_ray *ray);
