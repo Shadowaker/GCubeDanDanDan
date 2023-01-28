@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/25 18:03:49 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/28 21:02:18 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ static void	dda(t_game *game, t_ray *ray)
 			ray->side = 1;
 		return ;
 	}
+	int	maxiter;
+
+	ray->lenght = 0;
 	while (hit == 0)
 	{
 		if (ray->side_dist[0] < ray->side_dist[1])
@@ -85,6 +88,8 @@ static void	dda(t_game *game, t_ray *ray)
 		if (game->map[(ray->pos[1])][(ray->pos[0])] == '1' ||
 			game->map[(ray->pos[1])][(ray->pos[0])] == 'D')
 			hit = 1;
+		else
+			ray->lenght += 1;
 	}
 }
 
@@ -109,7 +114,7 @@ static void	init_draw(t_game *game, t_ray *ray)
 		ray->draw[1] = WINDOW_H - 1;
 }
 
-// Cast the ray. (NS)
+// Cast the ray.
 int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 {
 	int	i;
@@ -170,9 +175,21 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 				color = get_pixel(&game->texts->wall_side.xpm, texX, texY);
 			else
 				color = get_pixel(&game->texts->wall.xpm, texX, texY);
-			my_mlx_pixel_put(img, i, v, color);
+
+			if (ray->wall_dist > 5)
+				my_mlx_pixel_put(img, i, v, color * (1 - 0.75) + 0.75 * 0x0);
+			else if (ray->wall_dist > 3)
+				my_mlx_pixel_put(img, i, v, color * (1 - 0.50) + 0.50 * 0x0);
+			else
+				my_mlx_pixel_put(img, i, v, color * (1 - 0) + 0 * 0x0);
 			v++;
 		}
+
+//		star effect 	(1 - (ray->wall_dist * 0.01)) * color + (ray->wall_dist * 0.01) * 0x0
+//		acid effect		(1 - ray->wall_dist) * color + (ray->wall_dist * 0x0)
+//		poisoned effect	(1 - ray->lenght) * color + (ray->lenght * 0x0)
+//		acid effect2	color * (100 - (100 - ray->lenght * 20)) + 0x0 * (100 - ray->lenght * 20)
+//		acid effect3	color * (1 - (100 - ray->lenght)) + (100 - ray->lenght) * 0x0;
 
 		while (v < WINDOW_H)
 		{

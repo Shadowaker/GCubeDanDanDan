@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/25 18:02:45 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/28 18:12:48 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_ray {
 	int		ray_id;
 	int		side;
 	int		wall_height;
+	int		lenght;
 	double	dir[2];
 	double	side_dist[2];
 	double	delta_dist[2];
