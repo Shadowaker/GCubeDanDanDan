@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/25 18:12:55 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/31 11:37:56 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,10 +227,17 @@ int	key_filter(int keycode, t_game *game)
 int	game_loop(t_game *game)
 {
 	t_ray	ray;
+	static	int lock = 0;
 
-	ft_memset(&ray, 0, sizeof(t_ray));
-	engine(game, game->img, &ray);
-	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img->img, 0, 0);
+	if (lock == 170)
+	{
+		ft_memset(&ray, 0, sizeof(t_ray));
+		engine(game, game->img, &ray);
+		mlx_put_image_to_window(game->mlx, game->mlx_win, game->img->img, 0, 0);
+		lock = 0;
+	}
+	else
+		lock++;
 	return (0);
 }
 

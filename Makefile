@@ -11,7 +11,7 @@ HDRS = incl/gcube.h
 
 OBJ = $(SRC:.c=.o)
 ASS = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -O3
 RM = rm -rf
 
 RED = "\\033[91m"
