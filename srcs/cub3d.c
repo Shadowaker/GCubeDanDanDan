@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/31 11:37:56 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:39:45 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	_init_directions(t_game *game, t_player *player)
 {
 	if (_init_culo(game, player) == 0)
 		return ;
-	/* NORTH
+	// NORTH
 	player->dir[0] = 0.0;
 	player->dir[1] = -1.0;
 	player->cam_plane[0] = 0.66;
-	player->cam_plane[1] = -0.0; */
+	player->cam_plane[1] = -0.0; //*/
 	/* SOUTH
 	player->dir[0] = 0.0;
 	player->dir[1] = 1.0;
@@ -83,10 +83,11 @@ void	_init_directions(t_game *game, t_player *player)
 	player->cam_plane[0] = 0.0;
 	player->cam_plane[1] = -0.66; */
 	// EAST
+	/*
 	player->dir[0] = 1.0;
 	player->dir[1] = 0.0;
 	player->cam_plane[0] = 0.0;
-	player->cam_plane[1] = 0.66; // */
+	player->cam_plane[1] = 0.66; */
 
 	game->player = player;
 }
@@ -133,7 +134,7 @@ void	move_cam(t_game *game, double dir)
 }
 
 /*
-	The worst thing I have ever coded but works, so Dan is happy
+	The worst thing I have ever coded but ""KINDA"" works, so Dan is happy
 */
 void	move_up_down(t_game *game, double dir)
 {
@@ -144,6 +145,8 @@ void	move_up_down(t_game *game, double dir)
 	npos_y = game->player->pos[1] + (game->player->dir[1] * MOVSPEED * dir);
 
 	if (game->map[(int) npos_y][(int) npos_x] == '1')
+		return ;
+	if (game->map[(int) npos_y][(int) npos_x] == 'D')
 		return ;
 	if ((((int) fabs(game->player->pos[0] - npos_x)) == ((int) fabs(game->player->pos[1] - npos_y))) &&
 		(((int) game->player->pos[0]) != ((int) npos_x) && ((int) game->player->pos[1]) != ((int) npos_x)))
@@ -172,7 +175,9 @@ void	move_left_rght(t_game *game, double dir)
 
 	npos_x = game->player->pos[0] + (game->player->cam_plane[0] * MOVSPEED * dir);
 	npos_y = game->player->pos[1] + (game->player->cam_plane[1] * MOVSPEED * dir);
-	if (game->map[(int) npos_y][(int) npos_x] == 1)
+	if (game->map[(int) npos_y][(int) npos_x] == '1')
+		return ;
+	if (game->map[(int) npos_y][(int) npos_x] == 'D')
 		return ;
 	game->player->pos[0] = npos_x;
 	game->player->pos[1] = npos_y;
