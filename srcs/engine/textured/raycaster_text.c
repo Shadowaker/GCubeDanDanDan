@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/31 14:18:01 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:15:04 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static void	dda(t_game *game, t_ray *ray)
 			ray->side = 1;
 		return ;
 	}
+
 	while (hit == 0)
 	{
 		if (ray->side_dist[0] < ray->side_dist[1])
@@ -163,6 +164,7 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 		}
 
 		int color = 0;
+
 		v = ray->draw[0];
 		while (v < ray->draw[1])
 		{
@@ -175,28 +177,40 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 			else
 				color = get_pixel(&game->texts->wall.xpm, texX, texY);
 
-			/*if (ray->wall_dist > 5.0)
-				my_mlx_pixel_put(img, i, v, color * (0) + 1 * create_rgb(game->f[0], game->f[1], game->f[2]));
-			else if (ray->wall_dist > 4.0)
+			if (ray->wall_dist > 5.0)
+				my_mlx_pixel_put(img, i, v, color * (0) + create_rgb(game->f[0], game->f[1], game->f[2]));
+			else if (ray->wall_dist > 4.9)
 				my_mlx_pixel_put(img, i, v, color * (1 - 0.75) + 0.75 * create_rgb(game->f[0], game->f[1], game->f[2]));
-			else if (ray->wall_dist > 3.0)
+			else if (ray->wall_dist > 4.8)
 				my_mlx_pixel_put(img, i, v, color * (1 - 0.50) + 0.50 * create_rgb(game->f[0], game->f[1], game->f[2]));
-			else*/
-				my_mlx_pixel_put(img, i, v, color * (1 - 0) + 0 * create_rgb(game->f[0], game->f[1], game->f[2]));
+			else if (ray->wall_dist > 4.7)
+				my_mlx_pixel_put(img, i, v, color * (1 - 0.25) + 0.25 * create_rgb(game->f[0], game->f[1], game->f[2]));
+			else
+				my_mlx_pixel_put(img, i, v, color);
 			v++;
 		}
+
 		v = ray->draw[1];
+		while (v < WINDOW_H)
+		{
+			if (ray->wall_dist > 5.0 && v < (WINDOW_H) / 10 * 6)
+				my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]) * (0) + create_rgb(game->f[0], game->f[1], game->f[2]));
+			else if (ray->wall_dist > 4.9 && v < (WINDOW_H) / 10 * 6)
+				my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]) * (1 - 0.75) + 0.75 * create_rgb(game->f[0], game->f[1], game->f[2]));
+			else if (ray->wall_dist > 4.8 && v < (WINDOW_H) / 10 * 6)
+				my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]) * (1 - 0.50) + 0.50 * create_rgb(game->f[0], game->f[1], game->f[2]));
+			else if (ray->wall_dist > 4.7 && v < (WINDOW_H) / 10 * 6)
+				my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]) * (1 - 0.25) + 0.25 * create_rgb(game->f[0], game->f[1], game->f[2]));
+			else
+				my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]));
+			v++;
+		}
+
 //		star effect 	(1 - (ray->wall_dist * 0.01)) * color + (ray->wall_dist * 0.01) * 0x0
 //		acid effect		(1 - ray->wall_dist) * color + (ray->wall_dist * 0x0)
 //		poisoned effect	(1 - ray->lenght) * color + (ray->lenght * 0x0)
 //		acid effect2	color * (100 - (100 - ray->lenght * 20)) + 0x0 * (100 - ray->lenght * 20)
 //		acid effect3	color * (1 - (100 - ray->lenght)) + (100 - ray->lenght) * 0x0;
-
-		while (v < WINDOW_H)
-		{
-			my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]));
-			v++;
-		}
 		i++;
 	}
 
