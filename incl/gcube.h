@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/28 18:12:48 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:09:16 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,16 @@ typedef struct s_game {
 	char				**map;
 	int					minimap[2];
 	int					map_w;
-	int					map_h;
+	int					map_h;;
 	int					f[3];
 	int					c[3];
 	struct s_img		*img;
 	struct s_player		*player;
 	struct s_ray		*ray;
 	struct s_textures	*texts;
+	struct s_sprites	*sprites;
+	struct t_object		*objects;
+
 }				t_game;
 
 // Image struct
@@ -135,6 +138,18 @@ typedef struct s_textures {
 	t_tex	ea;
 	t_tex	door;
 }			t_textures;
+
+typedef struct s_sprites {
+	t_tex	barrel;
+	t_tex	column;
+}	t_sprites;
+
+typedef struct s_object {
+	int		x;
+	int		y;
+	double	dist;
+	t_tex	sprite;
+}	t_object;
 
 //			STRING UTILS
 size_t	ft_strlen(const char *s);
@@ -205,6 +220,9 @@ void	draw_square(t_img *img, int len, int offset_x, int offset_y);
 void	draw_ray_minimap(t_ray *ray, int x, t_img *img);
 void	draw_ray_text(t_ray *ray, int x, int color, t_img *img);
 void	draw_crosshair(t_img *img);
+
+int	load_text(t_game *game, t_tex *tex, char *path);
+int	load_sprites(t_game *game, t_sprites *sprites);
 
 //			MINIMAP
 void		render_minimap(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/31 17:26:37 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:38:12 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ static void	init_draw(t_game *game, t_ray *ray)
 // Cast the ray.
 int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 {
-	int	i;
+	int		i;
+	double	zbuffer[WINDOW_W];
 
 	i = 0;
 	while (i < WINDOW_W)
@@ -211,8 +212,13 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 //		poisoned effect	(1 - ray->lenght) * color + (ray->lenght * 0x0)
 //		acid effect2	color * (100 - (100 - ray->lenght * 20)) + 0x0 * (100 - ray->lenght * 20)
 //		acid effect3	color * (1 - (100 - ray->lenght)) + (100 - ray->lenght) * 0x0;
+		zbuffer[i] = ray->wall_dist;
 		i++;
 	}
+
+	i = 0;
+	while (i < 0)
+	{}
 
 	draw_crosshair(img);
 
