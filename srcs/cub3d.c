@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/31 15:39:45 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/01 10:49:49 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 {
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
-	if(parser(game, texts, path))
+	if (parser(game, texts, path))
 	{
 		printf("Error: Bad map file\n");
 		exit(127);

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/31 17:15:04 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:26:37 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 				my_mlx_pixel_put(img, i, v, color * (1 - 0.75) + 0.75 * create_rgb(game->f[0], game->f[1], game->f[2]));
 			else if (ray->wall_dist > 4.8)
 				my_mlx_pixel_put(img, i, v, color * (1 - 0.50) + 0.50 * create_rgb(game->f[0], game->f[1], game->f[2]));
-			else if (ray->wall_dist > 4.7)
+			else if (ray->wall_dist > 4.6)
 				my_mlx_pixel_put(img, i, v, color * (1 - 0.25) + 0.25 * create_rgb(game->f[0], game->f[1], game->f[2]));
 			else
 				my_mlx_pixel_put(img, i, v, color);
@@ -199,7 +199,7 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 				my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]) * (1 - 0.75) + 0.75 * create_rgb(game->f[0], game->f[1], game->f[2]));
 			else if (ray->wall_dist > 4.8 && v < (WINDOW_H) / 10 * 6)
 				my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]) * (1 - 0.50) + 0.50 * create_rgb(game->f[0], game->f[1], game->f[2]));
-			else if (ray->wall_dist > 4.7 && v < (WINDOW_H) / 10 * 6)
+			else if (ray->wall_dist > 4.6 && v < (WINDOW_H) / 10 * 6)
 				my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]) * (1 - 0.25) + 0.25 * create_rgb(game->f[0], game->f[1], game->f[2]));
 			else
 				my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]));
