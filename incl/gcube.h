@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/01 12:09:16 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/02 20:01:58 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@
 # define REDBRICK "./srcs/sprites/test/redbrick.xpm"
 # define WOOD "./srcs/sprites/test/wood.xpm"
 
+# define OBJS "CPE"
+
 // Main game struct
 typedef struct s_game {
 
@@ -86,7 +88,6 @@ typedef struct s_game {
 	struct s_ray		*ray;
 	struct s_textures	*texts;
 	struct s_sprites	*sprites;
-	struct t_object		*objects;
 
 }				t_game;
 
@@ -144,12 +145,28 @@ typedef struct s_sprites {
 	t_tex	column;
 }	t_sprites;
 
-typedef struct s_object {
-	int		x;
-	int		y;
-	double	dist;
-	t_tex	sprite;
-}	t_object;
+typedef struct	s_sprite_draw
+{
+	int			sprite_screen;
+	t_pos		pos;
+	t_pos		transform;
+	t_pos		spr_s;
+	t_pos		draw_x;
+	t_pos		draw_y;
+	t_pos		tex_pos;
+	int			fact;
+	int			draw_y_org;
+}				t_sprite_draw;
+
+typedef struct	s_object
+{
+	int				x;
+	int				y;
+	double			dist;
+	t_tex			*tex;
+	struct s_object	*next;
+	struct s_object	*sorted;
+}				t_object;
 
 //			STRING UTILS
 size_t	ft_strlen(const char *s);

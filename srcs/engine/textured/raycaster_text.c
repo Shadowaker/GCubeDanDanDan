@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/01 11:38:12 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:48:55 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 				color = get_pixel(&game->texts->wall.xpm, texX, texY);
 
 			if (ray->wall_dist > 5.0)
-				my_mlx_pixel_put(img, i, v, color * (0) + create_rgb(game->f[0], game->f[1], game->f[2]));
+				my_mlx_pixel_put(img, i, v, color * (0.0) + create_rgb(game->f[0], game->f[1], game->f[2]));
 			else if (ray->wall_dist > 4.9)
 				my_mlx_pixel_put(img, i, v, color * (1 - 0.75) + 0.75 * create_rgb(game->f[0], game->f[1], game->f[2]));
 			else if (ray->wall_dist > 4.8)
