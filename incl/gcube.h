@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/06 17:36:10 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:57:04 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_game {
 	struct s_sprites	*sprites;
 	struct s_object		*objs;
 
+
 }				t_game;
 
 // Image struct
@@ -154,7 +155,8 @@ typedef struct	s_object
 	double			dist;
 	t_tex			*tex;
 	struct s_object	*next;
-	struct s_object	*sorted;
+	struct s_object	*sort;
+
 }				t_object;
 
 //			STRING UTILS
@@ -235,5 +237,6 @@ void		render_minimap(t_game *game);
 
 void		getAllObjects(t_game *game);
 void		clear_objs(t_object **objs);
+t_object	*sortObjects(t_game *game);
 
 #endif

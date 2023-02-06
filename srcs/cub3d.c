@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/06 17:37:21 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:55:50 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,27 @@ void	ft_lstprint(t_object *lst)
 	while (lst)
 	{
 		printf("%p\n", lst);
-		printf("node: %d - x: %d - y: %d - dist: %f - type: %c \n", i, lst->x, lst->y, lst->dist, lst->type);
+		printf("node: %d - x: %d - y: %d - dist: %f - type: %c - next: %p\n", i, lst->x, lst->y, lst->dist, lst->type, lst->next);
 		lst = lst->next;
+	}
+}
+
+void	ft_sortprint(t_object *lst)
+{
+	static int	i = 0;
+	t_object	*sort;
+
+	while (lst)
+	{
+		sort = lst->sort;
+		lst = lst->next;
+		if (!sort)
+			continue ;
+		else
+		{
+			printf("%p\n", sort);
+			printf("node: %d - x: %d - y: %d - dist: %f - type: %c - next: %p\n", i, sort->x, sort->y, sort->dist, sort->type, sort->next);
+		}
 	}
 }
 
@@ -244,6 +263,8 @@ int	key_filter(int keycode, t_game *game)
 		move_left_rght(game, 1.0);
 	else if (keycode == 49)
 		open_door(game);
+	sortObjects(game);
+	ft_sortprint(game->objs);
 	return (0);
 }
 
