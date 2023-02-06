@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/02 16:36:54 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:37:21 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,20 @@ int end_game(t_game *game, int arg)
 	if (game && arg)
 		;
 	free_mat(game->map);
+	clear_objs(&game->objs);
 	exit(0);
+}
+
+void	ft_lstprint(t_object *lst)
+{
+	static int	i = 0;
+
+	while (lst)
+	{
+		printf("%p\n", lst);
+		printf("node: %d - x: %d - y: %d - dist: %f - type: %c \n", i, lst->x, lst->y, lst->dist, lst->type);
+		lst = lst->next;
+	}
 }
 
 int	_init_culo(t_game *game, t_player *player)
@@ -90,10 +103,13 @@ void	_init_directions(t_game *game, t_player *player)
 	player->cam_plane[1] = 0.66; */
 
 	game->player = player;
+	getAllObjects(game);
+	ft_lstprint(game->objs);
 }
 
 void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 {
+	t_sprites	spr;
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
 	if (parser(game, texts, path))
@@ -116,7 +132,8 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 	game->texts->wall = game->texts->no;
 	game->texts->wall_side = game->texts->ea;
 	load_door(game, &(game->texts->door), EAGLE);
-	//load_sprites(game, &(game->sprites));
+	load_sprites(game, &spr);
+	game->sprites = &spr;
 }
 
 void	move_cam(t_game *game, double dir)

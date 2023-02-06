@@ -12,12 +12,29 @@
 
 #include "../../../incl/gcube.h"
 
+t_object	*newObject(t_game *game, double dist, t_tex *tex)
+{
+	t_object	*new;
+
+	new = malloc(sizeof(t_object));
+	if (!new)
+		return (NULL);
+	new->x = -1;
+	new->y = -1;
+	new->type = '\0';
+	new->dist = dist;
+	new->tex = tex;
+	new->next = NULL;
+	return (new);
+}
+
 t_object	*add_front_object(t_game *game, t_object **objs, double dist,
 	t_tex *tex)
 {
 	t_object	*new;
 
-	if (!(new = (t_object*)malloc(sizeof(*new))))
+	new = malloc(sizeof(t_object));
+	if (!new)
 		return (NULL);
 	new->x = game->player->pos[0];
 	new->y = game->player->pos[1];
@@ -27,7 +44,7 @@ t_object	*add_front_object(t_game *game, t_object **objs, double dist,
 	*objs = new;
 	return (new);
 }
-
+/*
 t_object *add_sorted_object(t_object **sorted, t_object *obj)
 {
 	t_object	*first;
@@ -71,39 +88,12 @@ t_object	*sort_objects(t_game *game, t_object *objs)
 			fabs(((pos[0] - objs->x) * (pos[0] - objs->x)
 				+ (pos[1] - objs->y) * (pos[1] - objs->y)));
 		objs->sorted = NULL;
-		add_sorted_obj(&sorted, objs);
+		add_sorted_object(&sorted, objs);
 		objs = objs->next;
 	}
 	return (sorted);
 }
-
-void	delete_obj(t_object **objs, int x, int y)
-{
-	t_object	*tmp;
-	t_object	*previous;
-	t_object	*first;
-
-	first = *objs;
-	previous = NULL;
-	while (*objs)
-	{
-		if ((*objs)->x == x && (*objs)->y == y)
-		{
-			tmp = *objs;
-			if (!previous)
-				*objs = tmp->next;
-			else
-				previous->next = tmp->next;
-			free(tmp);
-			if (previous)
-				*objs = first;
-			return ;
-		}
-		previous = *objs;
-		*objs = (*objs)->next;
-	}
-	*objs = first;
-}
+*/
 
 void	clear_objs(t_object **objs)
 {
@@ -118,20 +108,41 @@ void	clear_objs(t_object **objs)
 	*objs = NULL;
 }
 
-int	getObjects(t_game *game)
+t_tex	*getTex(t_game *game, char c)
 {
-	t_object		*sorted;
-	double			inv_det;
-	t_sprite_draw	spr;
+	if (c == 'C' || c == 'P')
+		return (&game->sprites->column);
+	else if (c == 'B')
+		return (&game->sprites->barrel);
+	else
+		return (&game->sprites->barrel);
+}
 
-	inv_det = 1. / ((game->player->cam_plane[0] * game->player->dir[1]) - (game->player->cam_plane[1] * game->player->dir[0]));
-	sorted = sort_sprites(game, game->sprites);
-	while (sorted)
+void	getAllObjects(t_game *game)
+{
+	int			x;
+	int			y;
+	double		d;
+	t_object	*objs;
+
+	y = 0;
+	objs = newObject(game, 0, NULL);
+	while (game->map[y])
 	{
-		if (sorted->dist > .1)
+		x = 0;
+		while (game->map[y][x] != '\0')
 		{
-			;
+			if (ft_isinstr(OBJS, game->map[y][x]))
+			{
+				d = sqrtf(powf(y - game->player->pos[1], 2.) + powf(x - game->player->pos[0], 2.));
+				objs = add_front_object(game, &objs, d, getTex(game, game->map[y][x]));
+				objs->x = x;
+				objs->y = y;
+				objs->type = game->map[y][x];
+			}
+			x++;
 		}
-		sorted = sorted->sorted;
+		y++;
 	}
+	game->objs = objs;
 }

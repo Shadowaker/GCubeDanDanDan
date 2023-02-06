@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/02 20:01:58 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:36:10 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@
 # define REDBRICK "./srcs/sprites/test/redbrick.xpm"
 # define WOOD "./srcs/sprites/test/wood.xpm"
 
-# define OBJS "CPE"
+# define OBJS "CPBE"
 
 // Main game struct
 typedef struct s_game {
@@ -88,6 +88,7 @@ typedef struct s_game {
 	struct s_ray		*ray;
 	struct s_textures	*texts;
 	struct s_sprites	*sprites;
+	struct s_object		*objs;
 
 }				t_game;
 
@@ -145,21 +146,9 @@ typedef struct s_sprites {
 	t_tex	column;
 }	t_sprites;
 
-typedef struct	s_sprite_draw
-{
-	int			sprite_screen;
-	t_pos		pos;
-	t_pos		transform;
-	t_pos		spr_s;
-	t_pos		draw_x;
-	t_pos		draw_y;
-	t_pos		tex_pos;
-	int			fact;
-	int			draw_y_org;
-}				t_sprite_draw;
-
 typedef struct	s_object
 {
+	char			type;
 	int				x;
 	int				y;
 	double			dist;
@@ -243,5 +232,8 @@ int	load_sprites(t_game *game, t_sprites *sprites);
 
 //			MINIMAP
 void		render_minimap(t_game *game);
+
+void		getAllObjects(t_game *game);
+void		clear_objs(t_object **objs);
 
 #endif
