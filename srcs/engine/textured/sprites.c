@@ -175,7 +175,7 @@ int	draw_sprites(t_game *game)
 		int	drawX[0] = - spr_w / 2 + spr_screen_x;
 		if (drawX[0] < 0)
 			drawX[0] = 0;
-		int	draw[1] =
+		int	draw[1] =;
 
 
 
