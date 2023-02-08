@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/06 19:55:50 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:48:18 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,9 @@ void	_init_directions(t_game *game, t_player *player)
 	game->player = player;
 	getAllObjects(game);
 	ft_lstprint(game->objs);
+	sortObjects(game);
+	printf("CULI NUDI\n");
+	ft_sortprint(game->objs);
 }
 
 void	_init(t_game *game, t_img *img, t_textures *texts, char *path)

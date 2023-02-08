@@ -95,3 +95,4 @@ revert:
 
 .SILENT: all linux mac
 .PHONY: all clean fclean re git clean2 clear revert linux mac .SILENT
+#da qui è passata alice

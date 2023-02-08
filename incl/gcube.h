@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/06 18:57:04 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:39:10 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,5 +238,6 @@ void		render_minimap(t_game *game);
 void		getAllObjects(t_game *game);
 void		clear_objs(t_object **objs);
 t_object	*sortObjects(t_game *game);
+void		draw_sprites(t_game *game, double *zbuff);
 
 #endif

@@ -89,11 +89,11 @@ void	clear_objs(t_object **objs)
 t_tex	*getTex(t_game *game, char c)
 {
 	if (c == 'C' || c == 'P')
-		return (&game->sprites->column);
+		return (&game->texts->door);
 	else if (c == 'B')
-		return (&game->sprites->barrel);
+		return (&game->texts->door);
 	else
-		return (&game->sprites->barrel);
+		return (&game->texts->door);
 }
 
 void	getAllObjects(t_game *game)
@@ -143,13 +143,15 @@ t_object	*sortObjects(t_game *game)
 	return (sorted);
 }
 
-int	draw_sprites(t_game *game)
+void	draw_sprites(t_game *game, double *zbuff)
 {
 	t_object	*obj;
 
 	obj = game->objs;
 	while (obj)
 	{
+		if (!obj->sort)
+			break;
 		double	spr_x = obj->sort->x - game->player->pos[0];
 		double	spr_y = obj->sort->y - game->player->pos[1];
 
@@ -159,52 +161,45 @@ int	draw_sprites(t_game *game)
 		double	transfY = inv_det * (-game->player->dir[1] * spr_x - game->player->dir[0] * spr_y);
 
 		int	spr_screen_x = (WINDOW_W / 2) * (1 + transfX / transfY);
-		int	spr_screen_y = abs(WINDOW_H / transfY);
+		int	spr_h = fabs(WINDOW_H / transfY);
 
 		int	drawY[2];
 		int	drawX[2];
 
-		drawY[0] = -spr_screen_y / 2 + WINDOW_H / 2;
+		drawY[0] = -spr_h / 2 + WINDOW_H / 2;
 		if (drawY[0] < 0)
 			drawY[0] = 0;
-		drawY[1] = spr_screen_y / 2 + WINDOW_H / 2;
+		drawY[1] = spr_h / 2 + WINDOW_H / 2;
 		if (drawY[1] >= WINDOW_H)
 			drawY[1] = WINDOW_H - 1;
 
-		int spr_w = abs((WINDOW_H / transfY));
-		int	drawX[0] = - spr_w / 2 + spr_screen_x;
+		int spr_w = fabs((WINDOW_H / transfY));
+		drawX[0] = - spr_w / 2 + spr_screen_x;
 		if (drawX[0] < 0)
 			drawX[0] = 0;
-		int	draw[1] =;
+		drawX[1] = spr_w / 2 + spr_screen_x;
+		if (drawX[1] >= WINDOW_W)
+			drawX[1] = WINDOW_W - 1;
 
-
-
+		int	stripe = 0;
+		while (stripe < drawX[1])
+		{
+			int	texX = (256 * (stripe - (-spr_w / 2 + spr_screen_x)) * obj->tex->w / spr_w) / 256;
+			if (transfY > 0 && stripe > 0 && stripe < WINDOW_W && transfY < zbuff[stripe])
+			{
+				int	v = drawY[0];
+				while (v < drawY[1])
+				{
+					int d = v * 256 - WINDOW_H * 128 + spr_h * 128;
+					int texY = ((d * obj->tex->h) / spr_h) / 256;
+					unsigned int color = get_pixel(&obj->tex->xpm, texX, texY);
+					if (color & 0x00FFFFFF)
+						my_mlx_pixel_put(game->img, stripe, v, color);
+					v++;
+				}
+			}
+			stripe++;
+		}
+		obj = obj->next;
 	}
-
-	for(int i = 0; i < numSprites; i++)
-    {
-
-      //calculate width of the sprite
-      int spriteWidth = abs( int (h / (transformY)));
-      int drawStartX = -spriteWidth / 2 + spriteScreenX;
-      if(drawStartX < 0) drawStartX = 0;
-      int drawEndX = spriteWidth / 2 + spriteScreenX;
-      if(drawEndX >= w) drawEndX = w - 1;
-
-      //loop through every vertical stripe of the sprite on screen
-      for(int stripe = drawStartX; stripe < drawEndX; stripe++)
-      {
-        int texX = int(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * texWidth / spriteWidth) / 256;
-        //the conditions in the if are:
-        //1) it's in front of camera plane so you don't see things behind you
-        //2) it's on the screen (left)
-        //3) it's on the screen (right)
-        //4) ZBuffer, with perpendicular distance
-        if(transformY > 0 && stripe > 0 && stripe < w && transformY < ZBuffer[stripe])
-        for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
-        {
-          int d = (y) * 256 - h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
-          int texY = ((d * texHeight) / spriteHeight) / 256;
-          Uint32 color = texture[sprite[spriteOrder[i]].texture][texWidth * texY + texX]; //get current color from the texture
-          if((color & 0x00FFFFFF) != 0) buffer[y][stripe] = color; //paint pixel if it isn't black, black is the invisible colo
 }

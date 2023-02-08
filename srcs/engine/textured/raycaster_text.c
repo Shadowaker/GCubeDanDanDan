@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/02 16:48:55 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:43:12 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,11 +215,7 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 		zbuffer[i] = ray->wall_dist;
 		i++;
 	}
-
-	i = 0;
-	while (i < 0)
-	{}
-
+	draw_sprites(game, zbuffer);
 	draw_crosshair(img);
 
 	return (0);
