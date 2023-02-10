@@ -89,9 +89,9 @@ void	clear_objs(t_object **objs)
 t_tex	*getTex(t_game *game, char c)
 {
 	if (c == 'C' || c == 'P')
-		return (&game->texts->door);
+		return (&game->texts->column);
 	else if (c == 'B')
-		return (&game->texts->door);
+		return (&game->texts->barrel);
 	else
 		return (&game->texts->door);
 }
@@ -151,25 +151,29 @@ void	draw_sprites(t_game *game, double *zbuff)
 	while (obj)
 	{
 		if (!obj->sort)
-			break;
-		double	spr_x = obj->sort->x - game->player->pos[0];
-		double	spr_y = obj->sort->y - game->player->pos[1];
+		{
+			obj = obj->next;
+			continue ;
+		}
+		double	spr_x = (obj->sort->x + 0.5) - game->player->pos[0];
+		double	spr_y = (obj->sort->y + 0.5) - game->player->pos[1];
 
 		double	inv_det = 1.0 / (game->player->cam_plane[0] * game->player->dir[1] - game->player->dir[0] * game->player->cam_plane[1]);
 
 		double	transfX = inv_det * (game->player->dir[1] * spr_x - game->player->dir[0] * spr_y);
-		double	transfY = inv_det * (-game->player->dir[1] * spr_x - game->player->dir[0] * spr_y);
+		double	transfY = inv_det * (-game->player->cam_plane[1] * spr_x + game->player->cam_plane[0] * spr_y);
 
-		int	spr_screen_x = (WINDOW_W / 2) * (1 + transfX / transfY);
+		int	spr_screen_x = (((double)(WINDOW_W) / 2.) * (1. + transfX / transfY));
+		int	vmovesreen = VMOVE / transfY;
 		int	spr_h = fabs(WINDOW_H / transfY);
 
 		int	drawY[2];
 		int	drawX[2];
 
-		drawY[0] = -spr_h / 2 + WINDOW_H / 2;
+		drawY[0] = -spr_h / 2 + WINDOW_H / 2 + vmovesreen;
 		if (drawY[0] < 0)
 			drawY[0] = 0;
-		drawY[1] = spr_h / 2 + WINDOW_H / 2;
+		drawY[1] = spr_h / 2 + WINDOW_H / 2 + vmovesreen;
 		if (drawY[1] >= WINDOW_H)
 			drawY[1] = WINDOW_H - 1;
 
@@ -181,19 +185,19 @@ void	draw_sprites(t_game *game, double *zbuff)
 		if (drawX[1] >= WINDOW_W)
 			drawX[1] = WINDOW_W - 1;
 
-		int	stripe = 0;
+		int	stripe = drawX[0];
 		while (stripe < drawX[1])
 		{
-			int	texX = (256 * (stripe - (-spr_w / 2 + spr_screen_x)) * obj->tex->w / spr_w) / 256;
-			if (transfY > 0 && stripe > 0 && stripe < WINDOW_W && transfY < zbuff[stripe])
+			int	texX = (256 * (stripe - (-spr_w / 2 + spr_screen_x)) * obj->sort->tex->w / spr_w) / 256;
+			if (transfY > 0 && transfY < zbuff[stripe])
 			{
 				int	v = drawY[0];
 				while (v < drawY[1])
 				{
-					int d = v * 256 - WINDOW_H * 128 + spr_h * 128;
-					int texY = ((d * obj->tex->h) / spr_h) / 256;
-					unsigned int color = get_pixel(&obj->tex->xpm, texX, texY);
-					if (color & 0x00FFFFFF)
+					int d = (v - vmovesreen) * 256 - WINDOW_H * 128 + spr_h * 128;
+					int texY = ((d * obj->sort->tex->h) / spr_h) / 256;
+					unsigned int color = get_pixel(&obj->sort->tex->xpm, texX, texY);
+					if (color & 0x0FFFFFFF)
 						my_mlx_pixel_put(game->img, stripe, v, color);
 					v++;
 				}

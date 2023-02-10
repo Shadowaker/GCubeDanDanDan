@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/08 17:39:10 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:40:43 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@
 # define F 0x000089AD
 # define C 0x00403125
 
+#define UDIV 1
+#define VDIV 1
+#define VMOVE 0.0
+
 // DEPRECATED
 # define BARREL "./srcs/sprites/test/barrel.xpm"
 # define BLUESTONE "./srcs/sprites/test/bluestone.xpm"
@@ -87,7 +91,6 @@ typedef struct s_game {
 	struct s_player		*player;
 	struct s_ray		*ray;
 	struct s_textures	*texts;
-	struct s_sprites	*sprites;
 	struct s_object		*objs;
 
 
@@ -140,12 +143,9 @@ typedef struct s_textures {
 	t_tex	we;
 	t_tex	ea;
 	t_tex	door;
-}			t_textures;
-
-typedef struct s_sprites {
 	t_tex	barrel;
 	t_tex	column;
-}	t_sprites;
+}			t_textures;
 
 typedef struct	s_object
 {
@@ -230,7 +230,7 @@ void	draw_ray_text(t_ray *ray, int x, int color, t_img *img);
 void	draw_crosshair(t_img *img);
 
 int	load_text(t_game *game, t_tex *tex, char *path);
-int	load_sprites(t_game *game, t_sprites *sprites);
+int	load_sprites(t_game *game, t_textures *texts);
 
 //			MINIMAP
 void		render_minimap(t_game *game);
@@ -239,5 +239,6 @@ void		getAllObjects(t_game *game);
 void		clear_objs(t_object **objs);
 t_object	*sortObjects(t_game *game);
 void		draw_sprites(t_game *game, double *zbuff);
+void		ft_sortprint(t_object *lst);
 
 #endif
