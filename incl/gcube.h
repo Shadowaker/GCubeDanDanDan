@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/10 16:40:43 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/12 05:09:17 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ typedef struct s_game {
 	void				*mlx;
 	void				*mlx_win;
 	char				**map;
-	int					minimap[2];
 	int					map_w;
 	int					map_h;;
+	int					minimap[2];
 	int					f[3];
 	int					c[3];
 	struct s_img		*img;
@@ -92,8 +92,7 @@ typedef struct s_game {
 	struct s_ray		*ray;
 	struct s_textures	*texts;
 	struct s_object		*objs;
-
-
+	struct s_object		*sorted;
 }				t_game;
 
 // Image struct

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/10 16:45:19 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/12 05:00:46 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	_init_directions(t_game *game, t_player *player)
 	game->player = player;
 	getAllObjects(game);
 	ft_lstprint(game->objs);
-	sortObjects(game);
+	game->sorted = sortObjects(game);
 	ft_sortprint(game->objs);
 }
 
@@ -263,7 +263,7 @@ int	key_filter(int keycode, t_game *game)
 		move_left_rght(game, 1.0);
 	else if (keycode == 49)
 		open_door(game);
-	sortObjects(game);
+	game->sorted = sortObjects(game);
 	ft_sortprint(game->objs);
 	return (0);
 }
