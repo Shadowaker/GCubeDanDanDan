@@ -6,13 +6,13 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:31:27 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/23 18:32:38 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/12 05:58:22 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../incl/gcube.h"
 
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *data, int x, int y, unsigned int color)
 {
 	char	*dst;
 

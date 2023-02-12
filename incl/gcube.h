@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/12 05:09:17 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/12 05:58:10 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ unsigned int	get_pixel(t_img *img, int x, int y);
 
 void	engine(t_game *game, t_img *img, t_ray *ray);
 void	draw_ray(t_ray *ray, int x, int y, t_img *img);
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_img *data, int x, int y, unsigned int color);
 void	draw_square(t_img *img, int len, int offset_x, int offset_y);
 void	draw_ray_minimap(t_ray *ray, int x, t_img *img);
 void	draw_ray_text(t_ray *ray, int x, int color, t_img *img);
