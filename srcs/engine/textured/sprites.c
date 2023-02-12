@@ -194,8 +194,18 @@ void	draw_sprites(t_game *game, double *zbuff)
 						int d = (v - vmovesreen) * 256 - WINDOW_H * 128 + spr_h * 128;
 						int texY = ((d * obj->tex->h) / spr_h) / 256;
 						unsigned int color = get_pixel(&obj->tex->xpm, texX, texY);
-						if (color & 0x0FFFFFFF)
+						if (transfY > 5.0 && color & 0x0FFFFFFF)
+							my_mlx_pixel_put(game->img, stripe, v, color * (0.0) + create_rgb(game->f[0], game->f[1], game->f[2]));
+						else if (transfY > 4.9 && color & 0x0FFFFFFF)
+							my_mlx_pixel_put(game->img, stripe, v, color * (1 - 0.75) + 0.75 * create_rgb(game->f[0], game->f[1], game->f[2]));
+						else if (transfY > 4.8 && color & 0x0FFFFFFF)
+							my_mlx_pixel_put(game->img, stripe, v, color * (1 - 0.50) + 0.50 * create_rgb(game->f[0], game->f[1], game->f[2]));
+						else if (transfY > 4.6 && color & 0x0FFFFFFF)
+							my_mlx_pixel_put(game->img, stripe, v, color * (1 - 0.25) + 0.25 * create_rgb(game->f[0], game->f[1], game->f[2]));
+						else if (color & 0x0FFFFFFF)
 							my_mlx_pixel_put(game->img, stripe, v, color);
+						//if (color & 0x0FFFFFFF)
+						//	my_mlx_pixel_put(game->img, stripe, v, color);
 						v++;
 					}
 				}
