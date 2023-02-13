@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/13 16:42:54 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:55:41 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@
 # define WALLS "./srcs/sprites/test/WallS.xpm"
 # define DOOR "./srcs/sprites/test/door.xpm"
 
-# define OBJS "CPBE"
+# define OBJS "CPBG"
 
 // Main game struct
 typedef struct s_game {
@@ -148,6 +148,7 @@ typedef struct s_textures {
 	t_tex	door;
 	t_tex	barrel;
 	t_tex	column;
+	t_tex	greenlight;
 }			t_textures;
 
 typedef struct	s_object

@@ -92,6 +92,8 @@ t_tex	*getTex(t_game *game, char c)
 		return (&game->texts->column);
 	else if (c == 'B')
 		return (&game->texts->barrel);
+	else if (c == 'G')
+		return (&game->texts->greenlight);
 	else
 		return (&game->texts->door);
 }
