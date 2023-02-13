@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/12 05:00:46 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:35:48 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 	game->texts = texts;
 	game->texts->wall = game->texts->no;
 	game->texts->wall_side = game->texts->ea;
-	load_door(game, &(game->texts->door), EAGLE);
+	load_door(game, &(game->texts->door), DOOR);
 	load_sprites(game, game->texts);
 }
 

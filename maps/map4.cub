@@ -1,7 +1,7 @@
-NO ./srcs/sprites/test/purplestone.xpm
-SO ./srcs/sprites/test/redbrick.xpm
-WE ./srcs/sprites/test/mossy.xpm
-EA ./srcs/sprites/test/bluestone.xpm
+NO ./srcs/sprites/test/WallN.xpm
+SO ./srcs/sprites/test/WallS.xpm
+WE ./srcs/sprites/test/WallE.xpm
+EA ./srcs/sprites/test/WallE.xpm
 
 F 100,100,100
 C 50,50,50

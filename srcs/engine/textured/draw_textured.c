@@ -6,20 +6,20 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:57:47 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/01/18 16:11:46 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:46:07 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../incl/gcube.h"
 
-unsigned int	get_pixel(t_img *img, int x, int y)
+unsigned long	get_pixel(t_img *img, int x, int y)
 {
 	char	*dest;
 
-	if (x <= 0 || x >= 64 || y < 0 || y >= 64)
+	if (x < 0 || x >= 64 || y < 0 || y >= 64)
 		return (1);
 	dest = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	return (*(unsigned int *)dest);
+	return (*(unsigned long *)dest);
 }
 
 void	draw_ray_text(t_ray *ray, int x, int color, t_img *img)

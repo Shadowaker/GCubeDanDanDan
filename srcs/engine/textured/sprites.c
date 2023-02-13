@@ -167,10 +167,10 @@ void	draw_sprites(t_game *game, double *zbuff)
 			int	drawY[2];
 			int	drawX[2];
 
-			drawY[0] = -spr_h / 2 + WINDOW_H / 2 + vmovesreen;
+			drawY[0] = -spr_h / 2 + WINDOW_H / 2;
 			if (drawY[0] < 0)
 				drawY[0] = 0;
-			drawY[1] = spr_h / 2 + WINDOW_H / 2 + vmovesreen;
+			drawY[1] = spr_h / 2 + WINDOW_H / 2;
 			if (drawY[1] >= WINDOW_H)
 				drawY[1] = WINDOW_H - 1;
 
@@ -191,21 +191,11 @@ void	draw_sprites(t_game *game, double *zbuff)
 					int	v = drawY[0];
 					while (v < drawY[1])
 					{
-						int d = (v - vmovesreen) * 256 - WINDOW_H * 128 + spr_h * 128;
+						int d = (v) * 256 - WINDOW_H * 128 + spr_h * 128;
 						int texY = ((d * obj->tex->h) / spr_h) / 256;
 						unsigned int color = get_pixel(&obj->tex->xpm, texX, texY);
-						if (transfY > 5.0 && color & 0x0FFFFFFF)
-							my_mlx_pixel_put(game->img, stripe, v, color * (0.0) + create_rgb(game->f[0], game->f[1], game->f[2]));
-						else if (transfY > 4.9 && color & 0x0FFFFFFF)
-							my_mlx_pixel_put(game->img, stripe, v, color * (1 - 0.75) + 0.75 * create_rgb(game->f[0], game->f[1], game->f[2]));
-						else if (transfY > 4.8 && color & 0x0FFFFFFF)
-							my_mlx_pixel_put(game->img, stripe, v, color * (1 - 0.50) + 0.50 * create_rgb(game->f[0], game->f[1], game->f[2]));
-						else if (transfY > 4.6 && color & 0x0FFFFFFF)
-							my_mlx_pixel_put(game->img, stripe, v, color * (1 - 0.25) + 0.25 * create_rgb(game->f[0], game->f[1], game->f[2]));
-						else if (color & 0x0FFFFFFF)
+						if (color & 0x0FFFFFFF)
 							my_mlx_pixel_put(game->img, stripe, v, color);
-						//if (color & 0x0FFFFFFF)
-						//	my_mlx_pixel_put(game->img, stripe, v, color);
 						v++;
 					}
 				}

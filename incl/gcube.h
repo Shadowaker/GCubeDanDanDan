@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/12 05:58:10 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:42:54 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@
 #define VDIV 1
 #define VMOVE 0.0
 
-// DEPRECATED
 # define BARREL "./srcs/sprites/test/barrel.xpm"
 # define BLUESTONE "./srcs/sprites/test/bluestone.xpm"
 # define COLORSTONE "./srcs/sprites/test/colorstone.xpm"
@@ -73,6 +72,11 @@
 # define PURPLESTONE "./srcs/sprites/test/purplestone.xpm"
 # define REDBRICK "./srcs/sprites/test/redbrick.xpm"
 # define WOOD "./srcs/sprites/test/wood.xpm"
+# define WALLE "./srcs/sprites/test/WallE.xpm"
+# define WALLN "./srcs/sprites/test/WallN.xpm"
+# define WALLW "./srcs/sprites/test/WallE.xpm"
+# define WALLS "./srcs/sprites/test/WallS.xpm"
+# define DOOR "./srcs/sprites/test/door.xpm"
 
 # define OBJS "CPBE"
 
@@ -218,7 +222,7 @@ int		raycast_text(t_game *game, t_img *img, t_ray *ray);
 double	deg_2_rad(double deg);
 
 unsigned long	create_rgb(int r, int g, int b);
-unsigned int	get_pixel(t_img *img, int x, int y);
+unsigned long	get_pixel(t_img *img, int x, int y);
 
 void	engine(t_game *game, t_img *img, t_ray *ray);
 void	draw_ray(t_ray *ray, int x, int y, t_img *img);
