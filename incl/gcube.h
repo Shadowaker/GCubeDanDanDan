@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/13 17:55:41 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:56:36 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,46 +163,65 @@ typedef struct	s_object
 
 }				t_object;
 
-//			STRING UTILS
+//			srcs/utils/strutils.c
 size_t	ft_strlen(const char *s);
+char	*str_constructor(char c, int size);
+
+//			srcs/utils/charutils.c
+void	find_char(char **map, char c, int *ids);
 int		ft_isinstr(const char *stack, char c);
+
+//			srcs/utils/ft_strcmp.c
 int		ft_strcmp(char *s1, char *s2);
 
+//			srcs/utils/ft_split.c
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(const char *s, char c);
+
+//			srcs/utils/ft_strjoin.c
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_dotjoin(char const *s1, char const *s2, char *sep);
 char	*ft_freejoin(char *s1, char *s2);
+
+//			srcs/utils/ft_strreplace.c
 char	*ft_strreplace(char const *src, char *stack, char *paste);
-char	*str_constructor(char c, int size);
 char	*ft_strreverse(char *str);
-void	find_char(char **map, char c, int *ids);
 
-//			GNL
-int			ft_find_line(char *s);
-char		*ft_strmerge(char *buff, char *tmp_buff);
-char		*ft_return_line(char *buff);
-char		*ft_prepare_next(char *buff);
-char		*get_next_line(int fd);
-char		*ft_recover(int fd, char *buff);
+//			srcs/utils/gnl_utils.c
+char	*ft_strmerge(char *buff, char *tmp_buff);
+int		ft_find_line(char *s);
+char	*ft_return_line(char *buff);
 
-//			MATRIX UTILS
-int			ft_matlen(char **arr);
+//			srcs/utils/gnl.c
+char	*ft_prepare_next(char *buff);
+char	*get_next_line(int fd);
 
-char		**ft_matmerge(char **arr1, char **arr2);
-char		**ft_revmat(char **mat);
+//			srcs/utils/matutils.c
+void	free_mat(char **mat);
+void	print_mat(char **mat, char del);
+int		ft_matlen(char **arr);
+void	ft_cpmat(char **src, char **dst, int start);
+char	**ft_matmerge(char **arr1, char **arr2);
 
-void		free_mat(char **mat);
-void		ft_cpmat(char **src, char **dst, int start);
-void		print_mat(char **mat, char del);
+//			srcs/utils/ft_revmat.c
+char	**ft_revmat(char **mat);
 
-//			UTILS
-int		isincircle(int cx, int cy, int x, int y);
+//			srcs/utils/mapvalidator.c
 int		map_validator(char **map);
+
+//			srcs/utils/ft_itoa.c
 int		ft_atoi(const char *str);
 
+//			srcs/utils/absf.c
 double	absf(double i);
 
+//			srcs/utils/ft_memset.c
 void	*ft_memset(void *b, int c, size_t len);
+
+//			srcs/utils/ft_calloc.c
 void	*ft_calloc(size_t count, size_t size);
+
+
 void	culo(int *i);
 
 //			INIT

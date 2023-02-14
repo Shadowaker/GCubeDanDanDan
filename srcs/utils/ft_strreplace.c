@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 14:28:02 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/03 16:37:54 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:31:50 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,22 @@ char	*ft_strreplace(char const *src, char *stack, char *paste)
 			tmp = ft_freejoin(tmp, createstr(src[i++]));
 	}
 	return (tmp);
+}
+
+/* Copy the string (STR), reverse the copy and then return it.
+RETURNS: A freeable pointer to the reversed copy. */
+char	*ft_strreverse(char *str)
+{
+	char	*res;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = ft_strlen(str);
+	res = malloc(j + 1);
+	j--;
+	while (j > 0)
+		res[i++] = str[j--];
+	res[i] = '\0';
+	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:39:40 by gcucino           #+#    #+#             */
-/*   Updated: 2023/01/31 15:44:57 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:27:53 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,53 +105,6 @@ void	draw_player(t_img *img, int	len, int offset_x, int offset_y)
 			y++;
 		}
 		x++;
-	}
-}
-
-void	tdraw_circle(t_game *game, int r, int offset_x, int offset_y)
-{
-
-	int	x;
-	int	y;
-	int	isin;
-
-	x = game->player->pos[0] - r;
-	while (x <= (r * 2))
-	{
-		y = game->player->pos[1] - r;
-		while (y <= (r * 2))
-		{
-			isin = isincircle(game->player->pos[0], game->player->pos[1], x, y);
-			if (isin == 1)
-				my_mlx_pixel_put(game->img, x + offset_x, y + offset_y, 0x000089AD);
-			else if (isin == 2)
-				my_mlx_pixel_put(game->img, x + offset_x, y + offset_y, 0x00000000);
-			y++;
-		}
-		x++;
-	}
-}
-
-void	draw_circle(t_game *game, int cx, int cy, int r)
-{
-	int	x;
-	int	y;
-	int	isin;
-
-	y = cy - r;
-	while (y <= cy + (r * 2))
-	{
-		x = cx - r;
-		while (x <= cx + (r * 2))
-		{
-			isin = isincircle(cx, cy, x, y);
-			if (isin == 1)
-				my_mlx_pixel_put(game->img, x, y, 0xFF0089AD);
-			else if (isin == 2)
-				my_mlx_pixel_put(game->img, x, y, 0x0000000);
-			x++;
-		}
-		y++;
 	}
 }
 

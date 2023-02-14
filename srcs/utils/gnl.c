@@ -6,13 +6,13 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:40:28 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/03 17:36:41 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:19:47 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/gcube.h"
 
-char	*ft_recover(int fd, char *buff)
+static char	*ft_recover(int fd, char *buff)
 {
 	char	*tmp_buff;
 	int		f;
