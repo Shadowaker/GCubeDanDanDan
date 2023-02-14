@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/14 11:58:22 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:05:49 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,38 +73,9 @@ static void	map_format(char **map)
 	}
 }
 
-/* Init the passed map in file (PATH) and format it to the
-	standard array of arrays of chars.
+/* Init the passed game map.
 RETURNS: A freeable pointer to the game map.*/
-char	**map_init(char *path)
-{
-	int		fd;
-	char	*str;
-	char	*res;
-	char	**map;
-
-	fd = open(path, O_RDONLY);
-	str = get_next_line(fd);
-	res = malloc(1);
-	res[0] = '\0';
-	if (str != NULL)
-		str[ft_strlen(str)] = '\0';
-	while (str != NULL)
-	{
-		res = ft_freejoin(res, str);
-		str = get_next_line(fd);
-	}
-	close(fd);
-	map = ft_split(res, '\n');
-	replace_occurence_mat(map, "\t", "    ");
-	map_format(map);
-	print_mat(map, '@');
-	free(res);
-	printf("\n\n");
-	return (map);
-}
-
-int		map_init_(t_game *game, int fd)
+int		map_init(t_game *game, int fd)
 {
 	char	*str;
 	char	*res;

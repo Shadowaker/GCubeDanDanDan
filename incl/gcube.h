@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/14 11:56:36 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:06:24 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,43 +205,43 @@ char	**ft_matmerge(char **arr1, char **arr2);
 
 //			srcs/utils/ft_revmat.c
 char	**ft_revmat(char **mat);
-
 //			srcs/utils/mapvalidator.c
 int		map_validator(char **map);
-
 //			srcs/utils/ft_itoa.c
 int		ft_atoi(const char *str);
-
 //			srcs/utils/absf.c
 double	absf(double i);
-
 //			srcs/utils/ft_memset.c
 void	*ft_memset(void *b, int c, size_t len);
-
 //			srcs/utils/ft_calloc.c
 void	*ft_calloc(size_t count, size_t size);
-
-
-void	culo(int *i);
-
-//			INIT
+//			srcs/utils/parse.c
 int		parser(t_game *game, t_textures *texts, char *path);
-int		load_image(t_game *game, t_textures *texts, char *path);
-int		load_rgb(t_game *game, char *line);
 
-char	**map_init(char *path);
+//			srcs/utils/map.c
+int		**map_init(t_game *game, int fd);
+
+//			srcs/engine/textured/load_textures.c
+int		load_text(t_game *game, t_tex *tex, char *path);
+int		load_door(t_game *game, t_tex *tex, char *path);
+int		load_image(t_game *game, t_textures *texts, char *path);
+
+
+//			srcs/engine/textured/rgbutility.c
+unsigned long	create_rgb(int r, int g, int b);
+int				get_rgb(char *addr, int x, int y);
+int				load_rgb(t_game *game, char *line);
+
+
 
 void	init_directions(t_game *game, char c);
-int		load_door(t_game *game, t_tex *tex, char *path);
 
 //			ENGINE
 int		raycast(t_game *game, t_img *img, t_ray *ray);
-int		get_rgb(char *addr, int x, int y);
 int		raycast_text(t_game *game, t_img *img, t_ray *ray);
 
 double	deg_2_rad(double deg);
 
-unsigned long	create_rgb(int r, int g, int b);
 unsigned long	get_pixel(t_img *img, int x, int y);
 
 void	engine(t_game *game, t_img *img, t_ray *ray);
@@ -252,7 +252,6 @@ void	draw_ray_minimap(t_ray *ray, int x, t_img *img);
 void	draw_ray_text(t_ray *ray, int x, int color, t_img *img);
 void	draw_crosshair(t_img *img);
 
-int	load_text(t_game *game, t_tex *tex, char *path);
 int	load_sprites(t_game *game, t_textures *texts);
 
 //			MINIMAP
@@ -263,5 +262,6 @@ void		clear_objs(t_object **objs);
 t_object	*sortObjects(t_game *game);
 void		draw_sprites(t_game *game, double *zbuff);
 void		ft_sortprint(t_object *lst);
+void	culo(int *i);
 
 #endif
