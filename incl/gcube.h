@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 12:54:56 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:39:26 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,19 @@ typedef struct	s_object
 	struct s_object	*sort;
 
 }				t_object;
+
+// Object draw struct
+typedef struct s_dsprite
+{
+	int				drawx[2];
+	int				drawy[2];
+	double			pos[2];
+	double			transf[2];
+	double			inv_det;
+	int				spr_screen_x;
+	int				spr_h;
+	int				spr_w;
+}				t_dsprite;
 
 //			srcs/utils/strutils.c
 size_t	ft_strlen(const char *s);

@@ -143,20 +143,25 @@ t_object	*sortObjects(t_game *game)
 	return (sorted);
 }
 
-void	draw_sprites2(t_game *game, double *zbuff)
+void	draw_spritino(t_game *game, t_dsprite *spr, t_object *obj, double *zbuff)
 {
-	int	stripe = drawX[0];
-	while (stripe < drawX[1])
+	int	v;
+	int	stripe;
+	int	d;
+	int	tex[2];
+
+	stripe = spr->drawx[0];
+	while (stripe < spr->drawx[1])
 	{
-		int	texX = (256 * (stripe - (-spr_w / 2 + spr_screen_x)) * obj->tex->w / spr_w) / 256;
-		if (transfY > 0 && transfY < zbuff[stripe])
+		tex[0] = (256 * (stripe - (-spr->spr_w / 2 + spr->spr_screen_x)) * obj->tex->w / spr->spr_w) / 256;
+		if (spr->transf[1] > 0 && spr->transf[1] < zbuff[stripe])
 		{
-			int	v = drawY[0];
-			while (v < drawY[1])
+			v = spr->drawy[0];
+			while (v < spr->drawy[1])
 			{
-				int d = (v) * 256 - WINDOW_H * 128 + spr_h * 128;
-				int texY = ((d * obj->tex->h) / spr_h) / 256;
-				unsigned int color = get_pixel(&obj->tex->xpm, texX, texY);
+				d = (v) * 256 - WINDOW_H * 128 + spr->spr_h * 128;
+				tex[1] = ((d * obj->tex->h) / spr->spr_h) / 256;
+				unsigned int color = get_pixel(&obj->tex->xpm, tex[0], tex[1]);
 				if (color & 0x0FFFFFFF)
 					my_mlx_pixel_put(game->img, stripe, v, color);
 				v++;
@@ -166,44 +171,46 @@ void	draw_sprites2(t_game *game, double *zbuff)
 	}
 }
 
+void	draw_spritone(t_game *game, t_dsprite *spr, t_object *obj)
+{
+	spr->spr_h = fabs(WINDOW_H / spr->transf[1]);
+	spr->drawy[0] = -spr->spr_h / 2 + WINDOW_H / 2;
+	if (spr->drawy[0] < 0)
+		spr->drawy[0] = 0;
+	spr->drawy[1] = spr->spr_h / 2 + WINDOW_H / 2;
+	if (spr->drawy[1] >= WINDOW_H)
+		spr->drawy[1] = WINDOW_H - 1;
+	spr->spr_w = fabs((WINDOW_H / spr->transf[1]));
+	spr->drawx[0] = - spr->spr_w / 2 + spr->spr_screen_x;
+	if (spr->drawx[0] < 0)
+		spr->drawx[0] = 0;
+	spr->drawx[1] = spr->spr_w / 2 + spr->spr_screen_x;
+	if (spr->drawx[1] >= WINDOW_W)
+		spr->drawx[1] = WINDOW_W - 1;
+}
+
 void	draw_sprites(t_game *game, double *zbuff)
 {
 	t_object	*obj;
+	t_dsprite	spr;
 
 	obj = game->sorted;
 	while (obj)
 	{
 		if (obj->dist > .1)
 		{
-			double	spr_x = (obj->x + 0.5) - game->player->pos[0];
-			double	spr_y = (obj->y + 0.5) - game->player->pos[1];
+			spr.pos[0] = (obj->x + 0.5) - game->player->pos[0];
+			spr.pos[1] = (obj->y + 0.5) - game->player->pos[1];
+			spr.inv_det = 1.0 / (game->player->cam_plane[0] * game->player->dir[1]
+						- game->player->dir[0] * game->player->cam_plane[1]);
 
-			double	inv_det = 1.0 / (game->player->cam_plane[0] * game->player->dir[1] - game->player->dir[0] * game->player->cam_plane[1]);
-
-			double	transfX = inv_det * (game->player->dir[1] * spr_x - game->player->dir[0] * spr_y);
-			double	transfY = inv_det * (-game->player->cam_plane[1] * spr_x + game->player->cam_plane[0] * spr_y);
-
-			int	spr_screen_x = (((double)(WINDOW_W) / 2.) * (1. + transfX / transfY));
-			int	vmovesreen = VMOVE / transfY;
-			int	spr_h = fabs(WINDOW_H / transfY);
-
-			int	drawY[2];
-			int	drawX[2];
-
-			drawY[0] = -spr_h / 2 + WINDOW_H / 2;
-			if (drawY[0] < 0)
-				drawY[0] = 0;
-			drawY[1] = spr_h / 2 + WINDOW_H / 2;
-			if (drawY[1] >= WINDOW_H)
-				drawY[1] = WINDOW_H - 1;
-
-			int spr_w = fabs((WINDOW_H / transfY));
-			drawX[0] = - spr_w / 2 + spr_screen_x;
-			if (drawX[0] < 0)
-				drawX[0] = 0;
-			drawX[1] = spr_w / 2 + spr_screen_x;
-			if (drawX[1] >= WINDOW_W)
-				drawX[1] = WINDOW_W - 1;
+			spr.transf[0] = spr.inv_det * (game->player->dir[1] * spr.pos[0]
+							- game->player->dir[0] * spr.pos[1]);
+			spr.transf[1] = spr.inv_det * (-game->player->cam_plane[1] * spr.pos[0]
+							+ game->player->cam_plane[0] * spr.pos[1]);
+			spr.spr_screen_x = (((double)(WINDOW_W) / 2.) * (1. + spr.transf[0] / spr.transf[1]));
+			draw_spritone(game, &spr, obj);
+			draw_spritino(game, &spr, obj, zbuff);
 		}
 		obj = obj->sort;
 	}
