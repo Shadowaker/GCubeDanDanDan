@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:19:13 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/03 18:21:54 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:33:00 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	of arrays (map).
 	If the char was not found the coords will be negative.
 RETURNS: */
-void	find_char(char **map, char c, int *ids)
+void	find_char(char **map, int *ids)
 {
 	ids[1] = 0;
 	while (map[ids[1]] != NULL)
@@ -24,7 +24,7 @@ void	find_char(char **map, char c, int *ids)
 		ids[0] = 0;
 		while (map[ids[1]][ids[0]] != '\0')
 		{
-			if (map[ids[1]][ids[0]] == c)
+			if (ft_isinstr("NSWE", map[ids[1]][ids[0]]))
 				return ;
 			ids[0]++;
 		}

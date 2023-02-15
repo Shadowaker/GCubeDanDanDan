@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 16:41:58 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:33:27 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ size_t			ft_strlen(const char *s);
 char			*str_constructor(char c, int size);
 
 //			srcs/utils/charutils.c
-void			find_char(char **map, char c, int *ids);
+void			find_char(char **map, int *ids);
 int				ft_isinstr(const char *stack, char c);
 
 //			srcs/utils/ft_strcmp.c

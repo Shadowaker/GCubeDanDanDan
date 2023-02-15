@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 16:31:17 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:28:25 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,44 @@ void	ft_sortprint(t_object *lst)
 	}
 }
 
+void	set_WE(t_player *player, char c)
+{
+	if (c == 'W')
+	{
+		player->dir[0] = -1.0;
+		player->dir[1] = 0.0;
+		player->cam_plane[0] = 0.0;
+		player->cam_plane[1] = -0.66;
+	}
+	else
+	{
+		player->dir[0] = 1.0;
+		player->dir[1] = 0.0;
+		player->cam_plane[0] = 0.0;
+		player->cam_plane[1] = 0.66;
+	}
+}
+
+void	set_player(t_player *player, char c)
+{
+	if (c == 'N')
+	{
+		player->dir[0] = 0.0;
+		player->dir[1] = -1.0;
+		player->cam_plane[0] = 0.66;
+		player->cam_plane[1] = -0.0;
+	}
+	else if (c == 'S')
+	{
+		player->dir[0] = 0.0;
+		player->dir[1] = 1.0;
+		player->cam_plane[0] = -0.66;
+		player->cam_plane[1] = 0.0;
+	}
+	else
+		set_WE(player, c);
+}
+
 int	_init_culo(t_game *game, t_player *player)
 {
 	int	i;
@@ -82,10 +120,11 @@ int	_init_culo(t_game *game, t_player *player)
 		j = 0;
 		while (game->map[i][j])
 		{
-			if (game->map[i][j] == 'N')
+			if (ft_isinstr("NWSE", game->map[i][j]))
 			{
 				player->pos[0] = j + 0.5;
 				player->pos[1] = i + 0.5;
+				set_player(player, game->map[i][j]);
 				return (1);
 			}
 			j++;
@@ -99,28 +138,6 @@ void	_init_directions(t_game *game, t_player *player)
 {
 	if (_init_culo(game, player) == 0)
 		return ;
-	// NORTH
-	player->dir[0] = 0.0;
-	player->dir[1] = -1.0;
-	player->cam_plane[0] = 0.66;
-	player->cam_plane[1] = -0.0; //*/
-	/* SOUTH
-	player->dir[0] = 0.0;
-	player->dir[1] = 1.0;
-	player->cam_plane[0] = -0.66;
-	player->cam_plane[1] = 0.0; */
-	/* WEST
-	player->dir[0] = -1.0;
-	player->dir[1] = 0.0;
-	player->cam_plane[0] = 0.0;
-	player->cam_plane[1] = -0.66; */
-	// EAST
-	/*
-	player->dir[0] = 1.0;
-	player->dir[1] = 0.0;
-	player->cam_plane[0] = 0.0;
-	player->cam_plane[1] = 0.66; */
-
 	game->player = player;
 	get_all_objects(game);
 	ft_lstprint(game->objs);

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 15:22:42 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:33:32 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	flood_algorithm(char **map)
 {
 	int	pl[2];
 
-	find_char(map, 'N', pl);
+	find_char(map, pl);
 	return (body(map, pl[0], pl[1]));
 }
 
