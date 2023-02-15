@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:57:44 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/14 13:06:01 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:39:59 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	parse_error(int fd, char *tobefreed)
 	return (1);
 }
 
-static void	parserino(t_game *game, t_textures *texts, int fd)
+static int	parserino(t_game *game, t_textures *texts, int fd)
 {
 	int		i;
 	char	*line;
@@ -38,9 +38,10 @@ static void	parserino(t_game *game, t_textures *texts, int fd)
 		free(line);
 		i++;
 	}
+	return (0);
 }
 
-static void parserone(t_game *game, t_textures *texts, int fd)
+static int parserone(t_game *game, t_textures *texts, int fd)
 {
 	int		i;
 	char	*line;
@@ -56,6 +57,7 @@ static void parserone(t_game *game, t_textures *texts, int fd)
 		free(line);
 		i++;
 	}
+	return (0);
 }
 
 /*

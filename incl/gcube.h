@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/14 13:06:24 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 12:54:56 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct s_tex {
 	int		h;
 }			t_tex;
 
+// Textures
 typedef struct s_textures {
 	t_tex	wall;
 	t_tex	wall_side;
@@ -151,6 +152,7 @@ typedef struct s_textures {
 	t_tex	greenlight;
 }			t_textures;
 
+// Object Struct
 typedef struct	s_object
 {
 	char			type;
@@ -219,43 +221,56 @@ void	*ft_calloc(size_t count, size_t size);
 int		parser(t_game *game, t_textures *texts, char *path);
 
 //			srcs/utils/map.c
-int		**map_init(t_game *game, int fd);
+int		map_init(t_game *game, int fd);
+void	replace_occurence_mat(char **mat, char *stack, char *paste);
+char	**expand_mat(char **mat, char *str);
 
 //			srcs/engine/textured/load_textures.c
 int		load_text(t_game *game, t_tex *tex, char *path);
 int		load_door(t_game *game, t_tex *tex, char *path);
 int		load_image(t_game *game, t_textures *texts, char *path);
 
-
 //			srcs/engine/textured/rgbutility.c
 unsigned long	create_rgb(int r, int g, int b);
 int				get_rgb(char *addr, int x, int y);
 int				load_rgb(t_game *game, char *line);
 
-
-
-void	init_directions(t_game *game, char c);
-
-//			ENGINE
+//			srcs/engine/untextured/raycaster.c
 int		raycast(t_game *game, t_img *img, t_ray *ray);
+
+//			srcs/engine/textured/raycaster_text.c
 int		raycast_text(t_game *game, t_img *img, t_ray *ray);
 
+//			srcs/engine/textured/draw_textured.c
+unsigned long	get_pixel(t_img *img, int x, int y);
+void			draw_ray_text(t_ray *ray, int x, int color, t_img *img);
+void			draw_crosshair(t_img *img);
+
+//			srcs/engine/engine.c
+void	minimap(t_game *game, t_img *img);
+void	engine(t_game *game, t_img *img, t_ray *ray);
+
+//			srcs/engine/utils.c
 double	deg_2_rad(double deg);
 
-unsigned long	get_pixel(t_img *img, int x, int y);
+//			srcs/engine/minimap.c
+void	render_minimap(t_game *game);
 
-void	engine(t_game *game, t_img *img, t_ray *ray);
-void	draw_ray(t_ray *ray, int x, int y, t_img *img);
-void	my_mlx_pixel_put(t_img *data, int x, int y, unsigned int color);
+//			srcs/engine/minimap_utils.c
+void	draw_square_border(t_img *img, int	len, int offset_x, int offset_y);
 void	draw_square(t_img *img, int len, int offset_x, int offset_y);
+void	draw_black_square(t_img *img, int len, int offset_x, int offset_y);
+void	draw_green_square(t_img *img, int	len, int offset_x, int offset_y);
+
+//			srcs/engine/untextured/draw.c
+void	my_mlx_pixel_put(t_img *data, int x, int y, unsigned int color);
 void	draw_ray_minimap(t_ray *ray, int x, t_img *img);
-void	draw_ray_text(t_ray *ray, int x, int color, t_img *img);
-void	draw_crosshair(t_img *img);
+void	draw_ray(t_ray *ray, int x, int y, t_img *img);
 
-int	load_sprites(t_game *game, t_textures *texts);
+//			srcs/engine/textured/load_sprites.c
+int		load_sprites(t_game *game, t_textures *texts);
 
-//			MINIMAP
-void		render_minimap(t_game *game);
+
 
 void		getAllObjects(t_game *game);
 void		clear_objs(t_object **objs);
@@ -263,5 +278,6 @@ t_object	*sortObjects(t_game *game);
 void		draw_sprites(t_game *game, double *zbuff);
 void		ft_sortprint(t_object *lst);
 void	culo(int *i);
+void	init_directions(t_game *game, char c);
 
 #endif

@@ -105,12 +105,12 @@ void	getAllObjects(t_game *game)
 	double		d;
 	t_object	*objs;
 
-	y = 0;
+	y = -1;
 	objs = NULL;
-	while (game->map[y])
+	while (game->map[++y])
 	{
-		x = 0;
-		while (game->map[y][x] != '\0')
+		x = -1;
+		while (game->map[y][++x] != '\0')
 		{
 			if (ft_isinstr(OBJS, game->map[y][x]))
 			{
@@ -120,9 +120,7 @@ void	getAllObjects(t_game *game)
 				objs->y = y;
 				objs->type = game->map[y][x];
 			}
-			x++;
 		}
-		y++;
 	}
 	game->objs = objs;
 }
@@ -143,6 +141,29 @@ t_object	*sortObjects(t_game *game)
 		objs = objs->next;
 	}
 	return (sorted);
+}
+
+void	draw_sprites2(t_game *game, double *zbuff)
+{
+	int	stripe = drawX[0];
+	while (stripe < drawX[1])
+	{
+		int	texX = (256 * (stripe - (-spr_w / 2 + spr_screen_x)) * obj->tex->w / spr_w) / 256;
+		if (transfY > 0 && transfY < zbuff[stripe])
+		{
+			int	v = drawY[0];
+			while (v < drawY[1])
+			{
+				int d = (v) * 256 - WINDOW_H * 128 + spr_h * 128;
+				int texY = ((d * obj->tex->h) / spr_h) / 256;
+				unsigned int color = get_pixel(&obj->tex->xpm, texX, texY);
+				if (color & 0x0FFFFFFF)
+					my_mlx_pixel_put(game->img, stripe, v, color);
+				v++;
+			}
+		}
+		stripe++;
+	}
 }
 
 void	draw_sprites(t_game *game, double *zbuff)
@@ -183,26 +204,6 @@ void	draw_sprites(t_game *game, double *zbuff)
 			drawX[1] = spr_w / 2 + spr_screen_x;
 			if (drawX[1] >= WINDOW_W)
 				drawX[1] = WINDOW_W - 1;
-
-			int	stripe = drawX[0];
-			while (stripe < drawX[1])
-			{
-				int	texX = (256 * (stripe - (-spr_w / 2 + spr_screen_x)) * obj->tex->w / spr_w) / 256;
-				if (transfY > 0 && transfY < zbuff[stripe])
-				{
-					int	v = drawY[0];
-					while (v < drawY[1])
-					{
-						int d = (v) * 256 - WINDOW_H * 128 + spr_h * 128;
-						int texY = ((d * obj->tex->h) / spr_h) / 256;
-						unsigned int color = get_pixel(&obj->tex->xpm, texX, texY);
-						if (color & 0x0FFFFFFF)
-							my_mlx_pixel_put(game->img, stripe, v, color);
-						v++;
-					}
-				}
-				stripe++;
-			}
 		}
 		obj = obj->sort;
 	}
