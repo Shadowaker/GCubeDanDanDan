@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/14 13:05:49 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:22:14 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,15 @@ static void	map_format(char **map)
 	{
 		size[0] = ft_strlen(map[i]);
 		if (size[0] < size[1])
-			map[i] = ft_freejoin(map[i], str_constructor(' ', size[1] - size[0]));
+			map[i] = ft_freejoin(map[i],
+					str_constructor(' ', size[1] - size[0]));
 		i++;
 	}
 }
 
 /* Init the passed game map.
 RETURNS: A freeable pointer to the game map.*/
-int		map_init(t_game *game, int fd)
+int	map_init(t_game *game, int fd)
 {
 	char	*str;
 	char	*res;

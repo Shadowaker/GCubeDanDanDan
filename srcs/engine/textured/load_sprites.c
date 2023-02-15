@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:57:30 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/14 10:30:22 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:19:01 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,3 @@ int	load_sprites(t_game *game, t_textures *texts)
 		return (1);
 	return (0);
 }
-

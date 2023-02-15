@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:57:44 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 11:39:59 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:23:40 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	parserino(t_game *game, t_textures *texts, int fd)
 	return (0);
 }
 
-static int parserone(t_game *game, t_textures *texts, int fd)
+static int	parserone(t_game *game, t_textures *texts, int fd)
 {
 	int		i;
 	char	*line;
@@ -64,7 +64,7 @@ static int parserone(t_game *game, t_textures *texts, int fd)
 	Parse map given as input and return 0 on success.
 RETURNS: 0 on success, 1 otherwise.
 */
-int parser(t_game *game, t_textures *texts, char *path)
+int	parser(t_game *game, t_textures *texts, char *path)
 {
 	int		fd;
 	int		i;
@@ -74,7 +74,6 @@ int parser(t_game *game, t_textures *texts, char *path)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return (1);
-
 	parserino(game, texts, fd);
 	line = get_next_line(fd);
 	if (!line)

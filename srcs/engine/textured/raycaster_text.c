@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/13 17:34:58 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:08:29 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,41 +51,6 @@ static void	calc_incr(t_game *game, t_ray *ray)
 		ray->incr[1] = 1;
 		ray->side_dist[1] = (((double) ray->pos[1]) + 1.0
 				- game->player->pos[1]) * ray->delta_dist[1];
-	}
-}
-
-//	DDA Algorithm.
-static void	dda(t_game *game, t_ray *ray)
-{
-	int	hit;
-
-	hit = 0;
-	if (game->map[(ray->pos[1])][(ray->pos[0])] == '1')
-	{
-		if (ray->side_dist[0] < ray->side_dist[1])
-			ray->side = 0;
-		else
-			ray->side = 1;
-		return ;
-	}
-
-	while (hit == 0)
-	{
-		if (ray->side_dist[0] < ray->side_dist[1])
-		{
-			ray->side_dist[0] += ray->delta_dist[0];
-			ray->pos[0] += ray->incr[0];
-			ray->side = 0;
-		}
-		else
-		{
-			ray->side_dist[1] += ray->delta_dist[1];
-			ray->pos[1] += ray->incr[1];
-			ray->side = 1;
-		}
-		if (game->map[(ray->pos[1])][(ray->pos[0])] == '1' ||
-			game->map[(ray->pos[1])][(ray->pos[0])] == 'D')
-			hit = 1;
 	}
 }
 

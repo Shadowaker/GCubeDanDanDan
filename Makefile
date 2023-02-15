@@ -1,5 +1,6 @@
 NAME = cub3d
 OS = $(shell uname)
+TEXT = TEXT=1
 
 MAIN = srcs/cub3d.c
 ENGINE = $(wildcard srcs/engine/*.c) $(wildcard srcs/engine/untextured/*.c) $(wildcard srcs/engine/textured/*.c)
@@ -50,7 +51,7 @@ linux:
 	@echo "Compiling $(BLUE)Linux$(YELLOW) mlx...\n"
 	@(make -C ./mlx_linux) 2> /dev/null
 	@echo "\n\n"
-	@gcc -g $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -D LIN=1 TEXT=0 -o $(NAME)
+	@gcc -g $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -D LIN=1 -o $(NAME)
 
 mac:
 	@echo "Compiling $(BLUE)Darwin$(YELLOW) mlx...\n"
@@ -63,7 +64,6 @@ clean:
 	@(${RM} $(OBJ))
 	@make -C ./mlx/mlxo/ clean
 	@echo "$(BLANK)"
-#@make -C ./mlx_linux clean
 
 clear: clean
 

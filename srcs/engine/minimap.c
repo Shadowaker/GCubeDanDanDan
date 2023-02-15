@@ -6,13 +6,13 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:39:40 by gcucino           #+#    #+#             */
-/*   Updated: 2023/02/15 12:35:24 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:39:43 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/gcube.h"
 
-static void	draw_player(t_img *img, int	len, int offset_x, int offset_y)
+static void	draw_player(t_img *img, int len, int offset_x, int offset_y)
 {
 	int	x;
 	int	y;

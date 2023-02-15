@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/13 17:54:55 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:22:42 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	body(char **map, int x, int y)
 	res = 0;
 	if (map[y][x] != '-' && map[y][x] != '1')
 	{
-		if (map[y][x + 1] == '\0' || map[y + 1] == NULL || x - 1 < 0 || y - 1 < 0)
+		if (map[y][x + 1] == '\0' || map[y + 1] == NULL ||
+				x - 1 < 0 || y - 1 < 0)
 			res = 1;
 		else
 		{

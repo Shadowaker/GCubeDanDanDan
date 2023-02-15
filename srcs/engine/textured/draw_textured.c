@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:57:47 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/13 17:46:07 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:18:43 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ unsigned long	get_pixel(t_img *img, int x, int y)
 void	draw_ray_text(t_ray *ray, int x, int color, t_img *img)
 {
 	int	v;
+
 	v = 0;
 	while (v < ray->draw[0])
 	{
@@ -53,15 +54,17 @@ void	draw_crosshair(t_img *img)
 	int	i;
 
 	i = 0;
-	while (i++ < 15)
-		my_mlx_pixel_put(img, (WINDOW_W / 2) + (i * -1), WINDOW_H / 2,  0x00F0F8FF);
+	while (i++ < 20)
+		my_mlx_pixel_put(img, (WINDOW_W / 2) + (i * -1), WINDOW_H / 2,
+			0x00F0F8FF);
 	i = 0;
-	while (i++ < 15)
-		my_mlx_pixel_put(img, (WINDOW_W / 2) + i, WINDOW_H / 2,  0x00F0F8FF);
+	while (i++ < 20)
+		my_mlx_pixel_put(img, (WINDOW_W / 2) + i, WINDOW_H / 2, 0x00F0F8FF);
 	i = 0;
-	while (i++ < 15)
-		my_mlx_pixel_put(img, WINDOW_W / 2, (WINDOW_H / 2) + (i * -1), 0x00F0F8FF);
+	while (i++ < 20)
+		my_mlx_pixel_put(img, WINDOW_W / 2, (WINDOW_H / 2) + (i * -1),
+			0x00F0F8FF);
 	i = 0;
-	while (i++ < 15)
+	while (i++ < 20)
 		my_mlx_pixel_put(img, WINDOW_W / 2, (WINDOW_H / 2) + i, 0x00F0F8FF);
 }

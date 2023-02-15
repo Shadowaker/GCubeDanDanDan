@@ -6,13 +6,13 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:32:45 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 12:32:47 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:39:13 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/gcube.h"
 
-void	draw_square_border(t_img *img, int	len, int offset_x, int offset_y)
+void	draw_square_border(t_img *img, int len, int offset_x, int offset_y)
 {
 	int	x;
 	int	y;
@@ -33,7 +33,7 @@ void	draw_square_border(t_img *img, int	len, int offset_x, int offset_y)
 	}
 }
 
-void	draw_square(t_img *img, int	len, int offset_x, int offset_y)
+void	draw_square(t_img *img, int len, int offset_x, int offset_y)
 {
 	int	x;
 	int	y;
@@ -69,7 +69,7 @@ void	draw_black_square(t_img *img, int len, int offset_x, int offset_y)
 	}
 }
 
-void	draw_green_square(t_img *img, int	len, int offset_x, int offset_y)
+void	draw_green_square(t_img *img, int len, int offset_x, int offset_y)
 {
 	int	x;
 	int	y;

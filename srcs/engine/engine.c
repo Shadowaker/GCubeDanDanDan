@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 12:30:32 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 12:08:02 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:32:44 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void	engine(t_game *game, t_img *img, t_ray *ray)
 {
 	char **mini;
 
-	raycast_text(game, img, ray);
+	if (TEXT)
+		raycast_text(game, img, ray);
+	else
+		raycast(game, img, ray);
 	render_minimap(game);
 }

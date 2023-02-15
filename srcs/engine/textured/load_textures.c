@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_walls.c                                       :+:      :+:    :+:   */
+/*   load_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:36:43 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/14 12:55:33 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:19:36 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../incl/gcube.h"
 
-
 static int	load_text_walls(t_game *game, t_tex *tex, char **path)
 {
 	tex->xpm.img = mlx_xpm_file_to_image(game->mlx, path[1],
-				&tex->w, &tex->h);
+			&tex->w, &tex->h);
 	free_mat(path);
 	if (!tex->xpm.img)
 		return (1);
 	tex->xpm.addr = mlx_get_data_addr(tex->xpm.img,
-				&tex->xpm.bits_per_pixel, &tex->xpm.line_length,
-				&tex->xpm.endian);
+			&tex->xpm.bits_per_pixel, &tex->xpm.line_length,
+			&tex->xpm.endian);
 	if (!tex->xpm.addr)
 		return (1);
 	return (0);
@@ -31,12 +30,12 @@ static int	load_text_walls(t_game *game, t_tex *tex, char **path)
 int	load_text(t_game *game, t_tex *tex, char *path)
 {
 	tex->xpm.img = mlx_xpm_file_to_image(game->mlx, path,
-				&tex->w, &tex->h);
+			&tex->w, &tex->h);
 	if (!tex->xpm.img)
 		return (1);
 	tex->xpm.addr = mlx_get_data_addr(tex->xpm.img,
-				&tex->xpm.bits_per_pixel, &tex->xpm.line_length,
-				&tex->xpm.endian);
+			&tex->xpm.bits_per_pixel, &tex->xpm.line_length,
+			&tex->xpm.endian);
 	if (!tex->xpm.addr)
 		return (1);
 	return (0);
@@ -60,13 +59,13 @@ int	load_image(t_game *game, t_textures *texts, char *path)
 		return (1);
 	}
 	if (!ft_strcmp(s[0], "NO"))
-		return(load_text_walls(game, &(texts->no), s));
+		return (load_text_walls(game, &(texts->no), s));
 	else if (!ft_strcmp(s[0], "SO"))
-		return(load_text_walls(game, &(texts->so), s));
+		return (load_text_walls(game, &(texts->so), s));
 	else if (!ft_strcmp(s[0], "WE"))
-		return(load_text_walls(game, &(texts->we), s));
+		return (load_text_walls(game, &(texts->we), s));
 	else if (!ft_strcmp(s[0], "EA"))
-		return(load_text_walls(game, &(texts->ea), s));
+		return (load_text_walls(game, &(texts->ea), s));
 	free_mat(s);
 	return (1);
 }
@@ -77,4 +76,3 @@ void	load_images(t_game *game)
 	load_text(game, &(game->texts->wall), PURPLESTONE);
 	load_text(game, &(game->texts->wall_side), GREYSTONE);
 }
-

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:30:44 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/03 17:32:54 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:20:55 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,3 @@ void	*ft_memset(void *b, int c, size_t len)
 		*(buf++) = (unsigned char) c;
 	return (b);
 }
-
