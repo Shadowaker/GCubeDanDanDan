@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 17:33:27 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:40:11 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
+
+# include "sprites.h"
 
 # ifndef LIN
 #  include "../mlx/mlxo/mlx.h"
@@ -78,7 +80,7 @@
 # define WALLS "./srcs/sprites/test/WallS.xpm"
 # define DOOR "./srcs/sprites/test/door.xpm"
 
-# define OBJS "CPBG"
+# define OBJS "CPBGF"
 
 // Main game struct
 typedef struct s_game {
@@ -139,16 +141,17 @@ typedef struct s_tex {
 
 // Textures
 typedef struct s_textures {
-	t_tex	wall;
-	t_tex	wall_side;
-	t_tex	no;
-	t_tex	so;
-	t_tex	we;
-	t_tex	ea;
-	t_tex	door;
-	t_tex	barrel;
-	t_tex	column;
-	t_tex	greenlight;
+	t_tex		wall;
+	t_tex		wall_side;
+	t_tex		no;
+	t_tex		so;
+	t_tex		we;
+	t_tex		ea;
+	t_tex		door;
+	t_tex		barrel;
+	t_tex		column;
+	t_tex		greenlight;
+	t_fireplace	*fireplaces;
 }			t_textures;
 
 // Object Struct
@@ -176,6 +179,15 @@ typedef struct s_dsprite
 	int				spr_h;
 	int				spr_w;
 }				t_dsprite;
+
+typedef struct s_fireplace {
+	int		i;
+	t_tex	fp0;
+	t_tex	fp1;
+	t_tex	fp2;
+	t_tex	fp3;
+}				t_fireplace;
+
 
 //			srcs/utils/strutils.c
 size_t			ft_strlen(const char *s);
@@ -264,7 +276,7 @@ void			draw_ray_text(t_ray *ray, int x, int color, t_img *img);
 void			draw_crosshair(t_img *img);
 
 //			srcs/engine/textured/load_sprites.c
-int				load_sprites(t_game *game, t_textures *texts);
+int				load_sprites(t_game *game, t_textures *texts, t_fireplace *fp);
 
 //			srcs/engine/textured/sprites.c
 void			get_all_objects(t_game *game);

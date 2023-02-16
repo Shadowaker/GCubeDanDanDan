@@ -20,6 +20,8 @@ static t_tex	*get_tex(t_game *game, char c)
 		return (&game->texts->barrel);
 	else if (c == 'G')
 		return (&game->texts->greenlight);
+	else if (c == 'F')
+		return (&game->texts->fireplaces->fp0);
 	else
 		return (&game->texts->door);
 }

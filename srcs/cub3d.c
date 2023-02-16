@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 17:28:25 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:42:46 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ void	_init_directions(t_game *game, t_player *player)
 
 void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 {
+	t_fireplace	fp;
+
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
 	if (parser(game, texts, path))
@@ -166,10 +168,11 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path)
 								&img->endian);
 	game->img = img;
 	game->texts = texts;
+	game->texts->fireplaces = &fp;
 	game->texts->wall = game->texts->no;
 	game->texts->wall_side = game->texts->ea;
 	load_door(game, &(game->texts->door), DOOR);
-	load_sprites(game, game->texts);
+	load_sprites(game, game->texts, &fp);
 }
 
 void	move_cam(t_game *game, double dir)
@@ -295,6 +298,7 @@ int	game_loop(t_game *game)
 		ft_memset(&ray, 0, sizeof(t_ray));
 		engine(game, game->img, &ray);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->img->img, 0, 0);
+
 		lock = 0;
 	}
 	else
