@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/16 13:40:11 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/17 11:56:48 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,6 @@
 # define PURPLESTONE "./srcs/sprites/test/purplestone.xpm"
 # define REDBRICK "./srcs/sprites/test/redbrick.xpm"
 # define WOOD "./srcs/sprites/test/wood.xpm"
-# define WALLE "./srcs/sprites/test/WallE.xpm"
-# define WALLN "./srcs/sprites/test/WallN.xpm"
-# define WALLW "./srcs/sprites/test/WallE.xpm"
-# define WALLS "./srcs/sprites/test/WallS.xpm"
 # define DOOR "./srcs/sprites/test/door.xpm"
 
 # define OBJS "CPBGF"
@@ -90,6 +86,7 @@ typedef struct s_game {
 	int					map_w;
 	int					map_h;
 	int					minimap[2];
+	int					a_phase;
 	int					f[3];
 	int					c[3];
 	struct s_img		*img;
@@ -139,6 +136,14 @@ typedef struct s_tex {
 	int		h;
 }			t_tex;
 
+//	Fireplace animation store
+typedef struct s_fireplace {
+	t_tex	fp0;
+	t_tex	fp1;
+	t_tex	fp2;
+	t_tex	fp3;
+}				t_fireplace;
+
 // Textures
 typedef struct s_textures {
 	t_tex		wall;
@@ -179,15 +184,6 @@ typedef struct s_dsprite
 	int				spr_h;
 	int				spr_w;
 }				t_dsprite;
-
-typedef struct s_fireplace {
-	int		i;
-	t_tex	fp0;
-	t_tex	fp1;
-	t_tex	fp2;
-	t_tex	fp3;
-}				t_fireplace;
-
 
 //			srcs/utils/strutils.c
 size_t			ft_strlen(const char *s);
@@ -283,6 +279,9 @@ void			get_all_objects(t_game *game);
 
 //			srcs/engine/textured/draw_sprites.c
 void			draw_sprites(t_game *game, double *zbuff);
+
+//			srcs/engine/textured/animate.c
+void			update_animation(t_game *game);
 
 //			srcs/engine/engine.c
 void			minimap(t_game *game, t_img *img);

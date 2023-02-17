@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:57:30 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/16 13:28:38 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/17 11:42:48 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static int	load_fireplace(t_game *game, t_textures *texts, t_fireplace *fireplace)
 {
-	if (load_text(game, &(game->texts->fireplace->fp0), FP1))
+	if (load_text(game, &(game->texts->fireplaces->fp0), FP1))
 		return (1);
-	if (load_text(game, &(game->texts->fireplace->fp1), FP2))
+	if (load_text(game, &(game->texts->fireplaces->fp1), FP2))
 		return (1);
-	if (load_text(game, &(game->texts->fireplace->fp2), FP3))
+	if (load_text(game, &(game->texts->fireplaces->fp2), FP3))
 		return (1);
-	if (load_text(game, &(game->texts->fireplace->fp3), FP4))
+	if (load_text(game, &(game->texts->fireplaces->fp3), FP4))
 		return (1);
 	return (0);
 }
