@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/17 12:15:00 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:28:36 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,13 @@ void	_init_directions(t_game *game, t_player *player)
 	ft_sortprint(game->objs);
 }
 
-void	_init(t_game *game, t_img *img, t_textures *texts, t_fireplace *fp, char *path)
+int		_init_sprites(t_game *game, t_textures *texts, t_fireplace *fp, t_deatheater *de)
+{
+
+	return (0);
+}
+
+void	_init(t_game *game, t_img *img, t_textures *texts, char *path, t_fireplace *fp, t_deatheater *de)
 {
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
@@ -166,11 +172,12 @@ void	_init(t_game *game, t_img *img, t_textures *texts, t_fireplace *fp, char *p
 								&img->endian);
 	game->img = img;
 	texts->fireplaces = fp;
+	texts->deatheaters = de;
 	game->texts = texts;
 	game->texts->wall = game->texts->no;
 	game->texts->wall_side = game->texts->ea;
 	load_door(game, &(game->texts->door), DOOR);
-	load_sprites(game, game->texts, fp);
+	load_sprites(game, game->texts);
 }
 
 void	move_cam(t_game *game, double dir)
@@ -310,11 +317,12 @@ int main(int argc, char **argv)
 	t_player	player;
 	t_img		img;
 	t_textures	texts;
-	t_fireplace	fp;
+	t_fireplace		fp;
+	t_deatheater	de;
 
 	if (argc != 2)
 		return (printf(RED "ERROR:\t" BLANK "Bad argument.\nNo map passed.\n"));
-	_init(&game, &img, &texts, &fp, argv[1]);
+	_init(&game, &img, &texts, argv[1], &fp, &de);
 	_init_directions(&game, &player);
 	debug_log(&game, 0);
 	mlx_hook(game.mlx_win, 17, 0, end_game, &game);

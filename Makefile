@@ -9,6 +9,8 @@ MAPS = $(wildcard maps/*.cub)
 
 SRC = $(ENGINE) $(UTI) $(MAIN)
 HDRS = incl/gcube.h
+LIBS = $(wildcard incl/*.h)
+SPRITES = $(wildcard sprites/Fireplace/*) $(wildcard sprites/DeathEater/*)
 
 OBJ = $(SRC:.c=.o)
 ASS = gcc
@@ -80,7 +82,7 @@ re: clean2 $(NAME)
 # GIT UTILITIES
 
 git: fclean
-	@git add $(SRC) mlx/ Makefile $(HDRS) $(MAPS) mlx_linux/
+	@git add $(SRC) mlx/ Makefile $(HDRS) $(MAPS) mlx_linux/ $(LIBS) $(SPRITES)
 	git status
 
 gcubepush:

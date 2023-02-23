@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/17 11:56:48 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:13:15 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@
 # define WOOD "./srcs/sprites/test/wood.xpm"
 # define DOOR "./srcs/sprites/test/door.xpm"
 
-# define OBJS "CPBGF"
+# define OBJS "CPBGFZ"
 
 // Main game struct
 typedef struct s_game {
@@ -144,19 +144,29 @@ typedef struct s_fireplace {
 	t_tex	fp3;
 }				t_fireplace;
 
+//	Fireplace animation store
+typedef struct s_deatheater {
+	t_tex	de0;
+	t_tex	de1;
+	t_tex	de2;
+	t_tex	de3;
+	t_tex	de4;
+}				t_deatheater;
+
 // Textures
 typedef struct s_textures {
-	t_tex		wall;
-	t_tex		wall_side;
-	t_tex		no;
-	t_tex		so;
-	t_tex		we;
-	t_tex		ea;
-	t_tex		door;
-	t_tex		barrel;
-	t_tex		column;
-	t_tex		greenlight;
-	t_fireplace	*fireplaces;
+	t_tex			wall;
+	t_tex			wall_side;
+	t_tex			no;
+	t_tex			so;
+	t_tex			we;
+	t_tex			ea;
+	t_tex			door;
+	t_tex			barrel;
+	t_tex			column;
+	t_tex			greenlight;
+	t_fireplace		*fireplaces;
+	t_deatheater	*deatheaters;
 }			t_textures;
 
 // Object Struct
@@ -272,7 +282,7 @@ void			draw_ray_text(t_ray *ray, int x, int color, t_img *img);
 void			draw_crosshair(t_img *img);
 
 //			srcs/engine/textured/load_sprites.c
-int				load_sprites(t_game *game, t_textures *texts, t_fireplace *fp);
+int				load_sprites(t_game *game, t_textures *texts);
 
 //			srcs/engine/textured/sprites.c
 void			get_all_objects(t_game *game);

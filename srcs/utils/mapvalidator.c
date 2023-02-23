@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:15:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/17 11:57:50 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:22:24 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	map_validator(char **map)
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			if (!ft_isinstr("NWES0 DCPBGF1\n", map[i][j]))
+			if (!ft_isinstr("NWES0 DCPBGF1Z\n", map[i][j]))
 				return (1);
 			j++;
 		}
