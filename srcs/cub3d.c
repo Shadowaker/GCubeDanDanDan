@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/23 13:28:36 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:09:15 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,6 @@ int	key_filter(int keycode, t_game *game)
 	else if (keycode == 49)
 		open_door(game);
 	game->sorted = sort_objects(game);
-	ft_sortprint(game->objs);
 	return (0);
 }
 

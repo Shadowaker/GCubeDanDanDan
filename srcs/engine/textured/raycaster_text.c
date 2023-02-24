@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 16:08:29 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:16:02 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,9 +135,19 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 			if (game->map[(ray->pos[1])][(ray->pos[0])] == 'D')
 				color = get_pixel(&game->texts->door.xpm, texX, texY);
 			else if (ray->side == 0)
-				color = get_pixel(&game->texts->wall_side.xpm, texX, texY);
+			{
+				if (game->player->pos[0] - ray->pos[0] > 0)
+					color = get_pixel(&game->texts->we.xpm, texX, texY);
+				else
+					color = get_pixel(&game->texts->ea.xpm, texX, texY);
+			}
 			else
-				color = get_pixel(&game->texts->wall.xpm, texX, texY);
+			{
+				if (game->player->pos[1] - ray->pos[1] > 0)
+					color = get_pixel(&game->texts->no.xpm, texX, texY);
+				else
+					color = get_pixel(&game->texts->so.xpm, texX, texY);
+			}
 			my_mlx_pixel_put(img, i, v, color);
 			v++;
 		}
