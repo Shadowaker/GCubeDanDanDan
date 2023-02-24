@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/23 13:13:15 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:26:39 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,6 @@
 # define UDIV 1
 # define VDIV 1
 # define VMOVE 0.0
-
-# define BARREL "./srcs/sprites/test/barrel.xpm"
-# define BLUESTONE "./srcs/sprites/test/bluestone.xpm"
-# define COLORSTONE "./srcs/sprites/test/colorstone.xpm"
-# define EAGLE "./srcs/sprites/test/eagle.xpm"
-# define GREENLIGHT "./srcs/sprites/test/greenlight.xpm"
-# define GREYSTONE "./srcs/sprites/test/greystone.xpm"
-# define MOSSY "./srcs/sprites/test/mossy.xpm"
-# define PILLAR "./srcs/sprites/test/pillar.xpm"
-# define PURPLESTONE "./srcs/sprites/test/purplestone.xpm"
-# define REDBRICK "./srcs/sprites/test/redbrick.xpm"
-# define WOOD "./srcs/sprites/test/wood.xpm"
-# define DOOR "./srcs/sprites/test/door.xpm"
 
 # define OBJS "CPBGFZ"
 

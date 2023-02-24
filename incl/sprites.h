@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 10:16:12 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/23 12:58:00 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:26:47 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,18 @@
 # define WALLS "srcs/sprites/Walls/WallS.xpm"
 # define WALLE "srcs/sprites/Walls/WallE.xpm"
 # define WALLW "./srcs/sprites/test/WallE.xpm"
+
+# define BARREL "./srcs/sprites/test/barrel.xpm"
+# define BLUESTONE "./srcs/sprites/test/bluestone.xpm"
+# define COLORSTONE "./srcs/sprites/test/colorstone.xpm"
+# define EAGLE "./srcs/sprites/test/eagle.xpm"
+# define GREENLIGHT "./srcs/sprites/test/greenlight.xpm"
+# define GREYSTONE "./srcs/sprites/test/greystone.xpm"
+# define MOSSY "./srcs/sprites/test/mossy.xpm"
+# define PILLAR "./srcs/sprites/test/pillar.xpm"
+# define PURPLESTONE "./srcs/sprites/test/purplestone.xpm"
+# define REDBRICK "./srcs/sprites/test/redbrick.xpm"
+# define WOOD "./srcs/sprites/test/wood.xpm"
+# define DOOR "./srcs/sprites/test/door.xpm"
 
 #endif
