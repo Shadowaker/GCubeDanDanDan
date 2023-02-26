@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:20:35 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 16:30:01 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/26 18:52:16 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ int	get_rgb(char *addr, int x, int y)
 
 static int	load_error(char **s, char **rgbb)
 {
-	free_mat(s);
 	free_mat(rgbb);
 	return (1);
 }
 
-static int	load_rgb_utils(t_game *game, char **s, char c)
+int	load_rgb_utils(t_game *game, char **s, char c , int pos)
 {
 	int		i;
 	char	**rgbb;
@@ -51,27 +50,28 @@ static int	load_rgb_utils(t_game *game, char **s, char c)
 			game->c[i] = ft_atoi(rgbb[i]);
 	}
 	free_mat(rgbb);
+	game->t[pos] = 1;
 	return (0);
 }
 
-int	load_rgb(t_game *game, char *line)
-{
-	int		i;
-	char	**s;
-	char	**rgbb;
+// int	load_rgb(t_game *game, char *line)
+// {
+// 	int		i;
+// 	char	**s;
+// 	char	**rgbb;
 
-	s = ft_split(line, ' ');
-	if (ft_matlen(s) != 2)
-	{
-		free_mat(s);
-		return (1);
-	}
-	if (!ft_strcmp(s[0], "F"))
-		if (load_rgb_utils(game, s, 'F'))
-			return (1);
-	if (!ft_strcmp(s[0], "C"))
-		if (load_rgb_utils(game, s, 'C'))
-			return (1);
-	free_mat(s);
-	return (0);
-}
+// 	s = ft_split(line, ' ');
+// 	if (ft_matlen(s) != 2)
+// 	{
+// 		free_mat(s);
+// 		return (1);
+// 	}
+// 	if (!ft_strcmp(s[0], "F"))
+// 		if (load_rgb_utils(game, s, 'F'))
+// 			return (1);
+// 	if (!ft_strcmp(s[0], "C"))
+// 		if (load_rgb_utils(game, s, 'C'))
+// 			return (1);
+// 	free_mat(s);
+// 	return (0);
+// }

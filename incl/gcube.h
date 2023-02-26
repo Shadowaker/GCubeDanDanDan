@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/26 14:57:45 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/26 18:54:29 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_game {
 	int					a_phase;
 	int					f[3];
 	int					c[3];
+	int					t[6];
 	struct s_img		*img;
 	struct s_player		*player;
 	struct s_ray		*ray;
@@ -161,6 +162,7 @@ void			*ft_memset(void *b, int c, size_t len);
 void			*ft_calloc(size_t count, size_t size);
 //			srcs/utils/parse.c
 int				parser(t_game *game, t_textures *texts, char *path);
+int				newparser(t_game *game, t_textures *texts, char *path);
 
 //			srcs/utils/map.c
 int				map_init(t_game *game, int fd);
@@ -176,13 +178,15 @@ void			clear_objs(t_object **objs);
 t_object		*sort_objects(t_game *game);
 
 //			srcs/engine/textured/load_textures.c
+int				load_text_walls(t_game *game, t_tex *tex, char **path, int pos);
 int				load_text(t_game *game, t_tex *tex, char *path);
 int				load_door(t_game *game, t_tex *tex, char *path);
-int				load_image(t_game *game, t_textures *texts, char *path);
+int				load_image(t_game *game, t_textures *texts, char **s);
 
 //			srcs/engine/textured/rgbutility.c
 unsigned long	create_rgb(int r, int g, int b);
 int				get_rgb(char *addr, int x, int y);
+int				load_rgb_utils(t_game *game, char **s, char c, int culo);
 int				load_rgb(t_game *game, char *line);
 
 //			srcs/engine/textured/raycaster_text.c
