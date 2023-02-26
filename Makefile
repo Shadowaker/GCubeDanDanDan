@@ -3,14 +3,19 @@ OS = $(shell uname)
 TEXT = TEXT=1
 
 MAIN = srcs/cub3d.c
-ENGINE = $(wildcard srcs/engine/*.c) $(wildcard srcs/engine/untextured/*.c) $(wildcard srcs/engine/textured/*.c) $(wildcard srcs/engine/hud/*.c)
+ENGINE = $(wildcard srcs/engine/*.c) \
+	$(wildcard srcs/engine/untextured/*.c) \
+	$(wildcard srcs/engine/textured/*.c) \
+	$(wildcard srcs/engine/hud/*.c)
 UTI = $(wildcard srcs/utils/*.c)
 MAPS = $(wildcard maps/*.cub)
 
 SRC = $(ENGINE) $(UTI) $(MAIN)
 HDRS = incl/gcube.h
 LIBS = $(wildcard incl/*.h)
-SPRITES = $(wildcard srcs/sprites/Fireplace/*.xpm) $(wildcard srcs/sprites/DeathEater/*.xpm) $(wildcard srcs/sprites/hud/*.xpm)
+SPRITES = $(wildcard srcs/sprites/Fireplace/*.xpm) \
+	$(wildcard srcs/sprites/DeathEater/*.xpm) \
+	$(wildcard srcs/sprites/hud/*.xpm)
 
 OBJ = $(SRC:.c=.o)
 ASS = gcc

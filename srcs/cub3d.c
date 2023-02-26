@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/24 12:09:15 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/26 14:39:56 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,13 +180,13 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path, t_fireplace 
 	load_sprites(game, game->texts);
 }
 
-void	move_cam(t_game *game, double dir)
+void	move_cam(t_game *game, double dir, double speed)
 {
 	double	o_dirx;
 	double	o_cam_dirx;
 	double	rot_dir;
 
-	rot_dir = ROTSPEED * dir;
+	rot_dir = speed * dir;
 	o_dirx = game->player->dir[0];
 	game->player->dir[0] = o_dirx * cos(rot_dir) - game->player->dir[1] * sin(rot_dir);
 	game->player->dir[1] = o_dirx * sin(rot_dir) + game->player->dir[1] * cos(rot_dir);
@@ -230,7 +230,7 @@ void	move_up_down(t_game *game, double dir)
 	game->player->pos[1] = npos_y;
 }
 
-void	move_left_rght(t_game *game, double dir)
+void	move_left_right(t_game *game, double dir)
 {
 	double	npos_x;
 	double	npos_y;
@@ -279,13 +279,13 @@ int	key_filter(int keycode, t_game *game)
 	else if (keycode == 1)
 		move_up_down(game, -1.0);
 	else if (keycode == 123)
-		move_cam(game, -1.0);
+		move_cam(game, -1.0, ROTSPEED);
 	else if (keycode == 124)
-		move_cam(game, 1.0);
+		move_cam(game, 1.0, ROTSPEED);
 	else if (keycode == 0)
-		move_left_rght(game, -1.0);
+		move_left_right(game, -1.0);
 	else if (keycode == 2)
-		move_left_rght(game, 1.0);
+		move_left_right(game, 1.0);
 	else if (keycode == 49)
 		open_door(game);
 	game->sorted = sort_objects(game);
@@ -310,12 +310,21 @@ int	game_loop(t_game *game)
 	return (0);
 }
 
+int	mouse_filter(int x, int y, t_game *game)
+{
+	if (x < WINDOW_W / 2)
+		move_cam(game, -1.0, MOUSESPEED);
+	else
+		move_cam(game, 1.0, MOUSESPEED);
+	return (0);
+}
+
 int main(int argc, char **argv)
 {
-	t_game		game;
-	t_player	player;
-	t_img		img;
-	t_textures	texts;
+	t_game			game;
+	t_player		player;
+	t_img			img;
+	t_textures		texts;
 	t_fireplace		fp;
 	t_deatheater	de;
 
@@ -326,6 +335,7 @@ int main(int argc, char **argv)
 	debug_log(&game, 0);
 	mlx_hook(game.mlx_win, 17, 0, end_game, &game);
 	mlx_hook(game.mlx_win, 2, 1L<<0, key_filter, &game);
+	mlx_hook(game.mlx_win, 6, 0, mouse_filter, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 }

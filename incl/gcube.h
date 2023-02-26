@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/24 12:26:39 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/26 14:15:45 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 # define PI 3.14159
 # define MOVSPEED 0.04
 # define ROTSPEED 0.06
+# define MOUSESPEED 0.01
 
 # define PLAYER_R 10
 # define F 0x000089AD
