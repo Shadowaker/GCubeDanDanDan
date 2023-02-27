@@ -10,7 +10,7 @@ ENGINE = $(wildcard srcs/engine/*.c) \
 UTI = $(wildcard srcs/utils/*.c)
 MAPS = $(wildcard maps/*.cub)
 
-SRC = $(ENGINE) $(UTI) $(MAIN)
+SRC = $(ENGINE) $(UTI) $(MAIN) srcs/init.c srcs/keys.c srcs/moves.c
 HDRS = incl/gcube.h
 LIBS = $(wildcard incl/*.h)
 SPRITES = $(wildcard srcs/sprites/Fireplace/*.xpm) \

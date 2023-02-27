@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/27 11:59:27 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/27 13:02:46 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,10 @@ int				map_init(t_game *game, int fd);
 void			replace_occurence_mat(char **mat, char *stack, char *paste);
 char			**expand_mat(char **mat, char *str);
 
+//			srcs/utils/print_utils.c
+void			ft_lstprint(t_object *lst);
+void			ft_sortprint(t_object *lst);
+
 //			srcs/engine/textured/objects.c
 t_object		*new_object(t_game *game, double dist, t_tex *tex);
 t_object		*add_front_object(t_game *game, t_object **objs,
@@ -236,8 +240,24 @@ void			draw_ray(t_ray *ray, int x, int y, t_img *img);
 //			srcs/engine/untextured/dda.c
 void			dda(t_game *game, t_ray *ray);
 
+//			srcs/keys.c
+int				key_filter(int keycode, t_game *game);
+int				mouse_filter(int x, int y, t_game *game);
+
+//			srcs/init.c
+void			_init_directions(t_game *game, t_player *player);
+void			_init(t_game *game, t_img *img, t_textures *texts, char *path,
+					t_fireplace *fp, t_deatheater *de);
+
+//			srcs/moves.c
+void			move_cam(t_game *game, double dir, double speed);
+void			move_up_down(t_game *game, double dir);
+void			move_left_right(t_game *game, double dir);
+void			open_door(t_game *game);
+
 //			MISC
-void			ft_sortprint(t_object *lst);
 void			culo(int *i);
+void			debug_log(t_game *game, int keycode);
+int 			end_game(t_game *game, int arg);
 
 #endif

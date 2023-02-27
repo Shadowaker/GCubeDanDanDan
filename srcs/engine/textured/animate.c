@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 11:43:26 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/27 12:39:26 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/27 13:04:09 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	next_de(t_game *game, t_object *obj)
 
 void	update_animation(t_game *game)
 {
-	static int	i = 0;
+	static int	i = 6;
 	t_object	*obj;
 
 	if (i == 6)
