@@ -255,6 +255,9 @@ void			move_up_down(t_game *game, double dir);
 void			move_left_right(t_game *game, double dir);
 void			open_door(t_game *game);
 
+//			srcs/set.c
+void			set_player(t_player *player, char c);
+
 //			MISC
 void			culo(int *i);
 void			debug_log(t_game *game, int keycode);

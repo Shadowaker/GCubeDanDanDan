@@ -12,44 +12,6 @@
 
 #include "../incl/gcube.h"
 
-static void	set_we(t_player *player, char c)
-{
-	if (c == 'W')
-	{
-		player->dir[0] = -1.0;
-		player->dir[1] = 0.0;
-		player->cam_plane[0] = 0.0;
-		player->cam_plane[1] = -0.66;
-	}
-	else
-	{
-		player->dir[0] = 1.0;
-		player->dir[1] = 0.0;
-		player->cam_plane[0] = 0.0;
-		player->cam_plane[1] = 0.66;
-	}
-}
-
-static void	set_player(t_player *player, char c)
-{
-	if (c == 'N')
-	{
-		player->dir[0] = 0.0;
-		player->dir[1] = -1.0;
-		player->cam_plane[0] = 0.66;
-		player->cam_plane[1] = -0.0;
-	}
-	else if (c == 'S')
-	{
-		player->dir[0] = 0.0;
-		player->dir[1] = 1.0;
-		player->cam_plane[0] = -0.66;
-		player->cam_plane[1] = 0.0;
-	}
-	else
-		set_we(player, c);
-}
-
 static int	_init_player(t_game *game, t_player *player)
 {
 	int	i;
@@ -86,11 +48,11 @@ void	_init_directions(t_game *game, t_player *player)
 	ft_sortprint(game->objs);
 }
 
-void	_init(t_game *game, t_img *img, t_textures *texts, char *path,
-			t_fireplace *fp, t_deatheater *de)
+void	_init_game(t_game *game, t_img *img, t_textures *texts, char *path)
 {
 	game->mlx = mlx_init();
-	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
+	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H,
+			"GcubeDanDanDan");
 	if (parser(game, texts, path))
 	{
 		printf("Error\n");
@@ -104,9 +66,14 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path,
 	game->map_h = ft_matlen(game->map);
 	game->map_w = ft_strlen(game->map[0]);
 	img->img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
-							&img->endian);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->line_length, &img->endian);
 	game->img = img;
+}
+
+void	_init_texture(t_game *game, t_textures *texts,
+			t_fireplace *fp, t_deatheater *de)
+{
 	texts->fireplaces = fp;
 	texts->deatheaters = de;
 	game->texts = texts;
