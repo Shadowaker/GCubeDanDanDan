@@ -38,28 +38,30 @@ void	move_up_down(t_game *game, double dir)
 {
 	double	npos_x;
 	double	npos_y;
+	double	pos_x;
+	double	pos_y;
 
-	npos_x = game->player->pos[0]
-		+ (game->player->dir[0] * MOVSPEED * dir);
-	npos_y = game->player->pos[1]
-		+ (game->player->dir[1] * MOVSPEED * dir);
+	pos_x = game->player->pos[0];
+	pos_y = game->player->pos[1];
+	npos_x = pos_x + (game->player->dir[0] * MOVSPEED * dir);
+	npos_y = pos_y + (game->player->dir[1] * MOVSPEED * dir);
 	if (game->map[(int) npos_y][(int) npos_x] == '1')
 		return ;
 	if (game->map[(int) npos_y][(int) npos_x] == 'D')
 		return ;
-	if ((((int) fabs(game->player->pos[0] - npos_x)) == ((int) fabs(game->player->pos[1] - npos_y))) &&
-		(((int) game->player->pos[0]) != ((int) npos_x) && ((int) game->player->pos[1]) != ((int) npos_x)))
+	if ((((int) fabs(pos_x - npos_x)) == ((int) fabs(pos_y - npos_y)))
+		&& (((int) pos_x) != ((int) npos_x) && ((int) pos_y) != ((int) npos_x)))
 	{
 		if (dir > 0)
 		{
-			if (game->map[((int) game->player->pos[1]) + 1][((int) game->player->pos[0])] == '1' &&
-				game->map[((int) game->player->pos[1])][((int) game->player->pos[0]) + 1] == '1')
+			if (game->map[((int) pos_y) + 1][((int) pos_x)] == '1' &&
+				game->map[((int) pos_y)][((int) pos_x) + 1] == '1')
 				return ;
 		}
 		else
 		{
-			if (game->map[((int) game->player->pos[1]) - 1][((int) game->player->pos[0])] == '1' &&
-				game->map[((int) game->player->pos[1])][((int) game->player->pos[0]) - 1] == '1')
+			if (game->map[((int) pos_y) - 1][((int) pos_x)] == '1' &&
+				game->map[((int) pos_y)][((int) pos_x) - 1] == '1')
 				return ;
 		}
 	}

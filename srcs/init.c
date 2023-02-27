@@ -63,6 +63,8 @@ void	_init_game(t_game *game, t_img *img, t_textures *texts, char *path)
 		printf("Error\n");
 		exit(127);
 	}
+	replace_occurence_mat(game->map, " ", "1");
+	print_mat(game->map, '!');
 	game->map_h = ft_matlen(game->map);
 	game->map_w = ft_strlen(game->map[0]);
 	img->img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);
