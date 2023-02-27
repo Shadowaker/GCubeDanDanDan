@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:56:34 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/24 12:16:02 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:00:12 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ static void	init_ray(t_game *game, t_ray *ray)
 		+ game->player->cam_plane[1] * game->player->cam_side;
 	ray->pos[0] = (int) game->player->pos[0];
 	ray->pos[1] = (int) game->player->pos[1];
+	if (ray->dir[0] == 0)
+		ray->delta_dist[0] = 1e30;
+	else
+		ray->delta_dist[0] = absf(1.0 / ray->dir[0]);
+	if (ray->dir[1] == 0)
+		ray->delta_dist[1] = 1e30;
+	else
+		ray->delta_dist[1] = absf(1.0 / ray->dir[1]);
 }
 
 // Calculate the direction of the ray.
@@ -75,6 +83,29 @@ static void	init_draw(t_game *game, t_ray *ray)
 		ray->draw[1] = WINDOW_H - 1;
 }
 
+/*
+	wallx	-> where exactly the wall was hit
+	texx	-> x coordinate on the texture
+	step	-> How much to increase the texture coordinate per screen pixel
+	texpos	-> Starting texture coordinate
+*/
+static void	init_wall_vars(t_game *game, t_ray *ray)
+{
+	if (ray->side == 0)
+		ray->wallx = game->player->pos[1] + ray->wall_dist * ray->dir[1];
+	else
+		ray->wallx = game->player->pos[0] + ray->wall_dist * ray->dir[0];
+	ray->wallx -= floor(ray->wallx);
+	ray->texx = (int)(ray->wallx * 64.0);
+	if (ray->side == 0 && ray->dir[0] > 0)
+		ray->texx = 64 - ray->texx - 1;
+	if (ray->side == 1 && ray->dir[1] < 0)
+		ray->texx = 64 - ray->texx - 1;
+	ray->step = 1.0 * 64.0 / ((double) ray->wall_height);
+	ray->texpos = (((double) ray->draw[0]) - WINDOW_H / 2
+			+ ray->wall_height / 2) * ray->step;
+}
+
 // Cast the ray.
 int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 {
@@ -86,90 +117,15 @@ int	raycast_text(t_game *game, t_img *img, t_ray *ray)
 	{
 		ray->ray_id = i;
 		init_ray(game, ray);
-		if (ray->dir[0] == 0)
-			ray->delta_dist[0] = 1e30;
-		else
-			ray->delta_dist[0] = absf(1.0 / ray->dir[0]);
-		if (ray->dir[1] == 0)
-			ray->delta_dist[1] = 1e30;
-		else
-			ray->delta_dist[1] = absf(1.0 / ray->dir[1]);
 		calc_incr(game, ray);
 		dda(game, ray);
 		init_draw(game, ray);
-
-		double wallX; //where exactly the wall was hit
-		if (ray->side == 0)
-			wallX = game->player->pos[1] + ray->wall_dist * ray->dir[1];
-		else
-			wallX = game->player->pos[0] + ray->wall_dist * ray->dir[0];
-		wallX -= floor(wallX);
-
-		//x coordinate on the texture
-		int texX = (int) (wallX * 64.0);
-		if(ray->side == 0 && ray->dir[0] > 0)
-			texX = 64 - texX - 1;
-		if(ray->side == 1 && ray->dir[1] < 0)
-			texX = 64 - texX - 1;
-
-		// How much to increase the texture coordinate per screen pixel
-		double step = 1.0 * 64.0 / ((double) ray->wall_height);
-		// Starting texture coordinate
-		double texPos = (((double) ray->draw[0]) - WINDOW_H / 2 + ray->wall_height / 2) * step;
-
-		int	v;
-		v = 0;
-		while (v < ray->draw[0])
-		{
-			my_mlx_pixel_put(img, i, v, create_rgb(game->f[0], game->f[1], game->f[2]));
-			v++;
-		}
-
-		unsigned long int color = 0;
-
-		v = ray->draw[0];
-		while (v < ray->draw[1])
-		{
-			int texY = (int) texPos & (64 - 1);
-			texPos += step;
-			if (game->map[(ray->pos[1])][(ray->pos[0])] == 'D')
-				color = get_pixel(&game->texts->door.xpm, texX, texY);
-			else if (ray->side == 0)
-			{
-				if (game->player->pos[0] - ray->pos[0] > 0)
-					color = get_pixel(&game->texts->we.xpm, texX, texY);
-				else
-					color = get_pixel(&game->texts->ea.xpm, texX, texY);
-			}
-			else
-			{
-				if (game->player->pos[1] - ray->pos[1] > 0)
-					color = get_pixel(&game->texts->no.xpm, texX, texY);
-				else
-					color = get_pixel(&game->texts->so.xpm, texX, texY);
-			}
-			my_mlx_pixel_put(img, i, v, color);
-			v++;
-		}
-
-		v = ray->draw[1];
-		while (v < WINDOW_H)
-		{
-			my_mlx_pixel_put(img, i, v, create_rgb(game->c[0], game->c[1], game->c[2]));
-			v++;
-		}
-
-//		star effect 	(1 - (ray->wall_dist * 0.01)) * color + (ray->wall_dist * 0.01) * 0x0
-//		acid effect		(1 - ray->wall_dist) * color + (ray->wall_dist * 0x0)
-//		poisoned effect	(1 - ray->lenght) * color + (ray->lenght * 0x0)
-//		acid effect2	color * (100 - (100 - ray->lenght * 20)) + 0x0 * (100 - ray->lenght * 20)
-//		acid effect3	color * (1 - (100 - ray->lenght)) + (100 - ray->lenght) * 0x0;
+		init_wall_vars(game, ray);
+		draw_ray_text(game, i, ray, img);
 		zbuffer[i] = ray->wall_dist;
 		i++;
 	}
-	//ft_sortprint(game->objs);
 	draw_sprites(game, zbuffer);
 	draw_crosshair(img);
-
 	return (0);
 }

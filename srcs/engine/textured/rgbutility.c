@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:20:35 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/27 11:30:37 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:01:03 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,17 @@ static int	load_error(char **s, char **rgbb)
 	return (1);
 }
 
-int	load_rgb_utils(t_game *game, char **s, char c , int pos)
+unsigned long	get_pixel(t_img *img, int x, int y)
+{
+	char	*dest;
+
+	if (x < 0 || x >= 64 || y < 0 || y >= 64)
+		return (1);
+	dest = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	return (*(unsigned long *)dest);
+}
+
+int	load_rgb_utils(t_game *game, char **s, char c, int pos)
 {
 	int		i;
 	char	**rgbb;

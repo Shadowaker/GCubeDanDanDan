@@ -6,47 +6,80 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:57:47 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 16:18:43 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/27 11:58:35 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../incl/gcube.h"
 
-unsigned long	get_pixel(t_img *img, int x, int y)
-{
-	char	*dest;
-
-	if (x < 0 || x >= 64 || y < 0 || y >= 64)
-		return (1);
-	dest = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	return (*(unsigned long *)dest);
-}
-
-void	draw_ray_text(t_ray *ray, int x, int color, t_img *img)
+static void	draw_ceiling(t_game *game, int x, t_ray *ray, t_img *img)
 {
 	int	v;
 
 	v = 0;
 	while (v < ray->draw[0])
 	{
-		if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
-			my_mlx_pixel_put(img, x, v, 0x000089AD);
+		my_mlx_pixel_put(img, x, v,
+			create_rgb(game->f[0], game->f[1], game->f[2]));
 		v++;
 	}
-	while (v < ray->draw[1])
-	{
-		if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
-		{
-			my_mlx_pixel_put(img, x, v, color);
-		}
-		v++;
-	}
+}
+
+static void	draw_flooring(t_game *game, int x, t_ray *ray, t_img *img)
+{
+	int	v;
+
+	v = ray->draw[1];
 	while (v < WINDOW_H)
 	{
-		if (!(v >= 10 && v < 210 && ray->ray_id >= 10 && ray->ray_id < 210))
-			my_mlx_pixel_put(img, x, v, 0x00403125);
+		my_mlx_pixel_put(img, x, v,
+			create_rgb(game->c[0], game->c[1], game->c[2]));
 		v++;
 	}
+}
+
+static unsigned long int	get_color(t_game *game, t_ray *ray, int texy)
+{
+	unsigned long int	color;
+
+	color = 0;
+	if (game->map[(ray->pos[1])][(ray->pos[0])] == 'D')
+		color = get_pixel(&game->texts->door.xpm, ray->texx, texy);
+	else if (ray->side == 0)
+	{
+		if (game->player->pos[0] - ray->pos[0] > 0)
+			color = get_pixel(&game->texts->we.xpm, ray->texx, texy);
+		else
+			color = get_pixel(&game->texts->ea.xpm, ray->texx, texy);
+	}
+	else
+	{
+		if (game->player->pos[1] - ray->pos[1] > 0)
+			color = get_pixel(&game->texts->no.xpm, ray->texx, texy);
+		else
+			color = get_pixel(&game->texts->so.xpm, ray->texx, texy);
+	}
+	return (color);
+}
+
+void	draw_ray_text(t_game *game, int x, t_ray *ray, t_img *img)
+{
+	int					v;
+	unsigned long int	color;
+	int					texy;
+
+	draw_ceiling(game, x, ray, img);
+	v = ray->draw[0];
+	color = 0;
+	while (v < ray->draw[1])
+	{
+		texy = (int) ray->texpos & (64 - 1);
+		ray->texpos += ray->step;
+		color = get_color(game, ray, texy);
+		my_mlx_pixel_put(img, x, v, color);
+		v++;
+	}
+	draw_flooring(game, x, ray, img);
 }
 
 void	draw_crosshair(t_img *img)

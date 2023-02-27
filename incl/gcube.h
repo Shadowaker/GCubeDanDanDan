@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/27 11:30:58 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/27 11:59:27 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,14 +184,14 @@ int				load_door(t_game *game, t_tex *tex, char *path);
 //			srcs/engine/textured/rgbutility.c
 unsigned long	create_rgb(int r, int g, int b);
 int				get_rgb(char *addr, int x, int y);
+unsigned long	get_pixel(t_img *img, int x, int y);
 int				load_rgb_utils(t_game *game, char **s, char c, int culo);
 
 //			srcs/engine/textured/raycaster_text.c
 int				raycast_text(t_game *game, t_img *img, t_ray *ray);
 
 //			srcs/engine/textured/draw_textured.c
-unsigned long	get_pixel(t_img *img, int x, int y);
-void			draw_ray_text(t_ray *ray, int x, int color, t_img *img);
+void			draw_ray_text(t_game *game, int x, t_ray *ray, t_img *img);
 void			draw_crosshair(t_img *img);
 
 //			srcs/engine/textured/load_sprites.c
