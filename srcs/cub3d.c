@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/26 19:00:23 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/27 11:21:45 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	_init(t_game *game, t_img *img, t_textures *texts, char *path, t_fireplace 
 {
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, WINDOW_W, WINDOW_H, "GcubeDanDanDan");
-	if (newparser(game, texts, path))
+	if (parser(game, texts, path))
 	{
 		printf("Error\n");
 		exit(127);
