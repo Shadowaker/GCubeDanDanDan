@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:57:47 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/27 11:58:35 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:39:05 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	draw_ceiling(t_game *game, int x, t_ray *ray, t_img *img)
 	while (v < ray->draw[0])
 	{
 		my_mlx_pixel_put(img, x, v,
-			create_rgb(game->f[0], game->f[1], game->f[2]));
+			create_rgb(game->c[0], game->c[1], game->c[2]));
 		v++;
 	}
 }
@@ -33,7 +33,7 @@ static void	draw_flooring(t_game *game, int x, t_ray *ray, t_img *img)
 	while (v < WINDOW_H)
 	{
 		my_mlx_pixel_put(img, x, v,
-			create_rgb(game->c[0], game->c[1], game->c[2]));
+			create_rgb(game->f[0], game->f[1], game->f[2]));
 		v++;
 	}
 }

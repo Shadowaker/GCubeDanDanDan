@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 11:43:26 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/23 14:59:10 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:39:26 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	update_animation(t_game *game)
 	static int	i = 0;
 	t_object	*obj;
 
-	if (i == 3)
+	if (i == 6)
 	{
 		i = 0;
 		obj = game->objs;

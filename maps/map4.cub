@@ -3,8 +3,8 @@ SO ./srcs/sprites/test/WallS.xpm
 WE ./srcs/sprites/test/WallE.xpm
 EA ./srcs/sprites/test/WallE.xpm
 
-F 100,100,100
-C 50,50,50
+F 50,50,50
+C 100,100,100
 
 		1111111111111111111111111
         100000000011000000000P001
