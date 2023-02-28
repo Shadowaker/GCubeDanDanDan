@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:43:48 by dridolfo          #+#    #+#             */
-/*   Updated: 2022/12/02 15:45:26 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:06:03 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ char	**ft_matmerge(char **arr1, char **arr2)
 {
 	char	**res;
 
-	print_mat(arr1, '@');
-	print_mat(arr2, '@');
 	res = malloc(sizeof(char *) * (ft_matlen(arr1) + ft_matlen(arr2)));
 	ft_cpmat(arr1, res, 0);
 	ft_cpmat(arr2, res, ft_matlen(arr1));

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/28 12:21:08 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:05:41 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	main(int argc, char **argv)
 	_init_game(&game, &img, &texts, argv[1]);
 	_init_texture(&game, &texts, &ani);
 	_init_directions(&game, &player);
-	debug_log(&game, 0);
 	mlx_hook(game.mlx_win, 17, 0, end_game, &game);
 	mlx_hook(game.mlx_win, 2, 1L << 0, key_filter, &game);
 	mlx_hook(game.mlx_win, 6, 0, mouse_filter, &game);

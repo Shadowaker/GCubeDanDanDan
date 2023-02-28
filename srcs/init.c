@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:46:47 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/28 10:34:23 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:06:43 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ void	_init_directions(t_game *game, t_player *player)
 		return ;
 	game->player = player;
 	get_all_objects(game);
-	ft_lstprint(game->objs);
 	game->sorted = sort_objects(game);
-	ft_sortprint(game->objs);
 }
 
 void	_init_game(t_game *game, t_img *img, t_textures *texts, char *path)
@@ -64,7 +62,6 @@ void	_init_game(t_game *game, t_img *img, t_textures *texts, char *path)
 		exit(127);
 	}
 	replace_occurence_mat(game->map, " ", "1");
-	print_mat(game->map, '!');
 	game->map_h = ft_matlen(game->map);
 	game->map_w = ft_strlen(game->map[0]);
 	img->img = mlx_new_image(game->mlx, WINDOW_W, WINDOW_H);

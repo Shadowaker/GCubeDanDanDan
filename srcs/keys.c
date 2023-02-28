@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:44:31 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/28 12:21:12 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:07:33 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	key_filter(int keycode, t_game *game)
 	int	i;
 
 	i = 0;
-	debug_log(game, keycode);
 	if (keycode == 53)
 		end_game(game);
 	else if (keycode == 13)

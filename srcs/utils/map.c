@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 14:58:50 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/15 15:22:14 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:06:08 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	map_init(t_game *game, int fd)
 	map = ft_split(res, '\n');
 	replace_occurence_mat(map, "\t", "    ");
 	map_format(map);
-	print_mat(map, '@');
 	free(res);
 	game->map = map;
 	return (0);
