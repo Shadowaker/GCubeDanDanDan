@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/28 10:36:22 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 12:21:08 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ void	debug_log(t_game *game, int keycode)
 		game->player->cam_plane[0], game->player->cam_plane[1], keycode);
 }
 
-int	end_game(t_game *game, int arg)
+int	end_game(t_game *game)
 {
-	if (game && arg)
-		;
 	free_mat(game->map);
 	clear_objs(&game->objs);
 	exit(0);

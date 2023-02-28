@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/28 10:37:42 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 12:21:27 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,6 @@ void			set_player(t_player *player, char c);
 //			MISC
 void			culo(int *i);
 void			debug_log(t_game *game, int keycode);
-int				end_game(t_game *game, int arg);
+int				end_game(t_game *game);
 
 #endif
