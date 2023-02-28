@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/28 10:29:17 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 10:37:42 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ void			_init_directions(t_game *game, t_player *player);
 void			_init_game(t_game *game, t_img *img, t_textures *texts,
 					char *path);
 void			_init_texture(t_game *game, t_textures *texts,
-					t_fireplace *fp, t_deatheater *de);
+					t_animations *ani);
 
 //			srcs/moves.c
 void			move_cam(t_game *game, double dir, double speed);
@@ -264,6 +264,6 @@ void			set_player(t_player *player, char c);
 //			MISC
 void			culo(int *i);
 void			debug_log(t_game *game, int keycode);
-int 			end_game(t_game *game, int arg);
+int				end_game(t_game *game, int arg);
 
 #endif

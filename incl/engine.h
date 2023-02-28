@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 14:45:26 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/27 11:40:52 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 10:37:29 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,18 @@ typedef struct s_tex {
 	int		h;
 }			t_tex;
 
-// Fireplace animation
-typedef struct s_fireplace {
+// Animations, fp -> fireplace, de -> deatheater
+typedef struct s_animations {
 	t_tex	fp0;
 	t_tex	fp1;
 	t_tex	fp2;
 	t_tex	fp3;
-}				t_fireplace;
-
-// Deatheater animation
-typedef struct s_deatheater {
 	t_tex	de0;
 	t_tex	de1;
 	t_tex	de2;
 	t_tex	de3;
 	t_tex	de4;
-}				t_deatheater;
+}				t_animations;
 
 // Textures
 typedef struct s_textures {
@@ -77,8 +73,7 @@ typedef struct s_textures {
 	t_tex			barrel;
 	t_tex			column;
 	t_tex			greenlight;
-	t_fireplace		*fireplaces;
-	t_deatheater	*deatheaters;
+	t_animations	*ani;
 }			t_textures;
 
 // Object draw struct
@@ -95,5 +90,3 @@ typedef struct s_dsprite
 }				t_dsprite;
 
 #endif
-
-

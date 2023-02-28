@@ -21,9 +21,9 @@ static t_tex	*get_tex(t_game *game, char c)
 	else if (c == 'G')
 		return (&game->texts->greenlight);
 	else if (c == 'F')
-		return (&game->texts->fireplaces->fp0);
+		return (&game->texts->ani->fp0);
 	else if (c == 'Z')
-		return (&game->texts->deatheaters->de0);
+		return (&game->texts->ani->de0);
 	else
 		return (&game->texts->door);
 }

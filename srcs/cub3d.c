@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:13:59 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/27 12:54:15 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 10:36:22 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,12 @@ int	main(int argc, char **argv)
 	t_player		player;
 	t_img			img;
 	t_textures		texts;
-	t_fireplace		fp;
-	t_deatheater	de;
+	t_animations	ani;
 
 	if (argc != 2)
 		return (printf(RED "ERROR:\t" BLANK "Bad argument.\nNo map passed.\n"));
 	_init_game(&game, &img, &texts, argv[1]);
-	_init_texture(&game, &texts, &fp, &de);
+	_init_texture(&game, &texts, &ani);
 	_init_directions(&game, &player);
 	debug_log(&game, 0);
 	mlx_hook(game.mlx_win, 17, 0, end_game, &game);

@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:46:47 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/27 13:01:32 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 10:34:23 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,9 @@ void	_init_game(t_game *game, t_img *img, t_textures *texts, char *path)
 }
 
 void	_init_texture(t_game *game, t_textures *texts,
-			t_fireplace *fp, t_deatheater *de)
+			t_animations *ani)
 {
-	texts->fireplaces = fp;
-	texts->deatheaters = de;
+	texts->ani = ani;
 	game->texts = texts;
 	game->texts->wall = game->texts->no;
 	game->texts->wall_side = game->texts->ea;
