@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:32:03 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/27 13:02:46 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 10:29:17 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 # define MOVSPEED 0.04
 # define ROTSPEED 0.06
 # define MOUSESPEED 0.01
+# define ANISPEED 6
 
 # define PLAYER_R 10
 # define F 0x000089AD
@@ -246,7 +247,9 @@ int				mouse_filter(int x, int y, t_game *game);
 
 //			srcs/init.c
 void			_init_directions(t_game *game, t_player *player);
-void			_init(t_game *game, t_img *img, t_textures *texts, char *path,
+void			_init_game(t_game *game, t_img *img, t_textures *texts,
+					char *path);
+void			_init_texture(t_game *game, t_textures *texts,
 					t_fireplace *fp, t_deatheater *de);
 
 //			srcs/moves.c

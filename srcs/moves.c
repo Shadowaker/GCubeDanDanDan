@@ -6,7 +6,7 @@
 /*   By: dridolfo <dridolfo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:52:05 by dridolfo          #+#    #+#             */
-/*   Updated: 2023/02/27 12:52:21 by dridolfo         ###   ########.fr       */
+/*   Updated: 2023/02/28 10:21:12 by dridolfo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,6 @@ void	move_up_down(t_game *game, double dir)
 		return ;
 	if (game->map[(int) npos_y][(int) npos_x] == 'D')
 		return ;
-	if ((((int) fabs(pos_x - npos_x)) == ((int) fabs(pos_y - npos_y)))
-		&& (((int) pos_x) != ((int) npos_x) && ((int) pos_y) != ((int) npos_x)))
-	{
-		if (dir > 0)
-		{
-			if (game->map[((int) pos_y) + 1][((int) pos_x)] == '1' &&
-				game->map[((int) pos_y)][((int) pos_x) + 1] == '1')
-				return ;
-		}
-		else
-		{
-			if (game->map[((int) pos_y) - 1][((int) pos_x)] == '1' &&
-				game->map[((int) pos_y)][((int) pos_x) - 1] == '1')
-				return ;
-		}
-	}
 	game->player->pos[0] = npos_x;
 	game->player->pos[1] = npos_y;
 }
