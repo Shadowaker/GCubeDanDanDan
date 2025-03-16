@@ -35,7 +35,7 @@ SEP = "***********************************************************"
 	@if [ $(OS) = "Darwin" ]; then\
 		$(ASS) -g -Imlx -O3 -I ${HDRS} -c $< -o $@;\
 	else\
-		$(ASS) -g -I/usr/include -Imlx_linux -I ${HDRS} -c $< -o $@;\
+		$(ASS) -g -D LIN=1 -I /usr/include -Imlx_linux -I incl/ -c $< -o $@;\
 	fi
 
 $(NAME): $(OBJ)

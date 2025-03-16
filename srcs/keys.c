@@ -17,21 +17,21 @@ int	key_filter(int keycode, t_game *game)
 	int	i;
 
 	i = 0;
-	if (keycode == 53)
+	if (keycode == ESCAPE)
 		end_game(game);
-	else if (keycode == 13)
+	else if (keycode == UP)
 		move_up_down(game, 1.0);
-	else if (keycode == 1)
+	else if (keycode == DOWN)
 		move_up_down(game, -1.0);
-	else if (keycode == 123)
+	else if (keycode == ARROW_LEFT)
 		move_cam(game, -1.0, ROTSPEED);
-	else if (keycode == 124)
+	else if (keycode == ARROW_RIGHT)
 		move_cam(game, 1.0, ROTSPEED);
-	else if (keycode == 0)
+	else if (keycode == LEFT)
 		move_left_right(game, -1.0);
-	else if (keycode == 2)
+	else if (keycode == RIGHT)
 		move_left_right(game, 1.0);
-	else if (keycode == 49)
+	else if (keycode == SPACE)
 		open_door(game);
 	game->sorted = sort_objects(game);
 	return (0);

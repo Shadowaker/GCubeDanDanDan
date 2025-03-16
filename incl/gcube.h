@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <stdint.h>
 # include <fcntl.h>
 # include <math.h>
 
@@ -24,8 +25,10 @@
 
 # ifndef LIN
 #  include "../mlx/mlxo/mlx.h"
+#  include "moves_mac.h"
 # else
 #  include "../mlx_linux/mlx.h"
+#  include "moves_linux.h"
 # endif
 
 # define RED "\033[91m"
